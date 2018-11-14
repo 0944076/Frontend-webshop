@@ -27,7 +27,6 @@ render() {
         />
         <Button type="submit">Signup</Button>
       </fieldset>
-
       </form> 
       );
     }

@@ -31,6 +31,15 @@ p a {
   }
 }
 
+// contact tekst in footer
+.contactfooter{
+  font-family: "Lobster";
+  color: #ffffff;
+  text-align: center;
+  widows: 50%;
+  float: right;
+}
+
 //layout
 .wrapper {
   margin-left: auto;
@@ -97,6 +106,7 @@ main {
   display: flex;
   flex: 1;
   flex-wrap: wrap;
+  width:50%;
 }
 .footer-navigation__list {
   color: white;
