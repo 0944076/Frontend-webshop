@@ -1,51 +1,89 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-//import axios from 'axios';
+import { Fetch } from 'react-request';
 
-//import './App.css';
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-const axios = require('axios');
 
 
-class Klantid extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            items: [],
-            isLoaded: false
-        }
-    }
-    componentDidMount() {
-        fetch('http://83.96.162.248:5000/api/klant/3',{method: "GET"})
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    isLoaded: true,
-                    items: json
-                })
-            });
-    }
+
+class Get extends Component {
     render() {
-        var { isLoaded, items } = this.state;
-        if (!isLoaded) {
-            return <div>Loading...</div>;
-        }
         return (
-            <div classname="Klantid">
-                
-                <ul>
-                    {items.map(item => (
-                        <li key="{item.id}">
-                            Naam: {item.id} | Adres: {item.email}
-                        </li>
-                    ))}
-                </ul>
-            </div>
+          <Fetch url={this.props.url+this.props.id}>
+            {({ fetching, failed, data }) => {
+              if (fetching) {
+                return <div>Loading data...</div>;
+              }
+     
+              if (failed) {
+                return <div>The request did not succeed.</div>;
+              }
+     
+              if (data) {
+                  //const adata = []
+                  //adata.push(data);
+                return (
+                 
+                 
+                    //nog uitvogelen hoe deze velden als prop/parameter kunnen
+                  <div>
+                    <div>user ID: {data.id}</div>
+                    <div>User Email: {data.email}</div>
+                    <div>Phone#: {data.phone}</div>
+                    {console.log(this.props.id+'lol')}
+                  </div>
+                );
+              }
+     
+              return null;
+            }}
+          </Fetch>
         );
+      }
     }
-}
-export default Klantid;
+
+export default Get;
+
+// class Klantid extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             items: [],
+//             isLoaded: false
+//         }
+//     }
+//     componentDidMount() {
+//         fetch('https://jsonplaceholder.typicode.com/users',{method: "GET"})
+//             .then(res => res.json())
+//             .then(json => {
+//                 this.setState({
+//                     isLoaded: true,
+//                     items: json
+//                 })
+//             });
+//     }
+//     render() {
+//         var { isLoaded, items } = this.state;
+//         if (!isLoaded) {
+//             return <div>Loading...</div>;
+//         }
+//         return (
+//             <div classname="Klantid">
+                
+//                 <ul>
+//                     {items.map(item => (
+//                         <li key="{item.id}">
+//                             Naam: {item.id} | Adres: {item.email}
+//                         </li>
+//                     ))}
+//                 </ul>
+//             </div>
+//         );
+//     }
+// }
+//export default Klantid;
 
 // function Welcome(id) {
 //   axios({
