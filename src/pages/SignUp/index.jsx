@@ -1,15 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-
 // layout
 import LayoutAccount from "../../layout/Account";
 
 // components
 import SimpleHeading from "../../components/SimpleHeading";
 import LoginForm from "../../components/SignUpForm";
-import Get from "../../components/Requester";
-console.log('lmao');
+
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -20,21 +19,14 @@ class SignUp extends Component {
   render() {
     return (
       <React.Fragment>
+        
         <LayoutAccount className="SignUp" simple>
           <div className="wrapper">
             <SimpleHeading
-              title="registreren"
+              title="Registreren"
               description="Vul hier u persoonsgegevens in om een account aan te maken"
             />
             <LoginForm />
-            <Get
-            url="http://kamerplant.me:5000/api/klant/"
-           // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
-            id="3" //klant id
-            datafield="data.id"
-            datafield2="data.naam"
-            datafield3="data.bestellingen"
-            />
           </div>
         </LayoutAccount>
       </React.Fragment>

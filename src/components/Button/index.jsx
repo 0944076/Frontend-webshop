@@ -8,6 +8,7 @@ class Header extends Component {
       <button onClick={this.addToCart} className="button">
         {children}
       </button>
+      
     );
   }
 }

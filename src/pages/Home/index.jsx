@@ -40,8 +40,8 @@ class Home extends Component {
           <PageHero
             intro
             title="Welkom!"
-            description="Welkom bij kamerplant inc. De website voor al je exlcusieve planten. Ster door service zijn we gegroeid tot de webshop die we vandaag zijn"
-            image="https://images.unsplash.com/photo-1537182534312-f945134cce34?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3e15098b0f1917ea25a41c7908a227a5&auto=format&fit=crop&w=1920&q=100"
+            description="Welkom bij kamerplant inc. De website voor al je exlcusieve planten. Sterk door service zijn we gegroeid tot de webshop die we vandaag zijn"
+            image="https://www.zoover.nl/blog/wp-content/uploads/2017/12/Kamperen-in-Kroati%C3%AB-Plitvicemeren.jpeg"
           />
           <div className="wrapper">
             {loading ? (
