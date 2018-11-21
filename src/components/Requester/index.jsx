@@ -29,10 +29,19 @@ class Get extends Component {
                  
                     //nog uitvogelen hoe deze velden als prop/parameter kunnen
                   <div>
-                    <div>user ID: {eval(this.props.datafield3)}</div>
-                    <div>User Email: {eval(this.props.datafield)}</div>
-                    <div>Phone#: {eval(this.props.datafield2)}</div>
-                    {console.log(this.props.id+'lol')}
+                    <div>{eval(this.props.datafield)}</div>
+                    <div>{eval(this.props.datafield2)}</div>
+                    <div>{eval(this.props.datafield3)}</div>
+                    <div>{eval(this.props.datafield4)}</div>
+                    <div>{eval(this.props.datafield5)}</div>
+                    <div>{eval(this.props.datafield6)}</div>
+                    <div>{eval(this.props.datafield7)}</div>
+                    <div>{eval(this.props.datafield8)}</div>
+                    <div>{eval(this.props.datafield9)}</div>
+                    <div>{eval(this.props.datafield10)}</div>
+                    <div>{eval(this.props.datafield11)}</div>
+                    <div>{eval(this.props.datafield12)}</div>
+                    <div>{eval(this.props.datafield13)}</div>
                     {console.log(JSON.stringify(data))}
                   </div>
                 );

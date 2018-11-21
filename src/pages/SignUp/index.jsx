@@ -32,7 +32,7 @@ class SignUp extends Component {
            // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
             id="3" //klant id
             datafield="data.id"
-            datafield2="data.name"
+            datafield2="data.naam"
             datafield3="data.bestellingen"
             />
           </div>
