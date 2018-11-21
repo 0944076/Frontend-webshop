@@ -22,17 +22,18 @@ class Get extends Component {
               }
      
               if (data) {
-                  //const adata = []
-                  //adata.push(data);
+                  const adata = []
+                  adata.push(data);
                 return (
-                 
+                 //adata
                  
                     //nog uitvogelen hoe deze velden als prop/parameter kunnen
                   <div>
-                    <div>user ID: {data.id}</div>
-                    <div>User Email: {data.email}</div>
-                    <div>Phone#: {data.phone}</div>
+                    <div>user ID: {eval(this.props.datafield3)}</div>
+                    <div>User Email: {eval(this.props.datafield)}</div>
+                    <div>Phone#: {eval(this.props.datafield2)}</div>
                     {console.log(this.props.id+'lol')}
+                    {console.log(JSON.stringify(data))}
                   </div>
                 );
               }
