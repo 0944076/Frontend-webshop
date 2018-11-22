@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+//import Get from "../../components/Requester";
 
 // layout
 import LayoutAccount from "../../layout/Account";
@@ -33,7 +34,7 @@ class SignUp extends Component {
            // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
             id="" //klant id
             datafield="data.id"
-            datafield2="data.naam"
+            datafield2="data.title"
             datafield3="JSON.stringify(data)"
             /> */}
 

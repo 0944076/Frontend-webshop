@@ -6,6 +6,7 @@ import ProductGridItem from "../../components/ProductGridItem";
 class ProductGrid extends Component {
   render() {
     const { items } = this.props;
+
     return (
       <section className="product-grid">
         {items.map((item, i) => {
