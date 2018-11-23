@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom';
-import React, { Component } from "react";
+import React, { Component, Children } from "react";
 import { Link } from "react-router-dom";
 import { Fetch } from 'react-request';
+import { string } from 'postcss-selector-parser';
 
 
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
@@ -22,27 +23,30 @@ class Get extends Component {
               }
      
               if (data) {
-                  const adata = []
-                  adata.push(data);
+                //console.log(props.children)
+                console.log(this.props.listofdata.length);
+                  //let var1 = [eval(this.props.listofdata[0]),eval(this.props.listofdata[1]),eval(this.props.listofdata[2])];
+                  let datafilter = [];
+
+                  for (let i=0; i < this.props.listofdata.length; i++) {
+                    datafilter[i] = eval(this.props.listofdata[i]);
+                  }
+                  
+                  
+
                 return (
-                 //adata
                  
-                    //nog uitvogelen hoe deze velden als prop/parameter kunnen
+                 
+                    
                   <div>
-                    <div>{eval(this.props.datafield)}</div>
-                    <div>{eval(this.props.datafield2)}</div>
-                    <div>{eval(this.props.datafield3)}</div>
-                    <div>{eval(this.props.datafield4)}</div>
-                    <div>{eval(this.props.datafield5)}</div>
-                    <div>{eval(this.props.datafield6)}</div>
-                    <div>{eval(this.props.datafield7)}</div>
-                    <div>{eval(this.props.datafield8)}</div>
-                    <div>{eval(this.props.datafield9)}</div>
-                    <div>{eval(this.props.datafield10)}</div>
-                    <div>{eval(this.props.datafield11)}</div>
-                    <div>{eval(this.props.datafield12)}</div>
-                    <div>{eval(this.props.datafield13)}</div>
-                    {console.log(JSON.stringify(data))}
+                    
+                    {datafilter}
+                    
+                 
+
+                    
+                  
+                  
                   </div>
                 );
               }

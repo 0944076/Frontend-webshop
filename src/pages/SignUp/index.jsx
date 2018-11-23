@@ -28,12 +28,11 @@ class SignUp extends Component {
             />
             <LoginForm />
             <Get
-            url="http://kamerplant.me:5000/api/klant"
+            //url="http://kamerplant.me:5000/api/klant"
+            url="http://127.0.0.1:5000/api/klant/"
            // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
-            id="" //klant id
-            datafield="data.id"
-            datafield2="data.naam"
-            datafield3="JSON.stringify(data)"
+            id="3" //klant id
+            listofdata = {["data.id","data.naam","JSON.stringify(data)"]}
             />
           </div>
         </LayoutAccount>
