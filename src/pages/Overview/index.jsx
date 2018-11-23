@@ -83,6 +83,10 @@ class Overview extends Component {
                   totalPages={response.total_pages}
                   currentPage={response.page}
                   key="pagination"
+             
+                  //  .__(.)< (MEOW)
+                  //   \___)   
+
                 />,
                 
                 <ProductGrid items={response} key="grid" />
