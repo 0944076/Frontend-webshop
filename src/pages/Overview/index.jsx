@@ -26,11 +26,13 @@ class Overview extends Component {
     if (currentParams.page !== nextParams.page) {
       this.getProducts(nextParams.page);
     }
+
   }
 
   componentDidMount() {
     console.log("this.props", this.props);
     this.getProducts(this.props.match.params.page);
+
   }
 
   getProducts(page) {
@@ -40,27 +42,28 @@ class Overview extends Component {
     });
     console.log(page);
     
-    fetch(`http://localhost:5000/api/product/5`)
-      .then(res => {console.log("1",res)})
-      .catch(err => {console.log("2",err)})
+    // fetch(`http://localhost:5000/api/product`)
+    //   .then(res => {console.log("1",res)})
+    //   .catch(err => {console.log("2",err)})
 
   
     
     request
-      .get(`http://localhost:5000/api/product/5`)
+      .get(`http://localhost:5000/api/product/`)
       .then(response => {
 
-        console.log("response2", response.body);
+       // console.log("response2", response.body);
+       // console.log("response2count", response.body.length);
+       // console.log("response2testretrievedata", response.body[1298]);
 
-        
-        
-
-        
 
         this.setState({
           response: response.body,
           loading: false
         });
+        console.log("response3", JSON.parse(JSON.stringify(response)));
+        console.log("response31", response.body.length);
+        console.log("response32", response.body);
       });
   }
 
@@ -73,7 +76,7 @@ class Overview extends Component {
           <div className="wrapper">
             {loading ? (
               <Loading text="Producten ophalen..." />
-            ) : response ? (
+            ) : response && response && response.length > 0  ? (
               [
                 <Pagination
                   perPage={response.per_page}
@@ -88,13 +91,6 @@ class Overview extends Component {
             ) : (
               <p>Geen producten gevonden...</p>
             )}
-                        {/* <Get
-            //url="http://kamerplant.me:5000/api/klant"
-            url="http://127.0.0.1:5000/api/product/"
-           // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
-            id="2" //klant id
-            listofdata = {["data.id","data.naam","data.prijs"]}
-            /> */}
           </div>
         </LayoutDefault>
         

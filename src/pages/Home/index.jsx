@@ -29,6 +29,9 @@ class Home extends Component {
         response: response.body,
         loading: false
       });
+      console.log("response13", response);
+      console.log("response14", response.data);
+      console.log("response15", response.body.data);
     });
   };
 
