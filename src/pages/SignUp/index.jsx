@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-//import Get from "../../components/Requester";
+import Get from "../../components/Requester";
 
 // layout
 import LayoutAccount from "../../layout/Account";
