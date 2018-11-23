@@ -9,10 +9,10 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 
 
-class Get extends Component {
-    render() {
-        return (
-          <Fetch url={this.props.url+this.props.id}>
+function Getter(url,id,listofdata) {
+    
+        
+         let info2 = <Fetch url={url+id}>
             {({ fetching, failed, data }) => {
               if (fetching) {
                 return <div>Loading data...</div>;
@@ -28,8 +28,8 @@ class Get extends Component {
                  
                   let datafilter = [];
 
-                  for (let i=0; i < this.props.listofdata.length; i++) {
-                    datafilter[i] = eval(this.props.listofdata[i]);
+                  for (let i=0; i < listofdata.length; i++) {
+                    datafilter[i] = eval(listofdata[i]);
                   }
 
 
@@ -39,36 +39,39 @@ class Get extends Component {
                 
                   array1.push(data);
                   console.log("datajsonstringify",JSON.stringify(data));
-                  console.log("array1",array1);
-                  console.log("datalength");
+                  
+                  
 
-                return (
+                
                  
                  
                     
                   
-                    data1
+                    
 
                     //{datafilter}
                     
                  
 
-                    
+                    console.log("checkhier",data1.naam);
+                return(data1);
                   
                   
                   
                    
-                );
+                
               }
      
               return null;
             }}
           </Fetch>
-        );
+          
+          console.log("checkhier2",info2.data1);
+       return info2;
       }
-    }
+    
 
-export default Get;
+export default Getter;
 
 
 

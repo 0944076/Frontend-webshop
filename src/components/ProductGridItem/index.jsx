@@ -5,13 +5,14 @@ class ProductGridItem extends Component {
   render() {
     const { item } = this.props;
     //let price = Math.round(Math.random() * Math.floor(20));
+    console.log("item in productgriditem",this.props)
     return (
       <Link to={`/product/${item.id}`} className="product-grid-item">
         <figure className="product-grid-item__figure">
           <div
             className="product-grid-item__image"
             style={{
-              backgroundImage: `url(https://source.unsplash.com/random)`
+              backgroundImage: `url(`+item.items.foto+`)`
             }}
           />
         </figure>

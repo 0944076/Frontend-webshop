@@ -6,10 +6,13 @@ import ProductGridItem from "../../components/ProductGridItem";
 class ProductGrid extends Component {
   render() {
     const { items } = this.props;
+    const ada = [];
+    ada.push(this.props);
+    
 
     return (
       <section className="product-grid">
-        {items.map((item, i) => {
+        {ada.map((item, i) => {
           return <ProductGridItem item={item} key={i} />;
         })}
       </section>

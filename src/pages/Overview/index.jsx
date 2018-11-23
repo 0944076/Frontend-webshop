@@ -40,19 +40,20 @@ class Overview extends Component {
     });
     console.log(page);
     
-    // fetch(`http://localhost:5000/products${page}`)
-    //   .then(res => {console.log(res)})
-    //   .catch(err => {console.log(err)})
+    fetch(`http://localhost:5000/api/product/5`)
+      .then(res => {console.log("1",res)})
+      .catch(err => {console.log("2",err)})
 
   
     
     request
-      .get(`http://localhost:5000/api/product${page}`)
+      .get(`http://localhost:5000/api/product/5`)
       .then(response => {
 
-        console.log("response", response);
+        console.log("response2", response.body);
 
-        console.log("response", response.body);
+        
+        
 
         
 
@@ -67,11 +68,12 @@ class Overview extends Component {
     const { loading, response } = this.state;
     return (
       <React.Fragment>
+        
         <LayoutDefault simple="true" className="overview">
           <div className="wrapper">
             {loading ? (
               <Loading text="Producten ophalen..." />
-            ) : response && response && response.data.length > 0 ? (
+            ) : response ? (
               [
                 <Pagination
                   perPage={response.per_page}
@@ -79,13 +81,23 @@ class Overview extends Component {
                   currentPage={response.page}
                   key="pagination"
                 />,
-                <ProductGrid items={response.data} key="grid" />
+                
+                <ProductGrid items={response} key="grid" />
+                
               ]
             ) : (
               <p>Geen producten gevonden...</p>
             )}
+                        {/* <Get
+            //url="http://kamerplant.me:5000/api/klant"
+            url="http://127.0.0.1:5000/api/product/"
+           // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
+            id="2" //klant id
+            listofdata = {["data.id","data.naam","data.prijs"]}
+            /> */}
           </div>
         </LayoutDefault>
+        
       </React.Fragment>
     );
   }
