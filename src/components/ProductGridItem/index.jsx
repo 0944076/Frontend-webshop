@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class ProductGridItem extends Component {
   render() {
     const { item } = this.props;
-    //let price = Math.round(Math.random() * Math.floor(20));
+    //let prijs = Math.round(Math.random() * Math.floor(20));
     console.log("item in productgriditem",this.props)
     return (
       <Link to={`/product/${item.id}`} className="product-grid-item">
@@ -17,8 +17,8 @@ class ProductGridItem extends Component {
           />
         </figure>
         <div className="product-grid-item__heading">
-          <span className="product-grid-item__title">{item.name}</span>
-          {/* <span className="product-grid-item__price">&euro;{price},-</span> */}
+          <span className="product-grid-item__title">{item.items.naam}</span>
+          <span className="product-grid-item__price">&euro;{item.items.prijs},-</span>
         </div>
       </Link>
     );

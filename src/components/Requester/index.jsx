@@ -47,9 +47,9 @@ class Get extends Component {
                  
                     
                   
-                    data1
+                    //data1
 
-                    //{datafilter}
+                    datafilter
                     
                  
 
