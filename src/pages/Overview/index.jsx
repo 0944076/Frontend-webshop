@@ -44,14 +44,7 @@ class Overview extends Component {
     //   .then(res => {console.log(res)})
     //   .catch(err => {console.log(err)})
 
-    <Get
-            url="http://localhost:5000/api/product"
-           // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
-            id="" //klant id
-            datafield="data.id"
-            datafield2="data.title"
-            datafield3="JSON.stringify(data)"
-            />
+  
     
     request
       .get(`http://localhost:5000/api/product${page}`)
