@@ -37,9 +37,24 @@ class Overview extends Component {
       response: null,
       loading: true
     });
+    console.log(page);
+    
+    // fetch(`http://localhost:5000/products${page}`)
+    //   .then(res => {console.log(res)})
+    //   .catch(err => {console.log(err)})
+
+    
+    
     request
-      .get(`https://reqres.in/api/product?per_page=6&page=${page}`)
+      .get(`http://localhost:5000/api/product${page}`)
       .then(response => {
+
+        console.log("response", response);
+
+        console.log("response", response.body);
+
+        
+
         this.setState({
           response: response.body,
           loading: false

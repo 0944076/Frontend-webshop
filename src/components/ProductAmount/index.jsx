@@ -41,6 +41,8 @@ class ProductAmount extends Component {
       amount: amount
     });
   }
+  //addToWishList = event =>
+  
 
   addToCart = event => {
     let timer;
@@ -87,7 +89,15 @@ class ProductAmount extends Component {
         onClick={this.addToCart}
         className={`button${added ? ' button--is-disabled' : ''}`}>
         {added ? 'Gelukt!' : 'Toevoegen aan winkelmand'}
+        
+        <button className="button2"
+        onClick={this.addToCart}// wishlist moet dit worden
+        className={`button${added ? ' button--is-disabled' : ''}`}>
+        {added ? 'Gelukt!' : 'Toevoegen aan WishList'}
+          
+        </button>
       </button>
+      
     ];
   }
 }

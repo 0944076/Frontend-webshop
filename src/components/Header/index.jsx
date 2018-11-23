@@ -23,9 +23,45 @@ class Header extends Component {
             <NavLink exact activeClassName="is-active" to="/">
               Home
             </NavLink>
-            <NavLink activeClassName="is-active" to="/overzicht">
-              Producten
-            </NavLink>
+            <div class="dropdown">
+              <button className="dropbtn is-active ">Producten</button>
+              <div className="dropdown-content">
+              <NavLink activeClassName="is-active" to="/overzicht">
+                Kamerplanten
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/overzicht"
+              >
+                Fruitbomen
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/overzicht"
+              >
+                Bonsai
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/overzicht"
+              >
+                Bloembollen
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/overzicht"
+              >
+                Rozen
+              </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/overzicht"
+              >
+                Zaden
+              </NavLink>
+              </div>
+            </div>
+            
             <NavLink exact activeClassName="is-active" to="/SignUp">
               Registreren
             </NavLink>
@@ -34,6 +70,12 @@ class Header extends Component {
             </NavLink>
             <NavLink exact activeClassName="is-active" to="/winkelmand">
               Winkelmand ({cartAmount})
+            </NavLink>
+            <NavLink exact activeClassName="is-active" to="/WishList">
+              WishList 
+            </NavLink>
+            <NavLink exact activeClassName="is-active" to="/AboutUs">
+              About Us
             </NavLink>
           </div>
         </div>

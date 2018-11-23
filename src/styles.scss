@@ -31,6 +31,11 @@ p a {
   }
 }
 
+// Aboutuspagina
+.AboutUsText {
+  text-align: center;
+}
+
 // contact tekst in footer
 .contactfooter{
   font-family: "Lobster";
@@ -430,7 +435,7 @@ main {
 .add-to-cart__amount span {
   width: 48px;
   height: 48px;
-  background: #49dc99;
+  background: #2efb83;
   display: flex;
   color: white;
   align-items: center;
@@ -467,8 +472,6 @@ main {
   display: inline-block;
   margin-right: 16px;
 }
-
-// button
 .button {
   border: 0;
   border-radius: none;
@@ -552,3 +555,49 @@ main {
   margin-top: 48px;
   margin-bottom: 48px;
 }
+
+.dropbtn {
+  color: white;
+  margin-right: 16px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  text-transform: uppercase;
+  position: relative;
+  background: #2efb83;
+}
+
+.dropbtn:hover {
+  background: #2efb83;
+  border: none;
+
+
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: #2efb83;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {display: block;}
+

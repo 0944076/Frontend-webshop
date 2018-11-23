@@ -14,7 +14,9 @@ class FooterNavigation extends Component {
       <footer className="footer-navigation">
         <div className="wrapper">
         <div>
-          <p className="contactfooter" >Hebt u vragen over onze webshop neem dan gerust contact met ons op<br/> via het onderstaand mailadres<br/>info@kamerplant.com </p>
+          <p className="contactfooter" > Heb je vragen, opmerkingen of klachten over de website, je online bestelling of retourzending,<br/> 
+          neem dan contact met onze klantenservice. <br/>email: info@kamerplant.com 
+          <br/> Telefoonnummer: +31-612345678 <br/> Adres: Wijnhaven 107, 3011 WN Rotterdam</p>
         </div>
           <div className="footer-navigation__columns">
             <div className="footer-navigation__list">
@@ -56,7 +58,7 @@ class FooterNavigation extends Component {
 
             <div className="footer-navigation__list">
               <h4 className="footer-navigation__title">Pagina's</h4>
-              <NavLink activeClassName="is-active" to="/overzicht">
+              <NavLink activeClassName="is-active" to="/">
                 Home
               </NavLink>
               <NavLink
@@ -67,28 +69,29 @@ class FooterNavigation extends Component {
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht/categorie-1/subcategorie-3"
+                to="/SignUp"
               >
                 Registreren
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht/categorie-1/subcategorie-4"
+                to="/inloggen"
               >
                 Mijn Account
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht/categorie-1/subcategorie-3"
+                to="/winkelmand"
               >
-                Contact
+                Winkelmand
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht/categorie-1/subcategorie-3"
+                to="/AboutUs"
               >
-                placeholder
+                About Us
               </NavLink>
+              
             </div>
             
           </div>

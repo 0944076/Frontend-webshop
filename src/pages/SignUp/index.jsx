@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-
+//import Get from "../../components/Requester";
 
 // layout
 import LayoutAccount from "../../layout/Account";
@@ -8,8 +8,8 @@ import LayoutAccount from "../../layout/Account";
 // components
 import SimpleHeading from "../../components/SimpleHeading";
 import LoginForm from "../../components/SignUpForm";
-import Get from "../../components/Requester";
-console.log('lmao');
+
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +20,11 @@ class SignUp extends Component {
   render() {
     return (
       <React.Fragment>
+        
         <LayoutAccount className="SignUp" simple>
           <div className="wrapper">
             <SimpleHeading
-              title="registreren"
+              title="Registreren"
               description="Vul hier u persoonsgegevens in om een account aan te maken"
             />
             <LoginForm />

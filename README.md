@@ -1,5 +1,2 @@
-# hr-react-workshop
-
-`npm i`
-<br/>
-`npm start`
+# webshop build in react.
+open folder and run nmpm install in command line.
