@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace kamerplantModel.Migrations
 {
     [DbContext(typeof(kamerplantContext))]
-    [Migration("20181101112507_geregistreerdeKlatn")]
-    partial class geregistreerdeKlatn
+    [Migration("20181128112815_initialDBCreate2.0")]
+    partial class initialDBCreate20
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,10 +20,34 @@ namespace kamerplantModel.Migrations
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("admin_model.admin", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("adres");
+
+                    b.Property<string>("email");
+
+                    b.Property<string>("naam");
+
+                    b.Property<int>("werknemersID");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("admin");
+                });
+
             modelBuilder.Entity("bestelling_model.bestelling", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("adres");
+
+                    b.Property<string>("datum");
+
+                    b.Property<bool>("geregistreerd");
 
                     b.Property<int>("klantID");
 
@@ -40,9 +64,19 @@ namespace kamerplantModel.Migrations
 
                     b.Property<int>("productID");
 
+                    b.Property<int?>("adminID");
+
+                    b.Property<int?>("geregistreerdeklantID");
+
                     b.Property<int?>("klantID");
 
+                    b.Property<double>("verkoopPrijs");
+
                     b.HasKey("bestellingID", "productID");
+
+                    b.HasIndex("adminID");
+
+                    b.HasIndex("geregistreerdeklantID");
 
                     b.HasIndex("klantID");
 
@@ -69,23 +103,32 @@ namespace kamerplantModel.Migrations
                     b.ToTable("categorie");
                 });
 
-            modelBuilder.Entity("klant_model.klant", b =>
+            modelBuilder.Entity("geregistreerdeklant_model.geregistreerdeklant", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
+                    b.Property<string>("email");
 
-                    b.Property<string>("adres");
+                    b.Property<string>("naam");
+
+                    b.Property<string>("wachtwoord");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("geregistreerdeklant");
+                });
+
+            modelBuilder.Entity("klant_model.klant", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("naam");
 
                     b.HasKey("ID");
 
                     b.ToTable("klant");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("klant");
                 });
 
             modelBuilder.Entity("mandje_model.mandje", b =>
@@ -139,36 +182,60 @@ namespace kamerplantModel.Migrations
                     b.ToTable("productmandje");
                 });
 
-            modelBuilder.Entity("verlanglijstitem_model.verlanglijstitem", b =>
+            modelBuilder.Entity("sessie_model.sessie", b =>
                 {
-                    b.Property<int>("productID");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("actief");
 
                     b.Property<int>("geregistreerdeklantID");
 
-                    b.HasKey("productID", "geregistreerdeklantID");
+                    b.Property<string>("intijd");
+
+                    b.Property<string>("uittijd");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("sessie");
+                });
+
+            modelBuilder.Entity("verlanglijstitem_model.verlanglijstitem", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("adminID");
+
+                    b.Property<int>("geregistreerdeklantID");
+
+                    b.Property<int>("productID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("adminID");
 
                     b.HasIndex("geregistreerdeklantID");
+
+                    b.HasIndex("productID");
 
                     b.ToTable("verlanglijstitem");
                 });
 
-            modelBuilder.Entity("geregistreerdeklant_model.geregistreerdeklant", b =>
-                {
-                    b.HasBaseType("klant_model.klant");
-
-                    b.Property<string>("email");
-
-                    b.ToTable("geregistreerdeklant");
-
-                    b.HasDiscriminator().HasValue("geregistreerdeklant");
-                });
-
             modelBuilder.Entity("bestellingproduct_model.bestellingproduct", b =>
                 {
+                    b.HasOne("admin_model.admin")
+                        .WithMany("bestellingen")
+                        .HasForeignKey("adminID");
+
                     b.HasOne("bestelling_model.bestelling", "bestelling")
                         .WithMany("producten")
                         .HasForeignKey("bestellingID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("geregistreerdeklant_model.geregistreerdeklant")
+                        .WithMany("bestellingen")
+                        .HasForeignKey("geregistreerdeklantID");
 
                     b.HasOne("klant_model.klant")
                         .WithMany("bestellingen")
@@ -203,12 +270,16 @@ namespace kamerplantModel.Migrations
 
             modelBuilder.Entity("verlanglijstitem_model.verlanglijstitem", b =>
                 {
-                    b.HasOne("geregistreerdeklant_model.geregistreerdeklant", "geregistreerdeklant")
+                    b.HasOne("admin_model.admin")
+                        .WithMany("verlanglijst")
+                        .HasForeignKey("adminID");
+
+                    b.HasOne("geregistreerdeklant_model.geregistreerdeklant")
                         .WithMany("verlanglijst")
                         .HasForeignKey("geregistreerdeklantID")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("product_model.product", "product")
+                    b.HasOne("product_model.product")
                         .WithMany("verlanglijst")
                         .HasForeignKey("productID")
                         .OnDelete(DeleteBehavior.Cascade);

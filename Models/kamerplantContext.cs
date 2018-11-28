@@ -28,7 +28,7 @@ public class kamerplantContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("User ID=kamerplant;Password=kamerplant123;Host=83.96.162.248;Port=5432;Database=kamerplant;Pooling=true;");
+        optionsBuilder.UseNpgsql("User ID=postgres;Password=kamerplant123;Host=83.96.162.28;Port=5432;Database=kamerplant;Pooling=true;");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -46,8 +46,8 @@ public class kamerplantContext : DbContext
             .HasForeignKey(p => p.productID);
 
         //M-M producten & verlanglijstjes
-        modelBuilder.Entity<verlanglijstitem>()
-            .HasKey(w => new {w.productID, w.geregistreerdeklantID});
+        // modelBuilder.Entity<verlanglijstitem>()
+        //     .HasKey(w => new {w.productID, w.geregistreerdeklantID});
         // modelBuilder.Entity<verlanglijstitem>()
         //     .HasOne(k => k.geregistreerdeklant)
         //     .WithMany(v => v.verlanglijst)

@@ -200,17 +200,22 @@ namespace kamerplantModel.Migrations
 
             modelBuilder.Entity("verlanglijstitem_model.verlanglijstitem", b =>
                 {
-                    b.Property<int>("productID");
-
-                    b.Property<int>("geregistreerdeklantID");
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int?>("adminID");
 
-                    b.HasKey("productID", "geregistreerdeklantID");
+                    b.Property<int>("geregistreerdeklantID");
+
+                    b.Property<int>("productID");
+
+                    b.HasKey("ID");
 
                     b.HasIndex("adminID");
 
                     b.HasIndex("geregistreerdeklantID");
+
+                    b.HasIndex("productID");
 
                     b.ToTable("verlanglijstitem");
                 });
