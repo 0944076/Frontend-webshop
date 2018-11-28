@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Get from "../../components/Requester";
-import Getter from "../../components/Requesterv2";
+
 
 // layout
 import LayoutAccount from "../../layout/Account";
@@ -17,8 +16,7 @@ class SignUp extends Component {
     this.state = {
       width: null
     }
-    let info1 = Getter("http://127.0.0.1:5000/api/klant/","3",["data.id","data.naam","JSON.stringify(data)"]);
-    console.log("info123",info1);
+
     
     ;
   }
@@ -34,13 +32,7 @@ class SignUp extends Component {
             />
             <LoginForm />
             
-            {/* <Get
-            //url="http://kamerplant.me:5000/api/klant"
-            url="http://127.0.0.1:5000/api/klant/"
-           // url="https://jsonplaceholder.typicode.com/users/" //basis url voor de get request, hierachter wordt id gezet
-            id="3" //klant id
-            listofdata = {["data.id","data.naam","JSON.stringify(data)"]}
-            /> */}
+
 
           </div>
         </LayoutAccount>

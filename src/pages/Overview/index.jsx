@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import request from "superagent";
-import Get from "../../components/Requester";
+
 
 // layout
 import LayoutDefault from "../../layout/Default";
@@ -42,14 +42,13 @@ class Overview extends Component {
     });
     console.log(page);
     
-    // fetch(`http://localhost:5000/api/product`)
-    //   .then(res => {console.log("1",res)})
-    //   .catch(err => {console.log("2",err)})
 
-  
+
+
     
     request
-      .get(`http://localhost:5000/api/product/`)
+     // .get(`http://localhost:5000/api/product/`)
+      .get(`https://jsonplaceholder.typicode.com/users/`)
       .then(response => {
 
        // console.log("response2", response.body);
@@ -61,8 +60,6 @@ class Overview extends Component {
           response: response.body,
           loading: false
         });
-        console.log("response3", JSON.parse(JSON.stringify(response)));
-        console.log("response31", response.body.length);
         console.log("response32", response.body);
       });
   }
