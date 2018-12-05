@@ -9,6 +9,7 @@ namespace geregistreerdeklant_model
     {
         public int ID { get; set; }
         public string naam { get; set; }
+        public bool admin { get; set; }
         public List<bestellingproduct> bestellingen  { get; set; }
         public List<verlanglijstitem> verlanglijst { get; set; }
         public string email { get; set; }
