@@ -17,6 +17,7 @@ class Search extends Component {
     this.state = {
       loading: true,
       response: null,
+      response2: null,
       query: ''
     };
   }
@@ -41,7 +42,15 @@ class Search extends Component {
     
      
     })
-    this.getProducts(this.props.match.params.page,this.state.query);
+    let querys = this.state.query;
+
+   // this.getProducts(this.props.match.params.page,this.state.query);
+   this.state.response2 = this.state.response.filter(function(product) {
+      //search is case sensitive atm
+
+      
+      return product.naam.includes(querys);
+      });
   }
 
   getProducts(page,query) {
@@ -59,19 +68,19 @@ class Search extends Component {
       .get(`http://localhost:5000/api/product/`)
      // .get(`https://jsonplaceholder.typicode.com/users/`)
       .then(response => {
-       var searchresult =  response.body.filter(function(product) {
+      //  var searchresult =  response.body.filter(function(product) {
         
         
 
-        //search is case sensitive atm
-        console.log("statefuck", query);
-        return product.naam.includes(query);
+      //   //search is case sensitive atm
+      //   console.log("statefuck", query);
+      //   return product.naam.includes(query);
        
-        });
+      //   });
       console.log("response321", response);
         this.setState({
           //response: response.body,
-          response: searchresult,
+          response: response.body,
           loading: false
         });
         console.log("response32", response.body);
@@ -79,7 +88,7 @@ class Search extends Component {
   }
 
   render() {
-    const { loading, response } = this.state;
+    const { loading, response2 } = this.state;
     return (
       <React.Fragment>
         
@@ -95,12 +104,12 @@ class Search extends Component {
       </form>
             {loading ? (
               <Loading text="Producten ophalen..." />
-            ) : response && response && response.length > 0  ? (
+            ) : response2 && response2 && response2.length > 0  ? (
               [
                 <Pagination
-                  perPage={response.per_page}
-                  totalPages={response.total_pages}
-                  currentPage={response.page}
+                  perPage={response2.per_page}
+                  totalPages={response2.total_pages}
+                  currentPage={response2.page}
                   key="pagination"
              
                   //  .__(.)< (MEOW)
@@ -108,7 +117,7 @@ class Search extends Component {
 
                 />,
                 
-                <ProductGrid items={response} key="grid" />
+                <ProductGrid items={response2} key="grid" />
                 
               ]
             ) : (
