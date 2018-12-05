@@ -64,6 +64,9 @@ class Header extends Component {
             
             <NavLink exact activeClassName="is-active" to="/SignUp">
               Registreren
+              </NavLink>
+              <NavLink exact activeClassName="is-active" to="/Search">
+              Search
             </NavLink>
             <NavLink exact activeClassName="is-active" to="/inloggen">
               Mijn account

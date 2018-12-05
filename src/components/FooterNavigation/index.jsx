@@ -91,6 +91,12 @@ class FooterNavigation extends Component {
               >
                 About Us
               </NavLink>
+              <NavLink
+                activeClassName="is-active"
+                to="/Search"
+              >
+                Search
+              </NavLink>
               
             </div>
             
