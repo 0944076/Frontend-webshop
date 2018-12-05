@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import request from "superagent";
 
 
+
 // layout
 import LayoutDefault from "../../layout/Default";
 
@@ -10,6 +11,7 @@ import LayoutDefault from "../../layout/Default";
 import Loading from "../../components/Loading";
 import ProductGrid from "../../components/ProductGrid";
 import Pagination from "../../components/Pagination";
+
 
 class Search extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class Search extends Component {
       response: null,
       response2: null,
       query: ''
+      
     };
   }
 
@@ -36,20 +39,30 @@ class Search extends Component {
     this.getProducts(this.props.match.params.page,this.state.query);
 
   }
+
+
   handleInputChange = () => {
     this.setState({
-      query: this.search.value
-    
-     
-    })
-    let querys = this.state.query;
-
-   // this.getProducts(this.props.match.params.page,this.state.query);
-   this.state.response2 = this.state.response.filter(function(product) {
-      //search is case sensitive atm
-
+      query: this.search.value.toLowerCase(),
       
-      return product.naam.includes(querys);
+    })}
+    
+  handleInputClick = () => {
+      this.setState({
+        query: this.search.value.toLowerCase(),
+        
+      })
+     
+      this.handleInputFilter()
+     
+      }
+
+   handleInputFilter() {
+    let querys = this.state.query;
+   this.state.response2 = this.state.response.filter(function(product) {
+  
+    //search is case sensitive atm
+      return product.naam.toLowerCase().includes(querys);
       });
   }
 
@@ -59,11 +72,6 @@ class Search extends Component {
     //   loading: true
     // });
     //console.log(page);
-    
-
-
-
-    
     request
       .get(`http://localhost:5000/api/product/`)
      // .get(`https://jsonplaceholder.typicode.com/users/`)
@@ -90,18 +98,27 @@ class Search extends Component {
   render() {
     const { loading, response2 } = this.state;
     return (
+      
       <React.Fragment>
         
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
-          <form>
+          
         <input
+          type='text'
+          id='text'
           placeholder="Search for..."
           ref={input => this.search = input}
-          onChange={this.handleInputChange}
+         //onKeyDown={this.handleInputChange}
+         onKeyUp={this.handleInputChange}
         />
+
+        <input type = "button" id = "go" 
+        onClick={this.handleInputClick}
+        />
+     
         
-      </form>
+      
             {loading ? (
               <Loading text="Producten ophalen..." />
             ) : response2 && response2 && response2.length > 0  ? (
