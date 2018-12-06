@@ -58,7 +58,7 @@ class ProductAmount extends Component {
     }, 2000);
 
     if (!window.localStorage.getItem('cart')) {
-      window.localStorage.setItem('cart', '[]');
+      window.localStorage.setItem('cart', '[]'); //FUCK KWANTITIE
     }
 
     let items = JSON.parse(window.localStorage.getItem('cart'));
@@ -90,13 +90,8 @@ class ProductAmount extends Component {
         className={`button${added ? ' button--is-disabled' : ''}`}>
         {added ? 'Gelukt!' : 'Toevoegen aan winkelmand'}
         
-        <button className="button2"
-        onClick={this.addToCart}// wishlist moet dit worden
-        className={`button${added ? ' button--is-disabled' : ''}`}>
-        {added ? 'Gelukt!' : 'Toevoegen aan WishList'}
           
         </button>
-      </button>
       
     ];
   }

@@ -13,6 +13,7 @@ import AboutUs from './pages/AboutUs';
 import NotFound from './pages/NotFound';
 import WishList from './pages/WishList';
 import Search from './pages/Search';
+import WinkelMand from './pages/WinkelMand';
 
 
 
@@ -31,6 +32,7 @@ ReactDOM.render(
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />
       <Route exact path="/Search" component={Search} />
+      <Route exact path="/winkelmand" component={WinkelMand} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>,
