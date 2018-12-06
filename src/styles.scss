@@ -601,3 +601,50 @@ main {
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
+form.SignUp{
+  width: 50%;
+  float:left;
+  }
+  form.Login{
+  width:50%;
+  float:right;
+  }
+  form.Login fieldset {
+    height: 229px;
+    background:#2efb83;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-style: none;
+    padding: 0px 0px 0px 0px;
+  
+    
+  }
+  form.SignUp fieldset {
+    height: 229px;
+    margin-left: 0px;
+    margin-right: 0px;
+    border-style: none;
+    padding: 0px 0px 0px 0px;
+    margin-bottom: 34px;
+    
+  }
+  form.SignUp h1 {
+    padding: 0px 20px 0px;
+  }
+  form.Login h1 {
+    padding: 0px 20px 0px;
+  }
+  form.Login input {
+    border-style: solid;
+    border-color: grey
+  }
+  form.SignUp input {
+    border-style: solid;
+    border-color: grey
+  }
+  .fieldsetDiv{
+  //margin: auto;
+  //width: 50%;
+  //text-align: center;
+  padding: 10px 20px 0px;
+  }
