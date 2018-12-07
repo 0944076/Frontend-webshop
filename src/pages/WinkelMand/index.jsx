@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from 'axios';
+import mandItem from '../../components/winkelmandItem';
 import { Link } from "react-router-dom";
 
 // layout
@@ -10,28 +12,50 @@ import SimpleHeading from "../../components/SimpleHeading";
 
 class WinkelMand extends Component {
   constructor(props) {
-
-    let items = JSON.parse(window.localStorage.getItem('cart'));
-    console.log('Items: ' + items);
-    console.log(items);
-    let _producten = [];
-    let displayObject = {
-      
-    }
-    for(let i = 0; i < items.length; i++)
-    {
-        _producten.push(items[i].id);
-
-    }
-
     super(props);
+    this.retrieveProduct = this.retrieveProduct.bind(this);
+    this.productToState = this.productToState.bind(this);
+
     this.state = {
-      width: null,
-      producten: _producten
+      producten: this.productToState()
     };
+
   }
+  productToState(){
+      const items = JSON.parse(window.localStorage.getItem('cart'));
+      let result = [];
+
+      for(let i = 0; i < items.length; i++){
+        console.log(i + 'e element: ' + this.retrieveProduct(items[i].id));
+        result.push(this.retrieveProduct(items[i].id));
+      }
+
+      console.log('prod to stat: ' + JSON.stringify(result));
+      return result;
+    }
+
+    async retrieveProduct(id){
+      const result = await axios.get('http://localhost:5000/api/product/' + id);
+      console.log('retrieve ' + id + ': ' + JSON.stringify(result.data));
+      return result.data;
+    }
+
+    productToState(){
+      const items = JSON.parse(window.localStorage.getItem('cart'));
+      let result = [];
+
+      for(let i = 0; i < items.length; i++){
+        console.log(i + 'e element: ' + this.retrieveProduct(items[i].id));
+        result.push(this.retrieveProduct(items[i].id));
+      }
+
+      console.log('prod to stat: ' + JSON.stringify(result));
+      return result;
+    }
+
+
   render() {
-    console.log(this.state.producten);
+    console.log('producten: ' + this.state.producten);
     return (   
       <React.Fragment>
         <LayoutAccount className="SignUp" simple>
@@ -41,13 +65,7 @@ class WinkelMand extends Component {
               description="Een overzicht van de door u geselecteerde producten:"
             />
           </div>
-          <div>
-            {
-              //for(int x = 0; x < producten.length; x++)
-
-            }
-          </div>
-          <button onClick={document.write("Every 60 seconds, in Africa, a minute passes.")}>Plaats bestelling</button>
+          <button>Plaats bestelling</button>
         </LayoutAccount>
       </React.Fragment>
     );
