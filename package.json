@@ -5,8 +5,10 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "axios": "^0.18.0",
     "node-sass": "^4.10.0",
     "normalize.css": "8.0.0",
+    "password-hash": "^1.2.2",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-request": "^3.1.2",

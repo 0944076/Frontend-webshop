@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class winkelmandItem extends Component 
+class WinkelmandItem extends Component 
 {
     constructor(props) 
     {
@@ -9,12 +9,17 @@ class winkelmandItem extends Component
 
     render()
     {
-        return <div>
-            <img src={this.props.product.foto} />
-            <h1>{this.props.product.titel}</h1>
-            <p>{this.props.product.prijs}</p>
-        </div>
+        return (
+            <div className= "mandjeItem">
+                <img src={this.props.foto} className= "productFoto"/>
+                <div className = "itemInfo">
+                    <h1>{this.props.titel}</h1>
+                    <p>€{this.props.prijs}</p>
+                </div>
+            </div>
+        );
+
     }
 }
 
-export default winkelmandItem;
+export default WinkelmandItem;

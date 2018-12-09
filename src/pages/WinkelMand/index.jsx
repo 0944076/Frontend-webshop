@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import mandItem from '../../components/winkelmandItem';
+import MandItem from '../../components/WinkelmandItem';
 import { Link } from "react-router-dom";
 
 // layout
@@ -17,7 +17,8 @@ class WinkelMand extends Component {
     this.productToState = this.productToState.bind(this);
 
     this.state = {
-      producten: this.productToState()
+      loading: true,
+      producten: null
     };
 
   }
@@ -64,8 +65,9 @@ class WinkelMand extends Component {
               title="Winkelmand"
               description="Een overzicht van de door u geselecteerde producten:"
             />
+            <MandItem foto='https://www.tuinflora.com/media/catalog/product/cache/5/image/500x/9df78eab33525d08d6e5fb8d27136e95/F/D/FD16894WH_3.jpg' titel='Kanker geile plant' prijs='420' />
+            <button>Plaats bestelling</button>
           </div>
-          <button>Plaats bestelling</button>
         </LayoutAccount>
       </React.Fragment>
     );

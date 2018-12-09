@@ -21,6 +21,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.getFeaturedProducts();
+    this.setState({loading: false});
   }
 
   getFeaturedProducts = () => {
