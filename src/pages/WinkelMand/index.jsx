@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import request from 'superagent';
 import WinkelmandItem from "../../components/WinkelmandItem";
 import { Link } from "react-router-dom";
 
@@ -18,10 +18,27 @@ class WinkelMand extends Component {
 
     this.state = {
       loading: true,
-      producten: null
+      producten: []
     };
 
   }
+
+  componentWillReceiveProps(nextProps) {
+    const currentParams = this.props.match.params;
+    const nextParams = nextProps.match.params;
+    if (currentParams.page !== nextParams.page) {
+      this.getProducts(nextParams.page,this.state.query);
+    }
+
+  }
+
+  componentDidMount() {
+    console.log("this.props", this.props);
+    this.getProducts(this.props.match.params.page,this.state.query);
+
+  }
+
+
   productToState(){
       const items = JSON.parse(window.localStorage.getItem('cart'));
       let result = [];
@@ -35,25 +52,22 @@ class WinkelMand extends Component {
       return result;
     }
 
-    async retrieveProduct(id){
-      const result = await axios.get('http://localhost:5000/api/product/' + id);
+    retrieveProduct(id){
+      
       console.log('retrieve ' + id + ': ' + JSON.stringify(result.data));
       return result.data;
     }
 
-    productToState(){
-      const items = JSON.parse(window.localStorage.getItem('cart'));
-      let result = [];
-
-      for(let i = 0; i < items.length; i++){
-        console.log(i + 'e element: ' + this.retrieveProduct(items[i].id));
-        result.push(this.retrieveProduct(items[i].id));
-      }
-
-      console.log('prod to stat: ' + JSON.stringify(result));
-      return result;
+    getProducts(page,query) {
+      request
+        .get(`http://localhost:5000/api/product?pageSize=9999`)
+        .then(response => {
+          this.setState({
+            response: response.body,
+            loading: false
+          });
+        });
     }
-
 
   render() {
     console.log('producten: ' + this.state.producten);
