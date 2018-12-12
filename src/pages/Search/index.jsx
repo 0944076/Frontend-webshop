@@ -59,48 +59,26 @@ class Search extends Component {
 
    handleInputFilter() {
     let querys = this.state.query;
-    
-  
-      this.state.response2 = this.state.response.filter(function(product) {
-            return (product.naam && product.naam.toLowerCase().includes(querys));
-            })
+    this.state.response2 = this.state.response.filter(function(product) {
+          return (product.naam && product.naam.toLowerCase().includes(querys));
+          })
   }
 
   getProducts(page,query) {
-    // this.setState({
-    //   response: null,
-    //   loading: true
-    // });
-    //console.log(page);
     request
-      .get(`http://localhost:5000/api/product?pageSize=1299`)
-     // .get(`https://jsonplaceholder.typicode.com/users/`)
+      .get(`http://localhost:5000/api/product?pageSize=9999`)
       .then(response => {
-      //  var searchresult =  response.body.filter(function(product) {
-        
-        
-
-      //   //search is case sensitive atm
-      //   console.log("statefuck", query);
-      //   return product.naam.includes(query);
-       
-      //   });
-      console.log("response321", response);
         this.setState({
-          //response: response.body,
           response: response.body,
           loading: false
         });
-        console.log("response32", response.body);
       });
   }
 
   render() {
     const { loading, response2 } = this.state;
     return (
-      
-      <React.Fragment>
-        
+      <React.Fragment> 
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
           
@@ -117,8 +95,6 @@ class Search extends Component {
         onClick={this.handleInputClick}
         />
      
-        
-      
             {loading ? (
               <Loading text="Producten ophalen..." />
             ) : response2 && response2 && response2.length > 0  ? (
@@ -134,8 +110,7 @@ class Search extends Component {
 
                 />,
                 
-                <ProductGrid items={response2} key="grid" />
-                
+                <ProductGrid items={response2} key="grid" />  
               ]
             ) : (
               <p>Geen producten gevonden...</p>
