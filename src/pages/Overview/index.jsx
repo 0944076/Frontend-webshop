@@ -30,7 +30,6 @@ class Overview extends Component {
   }
 
   componentDidMount() {
-    console.log("this.props", this.props);
     this.getProducts(this.props.match.params.page);
 
   }
@@ -40,25 +39,26 @@ class Overview extends Component {
       response: null,
       loading: true
     });
-    //console.log(page);
+
     
 
 
 
     
     request
-      .get(`http://localhost:5000/api/product/`)
+      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}`)
      // .get(`https://jsonplaceholder.typicode.com/users/`)
       .then(response => {
 
+
        
      
-      console.log("response321", response);
+
         this.setState({
           response: response.body,
           loading: false
         });
-        console.log("response32", response.body);
+
       });
   }
 
@@ -73,10 +73,12 @@ class Overview extends Component {
               <Loading text="Producten ophalen..." />
             ) : response && response && response.length > 0  ? (
               [
+            //id=pageSize voorraad=total_pages categorieID=page
+            //vieze hack
                 <Pagination
-                  perPage={response.per_page}
-                  totalPages={response.total_pages}
-                  currentPage={response.page}
+                  perPage={response[response.length-1].id}
+                  totalPages={response[response.length-1].voorraad}
+                  currentPage={response[response.length-1].categorieID}
                   key="pagination"
              
                   //  .__(.)< (MEOW)
@@ -84,7 +86,7 @@ class Overview extends Component {
 
                 />,
                 
-                <ProductGrid items={response} key="grid" />
+                <ProductGrid items={response.splice(0,response.length-1)} key="grid" />
                 
               ]
             ) : (

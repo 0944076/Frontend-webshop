@@ -56,14 +56,27 @@ class Search extends Component {
       this.handleInputFilter()
      
       }
-
+      // this.state.response2 = this.state.response.filter(function(product) {
+  
+      //   //search is case sensitive atm
+      //     return product.naam.toLowerCase().includes(querys);
+      //     })
    handleInputFilter() {
     let querys = this.state.query;
-   this.state.response2 = this.state.response.filter(function(product) {
+    
   
-    //search is case sensitive atm
-      return product.naam.toLowerCase().includes(querys);
-      });
+      this.state.response2 = this.state.response.filter(function(product) {
+            return product.naam;
+            })
+
+      this.state.response2 = this.state.response2.filter(function(product) {
+          //search is case sensitive atm
+            return product.naam.toLowerCase().includes(querys);
+            })
+    
+
+      
+      ;
   }
 
   getProducts(page,query) {
@@ -73,7 +86,7 @@ class Search extends Component {
     // });
     //console.log(page);
     request
-      .get(`http://localhost:5000/api/product/`)
+      .get(`http://localhost:5000/api/product?pageSize=1299`)
      // .get(`https://jsonplaceholder.typicode.com/users/`)
       .then(response => {
       //  var searchresult =  response.body.filter(function(product) {
