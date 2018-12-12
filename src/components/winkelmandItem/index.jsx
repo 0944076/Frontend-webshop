@@ -12,8 +12,13 @@ class WinkelmandItem extends Component
         return (
             <div className= "mandjeItem">
                 <img src={this.props.foto} className= "productFoto"/>
-                <div className = "itemInfo">
-                    <h1>{this.props.titel}</h1>
+                <div>
+                    <h2>{this.props.titel}</h2>
+                    <p>
+                        {this.props.aantal}x
+                        <img src="https://img.icons8.com/metro/1600/plus.png" className="itemButton" height="30px" />
+                        <img src="https://img.icons8.com/metro/1600/minus.png" className="itemButton" height="30px" />
+                    </p>
                     <p>€{this.props.prijs}</p>
                 </div>
             </div>
