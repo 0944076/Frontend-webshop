@@ -56,27 +56,14 @@ class Search extends Component {
       this.handleInputFilter()
      
       }
-      // this.state.response2 = this.state.response.filter(function(product) {
-  
-      //   //search is case sensitive atm
-      //     return product.naam.toLowerCase().includes(querys);
-      //     })
+
    handleInputFilter() {
     let querys = this.state.query;
     
   
       this.state.response2 = this.state.response.filter(function(product) {
-            return product.naam;
+            return (product.naam && product.naam.toLowerCase().includes(querys));
             })
-
-      this.state.response2 = this.state.response2.filter(function(product) {
-          //search is case sensitive atm
-            return product.naam.toLowerCase().includes(querys);
-            })
-    
-
-      
-      ;
   }
 
   getProducts(page,query) {
