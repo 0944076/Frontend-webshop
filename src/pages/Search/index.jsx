@@ -27,7 +27,7 @@ class Search extends Component {
   }
   componentDidUpdate(prevProps) 
   {
-    if(this.props.match.params.queryd !=
+    if(this.props.match.params.queryd !==
       prevProps.match.params.queryd)
     {
       this.handleInputFilter();
@@ -76,7 +76,7 @@ class Search extends Component {
   }
 
   async getProducts(page,query) 
-  {
+  {// eslint-disable-next-line
     const res = await
     request
       .get(`http://localhost:5000/api/product?pageSize=9999`)

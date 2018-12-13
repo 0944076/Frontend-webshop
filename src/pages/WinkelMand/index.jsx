@@ -196,7 +196,7 @@ class WinkelMand extends Component {
               />
               <div className="betaalOverzicht">
                   <h1>Betaal overzicht</h1>
-                  <a href="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" className="refresh"/></a><br />
+                  <a href="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" alt="refresh" className="refresh"/></a><br />
                   Totaal: <br />
                   <table>
                     <tbody>
