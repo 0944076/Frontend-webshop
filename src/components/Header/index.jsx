@@ -27,7 +27,7 @@ class Header extends Component {
             <div className="dropdown">
               <button className="dropbtn is-active ">Producten</button>
               <div className="dropdown-content">
-              <NavLink activeClassName="is-active" to="/bloembollen">
+              <NavLink activeClassName="is-active" to="/overzicht">
                 Bloembollen
               </NavLink>
               <NavLink
@@ -54,6 +54,7 @@ class Header extends Component {
               >
                 Zaden
               </NavLink>
+              
               </div>
             </div>
             
@@ -62,9 +63,6 @@ class Header extends Component {
               </NavLink>
               <NavLink exact activeClassName="is-active" to="/Search">
               Search
-            </NavLink>
-            <NavLink exact activeClassName="is-active" to="/inloggen">
-              Mijn account
             </NavLink>
             <NavLink exact activeClassName="is-active" to="/winkelmand">
               Winkelmand ({cartAmount})
