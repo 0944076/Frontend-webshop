@@ -65,11 +65,24 @@ class ProductAmount extends Component {
     let items = JSON.parse(window.localStorage.getItem('cart'));
     console.log('items', items);
 
-    // let item = {
-    //   id: this.props.id,
-    //   qty: this.state.amount
-    // };
-   // let test = items.push(item);
+    let item = {
+      id: this.props.id,
+      qty: this.state.amount
+    };
+    
+    let isPresent = false;
+
+    for(let i =0; i < items.length; i++){
+      if(items[i].id == item.id){ //Als item al in local storage zit
+        items[i].qty = parseInt(items[i].qty) + item.qty;
+        isPresent = true;
+      }
+    }
+    if(!isPresent){
+      //Als item nog niet in local storage zit:
+      items.push(item);
+    }
+
     window.localStorage.setItem('cart', JSON.stringify(items));
   };
 

@@ -16,8 +16,8 @@ class WinkelmandItem extends Component
                     <h2>{this.props.titel}</h2>
                     <p>
                         {this.props.aantal}x
-                        <img src="https://img.icons8.com/metro/1600/plus.png" className="itemButton" height="30px" alt="" />
-                        <img src="https://img.icons8.com/metro/1600/minus.png" className="itemButton" height="30px" alt="" />
+                        <img src="https://img.icons8.com/metro/1600/plus.png" className="itemButton" height="30px" onClick={() => this.props.plus(this.props.id)}/>
+                        <img src="https://img.icons8.com/metro/1600/minus.png" className="itemButton" height="30px" onClick={() => this.props.min(this.props.id)} />
                     </p>
                     <p>€{this.props.prijs}</p>
                 </div>
