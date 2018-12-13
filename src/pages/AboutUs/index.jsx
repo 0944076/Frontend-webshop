@@ -38,6 +38,13 @@ class AboutUs extends Component {
                 inzet van de juiste software en praktisch talent.<br/>
                 Sterk door service zijn we gegroeid tot de partij die we nu zijn.
                 </p>
+                <h1>Geschiedenis</h1>
+                <p>Kamerplant inc is in 2018 opgericht door het project team 2 in samenwerking met <br/>
+                hogeschool Rotterdam. Na een grondige analyse van de <br/> huidige planten markt
+                kwam dit team tot ontdekking dat er een <br/>groot gat in de markt is. 
+                Hier anticipeerde het team gelijk <br/> op met de start van Kamerplant Inc. <br/>
+                Na de start bleek (zoals gedacht) het een regelrecht succes te zijn.
+                </p>
                 </div>
                 </div>
             </LayoutDefault>

@@ -27,6 +27,7 @@ ReactDOM.render(
       <Route exact path="/overzicht" component={Overview} />
       <Route exact path="/overzicht/pagina/:page" component={Overview} />
       <Route exact path="/product/:id" component={ProductSingle} />
+      <Route exact path="/product/:categorieID" component={ProductSingle} />
       <Route exact path="/inloggen" component={Login} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/AboutUs" component={AboutUs} />

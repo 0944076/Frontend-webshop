@@ -79,38 +79,33 @@ class Header extends Component {
               <button className="dropbtn is-active ">Producten</button>
               <div className="dropdown-content">
               <NavLink activeClassName="is-active" to="/overzicht">
-                Kamerplanten
+                Bloembollen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
+                to="/fruitbomen"
               >
                 Fruitbomen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
+                to="/kamerplanten"
               >
-                Bonsai
+                Kamerplanten
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
-              >
-                Bloembollen
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
-                to="/overzicht"
+                to="/rozen"
               >
                 Rozen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
+                to="/zaden"
               >
                 Zaden
               </NavLink>
+              
               </div>
             </div>
             
@@ -119,9 +114,6 @@ class Header extends Component {
               </NavLink>
               <NavLink exact activeClassName="is-active" to="/Search">
               Search
-            </NavLink>
-            <NavLink exact activeClassName="is-active" to="/inloggen">
-              Mijn account
             </NavLink>
             <NavLink exact activeClassName="is-active" to="/winkelmand">
               Winkelmand ({cartAmount})
