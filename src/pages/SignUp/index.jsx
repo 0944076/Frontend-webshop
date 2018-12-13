@@ -24,7 +24,7 @@ class SignUp extends Component {
     return (
       <React.Fragment>
         
-        <LayoutAccount className="SignUp" simple>
+        <LayoutAccount className="SignUp" simple="true">
           <div className="wrapper">
             <SimpleHeading
               title="Registreren"

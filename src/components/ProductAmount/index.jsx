@@ -19,7 +19,9 @@ class ProductAmount extends Component {
       });
     } else {
       this.setState({
-        amount: parseInt(value) !== NaN ? value : '0'
+        //amount: parseInt(value) !== NaN ? value : '0'
+        amount: (!isNaN(parseInt(value))) ?  value : '0'
+        
       });
     }
   }
@@ -63,16 +65,16 @@ class ProductAmount extends Component {
     let items = JSON.parse(window.localStorage.getItem('cart'));
     console.log('items', items);
 
-    let item = {
-      id: this.props.id,
-      qty: this.state.amount
-    };
-    let test = items.push(item);
+    // let item = {
+    //   id: this.props.id,
+    //   qty: this.state.amount
+    // };
+   // let test = items.push(item);
     window.localStorage.setItem('cart', JSON.stringify(items));
   };
 
   render() {
-    const { update } = this.props;
+    //const { update } = this.props;
     const { amount, added } = this.state;
     return [
       <div className="add-to-cart__amount">

@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from 'axios';
 import WinkelmandItem from "../../components/winkelmandItem";
 import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
-import { Link } from "react-router-dom";
 import Loader from '../../components/Loading';
 
 // layout
@@ -41,6 +40,7 @@ class WinkelMand extends Component {
       if(items !== null){
         for(let i = 0; i < items.length; i++){
           //product ophalen
+          // eslint-disable-next-line
           const product = this.retrieveProduct(items[i].id)
           .then((res) => {
             if(this.isPresent(aantal, res.id)){
@@ -83,12 +83,13 @@ class WinkelMand extends Component {
     }
 
     getTotal(){
-      let total = 0;
+      let total = 0;// eslint-disable-next-line
       this.state.producten.map((product)=>{
         console.log('telt: ' + JSON.stringify(product));
         for(let i = 0; i < this.state.aantallen.length; i++){
           console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
-          if(product.res.id == this.state.aantallen[i].id){
+          //Line 91:  Expected '===' and instead saw '=='
+          if(product.res.id === this.state.aantallen[i].id){
             console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
             total  = total + (product.res.prijs * parseInt(this.state.aantallen[i].aantal));
           }
@@ -125,7 +126,7 @@ class WinkelMand extends Component {
       this.outputState();
       return (   
         <React.Fragment>
-          <LayoutAccount className="SignUp" simple>
+          <LayoutAccount className="SignUp" simple="true">
             <div className="wrapper">
               <SimpleHeading
                 title="Winkelmand"
@@ -136,8 +137,8 @@ class WinkelMand extends Component {
                   Totaal: <br />
                   <table>
                     <tbody>
-                      {this.state.producten.map((item) => {
-                        return <BetaalOverzichtItem naam={item.res.naam} aantal={this.getAmount(this.state.aantallen, item.res.id)} prijs={item.res.prijs} />
+                      {this.state.producten.map((item,i) => {
+                        return <BetaalOverzichtItem naam={item.res.naam} aantal={this.getAmount(this.state.aantallen, item.res.id)} prijs={item.res.prijs} key={i} />
                       })}
                     </tbody>
                   </table>
@@ -167,8 +168,8 @@ class WinkelMand extends Component {
               <div className="paginaFrame">
                 <div className="mandFrame">
                 
-                  {this.state.producten.map((item) => {
-                    return <WinkelmandItem foto={item.res.foto} titel={item.res.naam} prijs={item.res.prijs} aantal={this.getAmount(this.state.aantallen, item.res.id)} />
+                  {this.state.producten.map((item,i) => {
+                    return <WinkelmandItem foto={item.res.foto} titel={item.res.naam} prijs={item.res.prijs} aantal={this.getAmount(this.state.aantallen, item.res.id)} key={i} />
                   })}
                 </div>
               </div>
@@ -179,7 +180,7 @@ class WinkelMand extends Component {
     } else if (window.localStorage.getItem('cart') === null) {
       return (
       <React.Fragment>
-        <LayoutAccount className="SignUp" simple>
+        <LayoutAccount className="SignUp" simple="true">
           <div className="wrapper">
             <SimpleHeading
               title="Winkelmand"

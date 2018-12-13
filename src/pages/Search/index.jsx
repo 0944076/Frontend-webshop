@@ -58,9 +58,13 @@ class Search extends Component {
 
    handleInputFilter() {
     let querys = this.state.query;
-    this.state.response2 = this.state.response.filter(function(product) {
-          return (product.naam && product.naam.toLowerCase().includes(querys));
-          })
+    this.setState({
+      response2: this.state.response.filter(function(product) {
+        return (product.naam && product.naam.toLowerCase().includes(querys));
+        })
+      
+    })
+
   }
 
   getProducts(page,query) {

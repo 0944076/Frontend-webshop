@@ -19,7 +19,7 @@ class Login extends Component {
   render() {
     return (
       <React.Fragment>
-        <LayoutAccount className="login" simple>
+        <LayoutAccount className="login" simple="true">
           <div className="wrapper">
             <SimpleHeading
               title="Inloggen"

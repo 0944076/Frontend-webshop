@@ -16,6 +16,7 @@ class Header extends Component {
                 //src=""
                 //alt="Kamerplanten inc"
                 //title="Kamerplanten inc"
+                alt=""
               />
             </Link>
           </h1>

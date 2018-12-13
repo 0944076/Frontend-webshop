@@ -10,7 +10,7 @@ class LoginForm extends Component {
     console.log("submit!");
   };
   render() {
-    const { title, description } = this.props;
+    //const { title, description } = this.props;
     return (
       <form className="form" onSubmit={this.handleSubmit}>
         <fieldset>

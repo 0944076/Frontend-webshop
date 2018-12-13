@@ -377,7 +377,7 @@ render() {
           placeholder="voornaam"
           value={this.state.voornaam}
           onChange={e => this.change(e)}
-          errorText={this.state.voornaamError}
+          errortext={this.state.voornaamError}
           aria-label="voornaam"
         /><br/>
         <span> {this.state.voornaamError}</span>
@@ -389,7 +389,7 @@ render() {
           placeholder="achternaam"
           value={this.state.achternaam}
           onChange={e => this.change(e)}
-          errorText={this.state.achternaamError}
+          errortext={this.state.achternaamError}
           aria-label="achternaam"
         /><br/>
         <span> {this.state.achternaamError}</span>
@@ -400,7 +400,7 @@ render() {
           placeholder="Straat"
           value={this.state.adress}
           onChange={e => this.change(e)}
-          errorText={this.state.adressError}
+          errortext={this.state.adressError}
           aria-label="adress"
         /><input
         type="number"
@@ -408,7 +408,7 @@ render() {
         placeholder="huisnummer"
         value={this.state.adress1}
         onChange={e => this.change(e)}
-        errorText={this.state.adress1Error}
+        errortext={this.state.adress1Error}
         aria-label="adress1"
       />
         <br/>
@@ -420,7 +420,7 @@ render() {
         placeholder="Postcode"
         value={this.state.adress2}
         onChange={e => this.change(e)}
-        errorText={this.state.adress2Error}
+        errortext={this.state.adress2Error}
         aria-label="adress2"
       />
       <input
@@ -429,7 +429,7 @@ render() {
         placeholder="Woonplaats"
         value={this.state.adress3}
         onChange={e => this.change(e)}
-        errorText={this.state.adress3Error}
+        errortext={this.state.adress3Error}
         aria-label="adress3"
       />
         <br/>
@@ -441,7 +441,7 @@ render() {
           id="email"
           placeholder="E-mailaddress"
           onChange={e => this.change(e)}
-          errorText={this.state.emailError}
+          errortext={this.state.emailError}
           aria-label="emailaddress"
         /><br />
         <span> {this.state.emailError}</span>
@@ -452,7 +452,7 @@ render() {
           id="wachtwoord"
           placeholder="Wachtwoord"
           onChange={e => this.change(e)}
-          errorText={this.state.wachtwoordError}
+          errortext={this.state.wachtwoordError}
           aria-label="wachtwoord"
         />
         <br />
@@ -464,7 +464,7 @@ render() {
           id="wachtwoord1"
           placeholder="herhaling Wachtwoord"
           onChange={e => this.change(e)}
-          errorText={this.state.wachtwoord1Error}
+          errortext={this.state.wachtwoord1Error}
           aria-label="wachtwoord1"
         />
         <br />
@@ -485,7 +485,7 @@ render() {
         id="email1"
         placeholder="E-mailaddress"
         onChange={e => this.change(e)}
-        errorText={this.state.email1Error}
+        errortext={this.state.email1Error}
         aria-label="emailaddress"
       /><br />
       <span> {this.state.email1Error}</span>
@@ -496,7 +496,7 @@ render() {
         id="wachtwoord2"
         placeholder="Wachtwoord"
         onChange={e => this.change(e)}
-        errorText={this.state.wachtwoord2Error}
+        errortext={this.state.wachtwoord2Error}
         aria-label="wachtwoord2"
       />
       <br />
