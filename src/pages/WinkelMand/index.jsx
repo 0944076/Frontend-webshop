@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import WinkelmandItem from "../../components/WinkelmandItem";
+import WinkelmandItem from "../../components/winkelmandItem";
 import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
 import { Link } from "react-router-dom";
 import Loader from '../../components/Loading';
