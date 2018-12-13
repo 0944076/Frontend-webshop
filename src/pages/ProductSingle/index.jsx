@@ -13,8 +13,7 @@ class ProductSingle extends Component {
     super(props);
     this.state = {
       loading: true,
-      response: null,
-      price: Math.round(Math.random() * Math.floor(20)) // don't do this
+      response: null
     };
   }
 
@@ -23,16 +22,16 @@ class ProductSingle extends Component {
   }
 
   getProduct(id) {
-    request.get(`https://reqres.in/api/product/${id}`).then(response => {
+    request.get(`http://localhost:5000/api/product/${id}`).then(response => {
       this.setState({
-        response: response.body.data,
+        response: response.body,
         loading: false
       });
     });
   }
 
   render() {
-    const { loading, response, price } = this.state;
+    const { loading, response } = this.state;
     return (
       <React.Fragment>
         <LayoutDefault simple="true">
@@ -43,16 +42,16 @@ class ProductSingle extends Component {
               <div className="product-detail">
                 <figure className="product-image">
                   <img
-                    src="https://source.unsplash.com/random"
-                    alt={response.name}
+                    src={response.foto}
+                    alt={response.naam}
                   />
                 </figure>
                 <div className="product-information">
                   <h1 className="product-information__title">
-                    {response.name}
+                    {response.naam}
                   </h1>
                   <span className="product-information__price">
-                    &euro;{price}
+                    &euro;{response.prijs}
                   </span>
                   <p className="product-information__description">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
@@ -62,16 +61,16 @@ class ProductSingle extends Component {
                   </p>
                   <ul className="specifications">
                     <li>
-                      <span>Jaar</span>
-                      {response.year}
+                      <span>Voorraad</span>
+                      {response.voorraad}
                     </li>
                     <li>
-                      <span>Kleur</span>
-                      {response.color}
+                      <span>Categorie</span>
+                      {response.categorieID}
                     </li>
                     <li>
-                      <span>Idk?</span>
-                      {response.pantone_value}
+                      <span>Template</span>
+                      Template
                     </li>
                   </ul>
                   <div className="add-to-cart">

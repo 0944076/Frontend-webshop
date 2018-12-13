@@ -10,8 +10,7 @@ class Pagination extends Component {
     };
   }
   render() {
-    const { perPage, totalPages, currentPage } = this.props;
-    const { pages, showPages } = this.state;
+    const {totalPages, currentPage } = this.props;
     return (
       <div className="pagination">
         {Array.apply(0, Array(totalPages)).map((item, i) => {

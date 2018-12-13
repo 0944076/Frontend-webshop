@@ -109,18 +109,7 @@ class FooterNavigation extends Component {
 }
 
 export default FooterNavigation;
-
-
-
-
-
-
-
-
-
-
-
-            {/* <div className="footer-navigation__list">
+            /* <div className="footer-navigation__list">
               <h4 className="footer-navigation__title">Categorie 1</h4>
               <NavLink
                 activeClassName="is-active"
@@ -145,4 +134,4 @@ export default FooterNavigation;
                 to="/overzicht/categorie-3/subcategorie-4"
               >
                 Subcategorie 4
-              </NavLink> */}
+              </NavLink> */

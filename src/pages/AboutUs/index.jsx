@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 
 // layout
 import LayoutDefault from '../../layout/Default';
 import SimpleHeading from "../../components/SimpleHeading";
-import LayoutAccount from "../../layout/Account";
 import PageHero from "../../components/PageHero";
 //import logo from './components/logo.jpg';
 

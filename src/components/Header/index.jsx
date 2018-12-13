@@ -23,7 +23,7 @@ class Header extends Component {
             <NavLink exact activeClassName="is-active" to="/">
               Home
             </NavLink>
-            <div class="dropdown">
+            <div className="dropdown">
               <button className="dropbtn is-active ">Producten</button>
               <div className="dropdown-content">
               <NavLink activeClassName="is-active" to="/overzicht">

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 // components
-import ProductGridItem from '../../components/ProductGridItem';
 
 class ProductAmount extends Component {
   constructor(props) {
