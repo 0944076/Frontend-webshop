@@ -13,104 +13,93 @@ import Pagination from "../../components/Pagination";
 
 
 class Search extends Component {
-  constructor(props) {
+  constructor(props) 
+  {
     super(props);
     this.state = {
       loading: true,
       response: null,
       response2: null,
-      query: ''
+      
       
     };
     
   }
-
-  componentWillReceiveProps(nextProps) {
+  componentDidUpdate(prevProps) 
+  {
+    if(this.props.match.params.queryd !=
+      prevProps.match.params.queryd)
+    {
+      this.handleInputFilter();
+      //this.forceUpdate();
+    }
+  } 
+  componentWillReceiveProps(nextProps) 
+  {
     const currentParams = this.props.match.params;
     const nextParams = nextProps.match.params;
-    if (currentParams.page !== nextParams.page) {
+    if (currentParams.page !== nextParams.page) 
+    {
       this.getProducts(nextParams.page,this.state.query);
     }
-
   }
 
-  componentDidMount() {
+  componentDidMount() 
+  {
     console.log("this.props", this.props);
     this.getProducts(this.props.match.params.page,this.state.query);
+    this.handleInputFilter();
+  }
 
-    }
-
-  
-//this.props.match.params.queryd
-
-  handleInputChange = () => {
-    this.setState({
-      query: this.search.value.toLowerCase(),
-      
-    })}
     
-  handleInputClick = () => {
-      this.setState({
-        query: this.search.value.toLowerCase(),
-        
-      })
-     
-      this.handleInputFilter()
-     
-      }
+  handleInputClick = () => 
+  {
+    this.handleInputFilter()
+  }
 
-   handleInputFilter() {
+  handleInputFilter() 
+  {
     console.log("props", this.props.match.params.queryd);
     let querys = this.props.match.params.queryd
-    if (this.props.match.params.queryd){
-      let querys = this.props.match.params.queryd
-    }
 
-    this.setState({
-      response2: this.state.response.filter(function(product) {
+    if (this.state.response)
+    {
+    this.setState(
+      {
+      response2: this.state.response.filter(function(product)
+        {
         return (product.naam && product.naam.toLowerCase().includes(querys));
         })
-      
-    })
+      })
+    }
 
   }
 
-  getProducts(page,query) {
+  async getProducts(page,query) 
+  {
+    const res = await
     request
       .get(`http://localhost:5000/api/product?pageSize=9999`)
-      .then(response => {
-        this.setState({
+      .then(response => 
+      {
+        this.setState(
+          {
           response: response.body,
           loading: false
-        });
-        this.handleInputFilter()
+          });
+        
       });
-      
+      this.handleInputFilter()
   }
 
-  render() {
+  render() 
+  {
     const { loading, response2 } = this.state;
-    console.log(this.props.match.params.queryd)
     return (
       <React.Fragment> 
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
-          
-          
-        <input
-          type='text'
-          id='text'
-          placeholder="Search for..."
-          ref={input => this.search = input}
-         //onKeyDown={this.handleInputChange}
-         onKeyUp={this.handleInputChange}
-        />
 
-        <input type = "button" id = "go" 
-        onClick={this.handleInputClick}
-        />
-        
-     
             {loading ? (
               <Loading text="Producten ophalen..." />
             ) : response2 && response2 && response2.length > 0  ? (

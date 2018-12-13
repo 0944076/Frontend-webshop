@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 class ProductGridItem extends Component {
   render() {
     const { item } = this.props;
-    console.log("ayyliens",this.props);
-    console.log("ayyliens1",item);
     //console.log("ayyliens",this.props);
     //let prijs = Math.round(Math.random() * Math.floor(20));
 

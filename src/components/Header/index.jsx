@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { Button } from 'semantic-ui-react';
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -15,24 +14,13 @@ class Header extends Component {
     });
   }
 
-
-    
   handleInputClick = () => {
       this.setState({
         queryd: this.search.value.toLowerCase(),
         
       })
      
-      //this.handleInputFilter()
-     
       }
-
-  //  handleInputFilter() {
-  //   let queryds = this.state.queryd;
-  //  // <Link to={`/search/${queryds}`} className="search-command-header"/> 
-      
-  //   }
-
   
 
   render() {
@@ -61,17 +49,14 @@ class Header extends Component {
                 id='text'
                 placeholder="Search for..."
                 ref={input => this.search = input}
-                //onKeyDown={this.handleInputChange}
                 onKeyUp={this.handleInputChange}
             />
-            {/* <input type = "button" id = "go" 
-              onClick=
-             /> */}
               <Link to={`/search/${queryd}`}>
-            <Button size='small' color='green'>
-                <p>Click Me!</p>
-            </Button>
+                <button type="button">
+                  Zoeken
+                </button>
              </Link>
+             
             <NavLink exact activeClassName="is-active" to="/">
               Home
             </NavLink>
