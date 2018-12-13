@@ -22,6 +22,7 @@ class Search extends Component {
       query: ''
       
     };
+    
   }
 
   componentWillReceiveProps(nextProps) {
@@ -37,8 +38,10 @@ class Search extends Component {
     console.log("this.props", this.props);
     this.getProducts(this.props.match.params.page,this.state.query);
 
-  }
+    }
 
+  
+//this.props.match.params.queryd
 
   handleInputChange = () => {
     this.setState({
@@ -57,7 +60,12 @@ class Search extends Component {
       }
 
    handleInputFilter() {
-    let querys = this.state.query;
+    console.log("props", this.props.match.params.queryd);
+    let querys = this.props.match.params.queryd
+    if (this.props.match.params.queryd){
+      let querys = this.props.match.params.queryd
+    }
+
     this.setState({
       response2: this.state.response.filter(function(product) {
         return (product.naam && product.naam.toLowerCase().includes(querys));
@@ -75,15 +83,19 @@ class Search extends Component {
           response: response.body,
           loading: false
         });
+        this.handleInputFilter()
       });
+      
   }
 
   render() {
     const { loading, response2 } = this.state;
+    console.log(this.props.match.params.queryd)
     return (
       <React.Fragment> 
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
+          
           
         <input
           type='text'
@@ -97,6 +109,7 @@ class Search extends Component {
         <input type = "button" id = "go" 
         onClick={this.handleInputClick}
         />
+        
      
             {loading ? (
               <Loading text="Producten ophalen..." />
