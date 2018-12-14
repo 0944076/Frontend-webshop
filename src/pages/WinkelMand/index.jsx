@@ -62,12 +62,12 @@ class WinkelMand extends Component {
             }
             
             //State setten
-            if(i === items.length - 1){  
-              //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
-              this.setState({producten: result});
-              this.setState({loading: false});
-              this.setState({aantallen: aantal});
-            }
+              if(i === items.length - 1){  
+                //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
+                this.setState({producten: result});
+                this.setState({loading: false});
+                this.setState({aantallen: aantal});
+              }
             }
           );
         }
@@ -141,7 +141,7 @@ class WinkelMand extends Component {
               console.log('Op iteratie ' + x + ' vinden wij: ' + JSON.stringify(productenArray[x]));
               if(productenArray[x].res.id == id){
                 console.log('product ' + id + ' uit state verwijderen.');
-                newProductArray = productenArray.splice(x);
+                newProductArray = productenArray.splice(x,1);
                 break;
               }
             }
