@@ -368,6 +368,7 @@ render() {
 <div>
 <form className="SignUp" onSubmit={this.onSubmit}>
     <h1>Registreren</h1>
+    <p>Vul hier uw persoonsgegevens in om een account aan te maken.</p>
       <fieldset>
       <div className="fieldsetDiv">
       <input
@@ -477,6 +478,7 @@ render() {
       </form> 
     <form className="Login" onSubmit={this.onSubmit1}>
     <h1>inloggen</h1>
+    <p>Heeft u al een account? Log dan hier in!</p>
     <fieldset>
       <div className="fieldsetDiv">
       <input

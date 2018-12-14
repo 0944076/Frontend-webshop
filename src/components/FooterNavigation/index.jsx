@@ -70,12 +70,6 @@ class FooterNavigation extends Component {
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/inloggen"
-              >
-                Mijn Account
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
                 to="/winkelmand"
               >
                 Winkelmand
@@ -85,12 +79,6 @@ class FooterNavigation extends Component {
                 to="/AboutUs"
               >
                 About Us
-              </NavLink>
-              <NavLink
-                activeClassName="is-active"
-                to="/Search"
-              >
-                Search
               </NavLink>
               
             </div>
