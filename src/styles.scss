@@ -634,6 +634,9 @@ form.SignUp{
     margin-bottom: 34px;
     
   }
+  form.SignUp p{
+    margin-left:20px;
+  }
   form.SignUp h1 {
     padding: 0px 20px 0px;
   }
@@ -642,17 +645,25 @@ form.SignUp{
   }
   form.Login input {
     border-style: solid;
-    border-color: grey
+    border-color: grey;
+    border-radius: 5px;
+    padding-left: 5px;
   }
   form.SignUp input {
     border-style: solid;
-    border-color: grey
+    border-color: grey;
+    border-radius: 5px;
+    padding-left: 5px;
   }
   .fieldsetDiv{
   //margin: auto;
   //width: 50%;
   //text-align: center;
   padding: 10px 20px 0px;
+  }
+  div#succes {
+    font-size: 30px;
+    color: #2efb83;
   }
 
   .mandFrame{

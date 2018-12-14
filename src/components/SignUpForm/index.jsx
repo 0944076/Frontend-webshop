@@ -6,7 +6,7 @@ import Button from "../../components/Button";
 let passwordHash = require('password-hash');
 class SignUpForm extends Component {
 
-  /* constructor(props) {
+   constructor(props) {
     super(props);
     this.state = {
       items: [],
@@ -14,7 +14,7 @@ class SignUpForm extends Component {
     }
   }
   componentDidMount(){
-    fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
+    fetch('http://localhost:5000/api/geregistreerdeklant/')
       .then(res => res.json())
       .then(json => {
         this.setState({
@@ -22,8 +22,10 @@ class SignUpForm extends Component {
           items: json,
         })
       });
-  } */
+  } 
     state = {
+          loginid: null,
+          hashpass: null,
           voornaam: '',
           voornaamError: '',
           achternaam: '',
@@ -48,8 +50,10 @@ class SignUpForm extends Component {
           email1Error: '',
           wachtwoord2: '',
           wachtwoord2Error: '',
-          toHome: false
-
+          admin: false,
+          toHome: false,
+          regisucc: false,
+          loginsucc: false
 
     };
     change = e => {
@@ -82,7 +86,7 @@ class SignUpForm extends Component {
         errors.voornaamError = 'Vul een geldige voornaam in'
         document.getElementById('voornaam').style.borderColor = "red";
       }
-      else if (this.state.voornaam.match(/[!@#\$%\^&\*\(\)\[\]:;'",\.0-9]/i) || this.state.voornaam.match(/[-]/i )){
+      else if (this.state.voornaam.match(/[!@#$%^&*()[]:;'",\.0-9]/i) || this.state.voornaam.match(/[-]/i )){
         isError = true;
         errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('voornaam').style.borderColor = "red";
@@ -101,7 +105,7 @@ class SignUpForm extends Component {
         errors.achternaamError = 'Vul een geldige achternaam in'
         document.getElementById('achternaam').style.borderColor = "red";
       }
-      else if (this.state.achternaam.match(/[!@#\$%\^&\*\(\)\[\]:;'",\.0-9]/i) || this.state.achternaam.match(/[-]/i )){
+      else if (this.state.achternaam.match(/[!@#$%^&*()[]:;'",.0-9]/i) || this.state.achternaam.match(/[-]/i )){
         isError = true;
         errors.achternaamError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('achternaam').style.borderColor = "red";
@@ -174,7 +178,7 @@ class SignUpForm extends Component {
         errors.emailError = 'Vul een geldig emailadress in'
         document.getElementById('email').style.borderColor = "red";
       }
-      else if (this.state.email.match(/[!#\$%\^&\*\(\)\[\]:;'",\ ]/i)){
+      else if (this.state.email.match(/[!#$%^&*()[]:;'",\ ]/i)){
         isError = true;
         errors.emailError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('email').style.borderColor = "red";
@@ -193,7 +197,7 @@ class SignUpForm extends Component {
         errors.wachtwoordError = 'Vul een geldig wachtwoord in'
         document.getElementById('wachtwoord').style.borderColor = "red";
       }
-      else if (this.state.wachtwoord.match(/[!#\$%\^&\*\(\)\[\]:;'",\ ]/i)){
+      else if (this.state.wachtwoord.match(/[!#$%^&*()[]:;'",\ ]/i)){
         isError = true;
         errors.wachtwoordError = 'alleen leestekens en cijfers mogen gebruikt worden'
         document.getElementById('wachtwoord').style.borderColor = "red";
@@ -207,7 +211,7 @@ class SignUpForm extends Component {
         errors.wachtwoord1Error = 'Vul hier nogmaals u wachtwoord in'
         document.getElementById('wachtwoord1').style.borderColor = "red";
       }
-      else if (this.state.wachtwoord != this.state.wachtwoord1){
+      else if (this.state.wachtwoord !== this.state.wachtwoord1){
         isError = true;
         errors.wachtwoord1Error = 'wachtwoorden komen niet overheen'
         document.getElementById('wachtwoord1').style.borderColor = "red";
@@ -238,7 +242,7 @@ class SignUpForm extends Component {
         errors.email1Error = 'Vul een geldig emailadress in'
         document.getElementById('email1').style.borderColor = "red";
       }
-      else if (this.state.email1.match(/[!#\$%\^&\*\(\)\[\]:;'",\ ]/i)){
+      else if (this.state.email1.match(/[!#$%^&*()[]:;'", ]/i)){
         isError = true;
         errors.email1Error = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('email1').style.borderColor = "red";
@@ -270,19 +274,21 @@ class SignUpForm extends Component {
     }
     onSubmit = e => {
       e.preventDefault();
+      const err = this.validate();
       let vanaam = this.state.voornaam + " " + this.state.achternaam;
       let password = this.state.wachtwoord;
       let hashedPassword = passwordHash.generate(password);
       const register = {
         naam: vanaam,
         email: this.state.email,
-        wachtwoord: hashedPassword
+        wachtwoord: hashedPassword,
+        admin: false
       }
       let jsonregi = JSON.parse(JSON.stringify(register));
       //let register = [naam,this.state.email,hashedPassword];
       console.log(jsonregi);
       console.log(this.state);
-      const err = this.validate();
+      
       if (!err) {
         request.post(`http://localhost:5000/api/geregistreerdeklant/`)
         //.send(new FormData(document.getElementById('SignUp')))
@@ -299,7 +305,9 @@ class SignUpForm extends Component {
             email: '',
           emailError: '',
           wachtwoord: '',
-          wachtwoordError: ''
+          wachtwoordError: '',
+          admin: false,
+          regisucc: true
           });
         });
       }
@@ -312,18 +320,74 @@ class SignUpForm extends Component {
         email: this.state.email1,
         wachtwoord: this.state.wachtwoord2
       }
+      let json
       let jsonlogi = JSON.parse(JSON.stringify(login));
       console.log(jsonlogi);
-//const { isLoaded, items } = this.state;
+const { isLoaded, items } = this.state;
 
 //console.log(passwordHash.verify(this.state.wachtwoord, hashedPassword)); // true
 //console.log(passwordHash.verify('test1234', hashedPassword2)); // true
 e.preventDefault();
-//console.log( this.state.items);
+console.log( this.state.items);
 console.log(this.state);
 const err1 = this.validate1();
 if (!err1) {
-  request.post(`http://localhost:5000/api/sessie/`)
+  let checkpass;
+  console.log("email" + this.state.email1);
+  //if ('http://localhost:5000/api/geregistreerdeklant/' + this.state.email1 == )
+  request.get('http://localhost:5000/api/geregistreerdeklant/' + this.state.email1)
+        .then(res => {
+         
+          var localid = JSON.stringify(res.body.id);
+          var localnaam = JSON.stringify(res.body.naam);
+          var localemail = JSON.stringify(this.state.email1);
+          var localpass = JSON.stringify(res.body.wachtwoord);
+          
+          this.setState({
+            loginid: localid,
+            hashpass: localpass
+          });
+          const storage = {
+            id: this.state.loginid,
+            naam: localnaam,
+            email: localemail,
+            wachtwoord: this.state.hashpass
+          };
+          
+
+          checkpass = (passwordHash.verify(this.state.wachtwoord2, res.body.wachtwoord))
+          console.log("binnen de then"+ this.state.loginid); // true
+          if (checkpass === true) {
+              request.post(`http://localhost:5000/api/sessie/`)
+              //.send(new FormData(document.getElementById('SignUp')))
+              //.set('Content-Type', 'application/json')
+              //.type('form') 
+              .send(jsonlogi)
+              .then(res => {
+                alert('Login succesvol' + res.body)
+                sessionStorage.setItem('SessieID', JSON.stringify(res.body));
+
+                sessionStorage.setItem('klantID', JSON.stringify(storage));
+                //localStorage.setItem('Login2', JSON.parse(JSON.stringify(this.state.hasspass)));
+                this.setState({
+                  email1: '',
+                  email1Error: '',
+                  wachtwoord2: '',
+                  wachtwoord2Error: '',
+                  admin: false,
+                  loginsucc: true         
+                });
+          
+          }
+          ); 
+          }
+          else{
+            alert('Username of wachtwoord incorrect');
+          }
+        }).catch((err) => alert('Email staat niet in het systeem.'));
+  console.log("buiten de then"+ this.state.loginid);
+        
+  /*request.post(`http://localhost:5000/api/sessie/`)
         //.send(new FormData(document.getElementById('SignUp')))
         //.set('Content-Type', 'application/json')
         //.type('form') 
@@ -344,11 +408,14 @@ if (!err1) {
           });
           this.props.history.push('/inloggen')
           }
-        });
+        }); */
         
   //console.log(JSON.stringify(register));
   //this.addRegister(register);
 }
+
+        
+    
 
 };
 
@@ -363,12 +430,35 @@ render() {
     else {
       
     } */
-    const { title, description } = this.props;
+    var { regisucc, loginsucc } = this.state;
+    if(this.state.regisucc === true){
+      setTimeout(() => {
+        this.setState({
+        regisucc: false
+      })
+    }, 3000);
+      return <div id="succes">Registratie is succesvol</div>;
+      
+      
+
+    }
+    if(this.state.loginsucc === true){
+        setTimeout(() => {
+          this.setState({
+          loginsucc: false
+        })
+        this.props.history.push('/mijnaccount')
+      }, 3000);
+      return <div id="succes">Login is succesvol</div>
+    }
+  
+    
     return (
+      
 <div>
 <form className="SignUp" onSubmit={this.onSubmit}>
     <h1>Registreren</h1>
-    <p>Vul hier uw persoonsgegevens in om een account aan te maken.</p>
+    <p>Vul hier u persoonsgegevens in om een account aan te maken</p>
       <fieldset>
       <div className="fieldsetDiv">
       <input
@@ -378,7 +468,7 @@ render() {
           placeholder="voornaam"
           value={this.state.voornaam}
           onChange={e => this.change(e)}
-          errortext={this.state.voornaamError}
+          errorText={this.state.voornaamError}
           aria-label="voornaam"
         /><br/>
         <span> {this.state.voornaamError}</span>
@@ -390,7 +480,7 @@ render() {
           placeholder="achternaam"
           value={this.state.achternaam}
           onChange={e => this.change(e)}
-          errortext={this.state.achternaamError}
+          errorText={this.state.achternaamError}
           aria-label="achternaam"
         /><br/>
         <span> {this.state.achternaamError}</span>
@@ -401,7 +491,7 @@ render() {
           placeholder="Straat"
           value={this.state.adress}
           onChange={e => this.change(e)}
-          errortext={this.state.adressError}
+          errorText={this.state.adressError}
           aria-label="adress"
         /><input
         type="number"
@@ -409,7 +499,7 @@ render() {
         placeholder="huisnummer"
         value={this.state.adress1}
         onChange={e => this.change(e)}
-        errortext={this.state.adress1Error}
+        errorText={this.state.adress1Error}
         aria-label="adress1"
       />
         <br/>
@@ -421,7 +511,7 @@ render() {
         placeholder="Postcode"
         value={this.state.adress2}
         onChange={e => this.change(e)}
-        errortext={this.state.adress2Error}
+        errorText={this.state.adress2Error}
         aria-label="adress2"
       />
       <input
@@ -430,7 +520,7 @@ render() {
         placeholder="Woonplaats"
         value={this.state.adress3}
         onChange={e => this.change(e)}
-        errortext={this.state.adress3Error}
+        errorText={this.state.adress3Error}
         aria-label="adress3"
       />
         <br/>
@@ -442,7 +532,7 @@ render() {
           id="email"
           placeholder="E-mailaddress"
           onChange={e => this.change(e)}
-          errortext={this.state.emailError}
+          errorText={this.state.emailError}
           aria-label="emailaddress"
         /><br />
         <span> {this.state.emailError}</span>
@@ -453,7 +543,7 @@ render() {
           id="wachtwoord"
           placeholder="Wachtwoord"
           onChange={e => this.change(e)}
-          errortext={this.state.wachtwoordError}
+          errorText={this.state.wachtwoordError}
           aria-label="wachtwoord"
         />
         <br />
@@ -465,7 +555,7 @@ render() {
           id="wachtwoord1"
           placeholder="herhaling Wachtwoord"
           onChange={e => this.change(e)}
-          errortext={this.state.wachtwoord1Error}
+          errorText={this.state.wachtwoord1Error}
           aria-label="wachtwoord1"
         />
         <br />
@@ -478,7 +568,7 @@ render() {
       </form> 
     <form className="Login" onSubmit={this.onSubmit1}>
     <h1>inloggen</h1>
-    <p>Heeft u al een account? Log dan hier in!</p>
+    <p>Vul hier u accountgegevens in om in te loggen</p>
     <fieldset>
       <div className="fieldsetDiv">
       <input
@@ -487,7 +577,7 @@ render() {
         id="email1"
         placeholder="E-mailaddress"
         onChange={e => this.change(e)}
-        errortext={this.state.email1Error}
+        errorText={this.state.email1Error}
         aria-label="emailaddress"
       /><br />
       <span> {this.state.email1Error}</span>
@@ -498,7 +588,7 @@ render() {
         id="wachtwoord2"
         placeholder="Wachtwoord"
         onChange={e => this.change(e)}
-        errortext={this.state.wachtwoord2Error}
+        errorText={this.state.wachtwoord2Error}
         aria-label="wachtwoord2"
       />
       <br />
@@ -520,4 +610,5 @@ render() {
       );
     }
   }
+
   export default withRouter(SignUpForm);

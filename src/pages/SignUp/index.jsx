@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import { Link } from "react-router-dom";
 
 
 // layout
@@ -24,11 +24,9 @@ class SignUp extends Component {
     return (
       <React.Fragment>
         
-        <LayoutAccount className="SignUp" simple="true">
+        <LayoutAccount className="SignUp" simple>
           <div className="wrapper">
-            <SimpleHeading
-             
-            />
+            
             <LoginForm />
             
 
