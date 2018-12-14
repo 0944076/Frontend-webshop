@@ -6,6 +6,7 @@ import Loader from '../../components/Loading';
 
 // layout
 import LayoutAccount from "../../layout/Account";
+import LayoutDefault from '../../layout/Default';
 
 // components
 import SimpleHeading from "../../components/SimpleHeading";
@@ -188,7 +189,7 @@ class WinkelMand extends Component {
       this.outputState();
       return (   
         <React.Fragment>
-          <LayoutAccount className="SignUp" simple="true">
+          <LayoutDefault className="SignUp" simple="true">
             <div className="wrapper">
               <SimpleHeading
                 title="Winkelmand"
@@ -196,7 +197,7 @@ class WinkelMand extends Component {
               />
               <div className="betaalOverzicht">
                   <h1>Betaal overzicht</h1>
-                  <a href="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" className="refresh"/></a><br />
+                  <a href="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" alt="refresh" className="refresh"/></a><br />
                   Totaal: <br />
                   <table>
                     <tbody>
@@ -246,13 +247,13 @@ class WinkelMand extends Component {
                 <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
               </div>
             </div>
-          </LayoutAccount>
+          </LayoutDefault>
         </React.Fragment>
       );
     } else if (window.localStorage.getItem('cart') === null || JSON.parse(window.localStorage.getItem('cart')).length === 0) {
       return (
       <React.Fragment>
-        <LayoutAccount className="SignUp" simple="true">
+        <LayoutDefault className="SignUp" simple="true">
           <div className="wrapper">
             <SimpleHeading
               title="Winkelmand"
@@ -260,7 +261,8 @@ class WinkelMand extends Component {
             />
             <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
           </div>
-        </LayoutAccount>
+        </LayoutDefault>
+        
       </React.Fragment>
       );
     } else {

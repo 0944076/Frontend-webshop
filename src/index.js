@@ -33,6 +33,7 @@ ReactDOM.render(
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />
       <Route exact path="/Search" component={Search} />
+      <Route exact path="/Search/:queryd" component={Search} />
       <Route exact path="/winkelmand" component={WinkelMand} />
       <Route exact path="/Payment" component={Payment} />
       <Route component={NotFound} />
