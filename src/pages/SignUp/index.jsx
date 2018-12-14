@@ -27,8 +27,7 @@ class SignUp extends Component {
         <LayoutAccount className="SignUp" simple="true">
           <div className="wrapper">
             <SimpleHeading
-              title="Registreren"
-              description="Vul hier u persoonsgegevens in om een account aan te maken"
+             
             />
             <LoginForm />
             

@@ -6,6 +6,7 @@ import Loader from '../../components/Loading';
 
 // layout
 import LayoutAccount from "../../layout/Account";
+import LayoutDefault from '../../layout/Default';
 
 // components
 import SimpleHeading from "../../components/SimpleHeading";
@@ -62,12 +63,12 @@ class WinkelMand extends Component {
             }
             
             //State setten
-            if(i === items.length - 1){  
-              //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
-              this.setState({producten: result});
-              this.setState({loading: false});
-              this.setState({aantallen: aantal});
-            }
+              if(i === items.length - 1){  
+                //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
+                this.setState({producten: result});
+                this.setState({loading: false});
+                this.setState({aantallen: aantal});
+              }
             }
           );
         }
@@ -141,7 +142,7 @@ class WinkelMand extends Component {
               console.log('Op iteratie ' + x + ' vinden wij: ' + JSON.stringify(productenArray[x]));
               if(productenArray[x].res.id == id){
                 console.log('product ' + id + ' uit state verwijderen.');
-                newProductArray = productenArray.splice(x);
+                newProductArray = productenArray.splice(x,1);
                 break;
               }
             }
@@ -188,7 +189,7 @@ class WinkelMand extends Component {
       this.outputState();
       return (   
         <React.Fragment>
-          <LayoutAccount className="SignUp" simple="true">
+          <LayoutDefault className="SignUp" simple="true">
             <div className="wrapper">
               <SimpleHeading
                 title="Winkelmand"
@@ -246,13 +247,13 @@ class WinkelMand extends Component {
                 <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
               </div>
             </div>
-          </LayoutAccount>
+          </LayoutDefault>
         </React.Fragment>
       );
     } else if (window.localStorage.getItem('cart') === null || JSON.parse(window.localStorage.getItem('cart')).length === 0) {
       return (
       <React.Fragment>
-        <LayoutAccount className="SignUp" simple="true">
+        <LayoutDefault className="SignUp" simple="true">
           <div className="wrapper">
             <SimpleHeading
               title="Winkelmand"
@@ -260,7 +261,8 @@ class WinkelMand extends Component {
             />
             <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
           </div>
-        </LayoutAccount>
+        </LayoutDefault>
+        
       </React.Fragment>
       );
     } else {

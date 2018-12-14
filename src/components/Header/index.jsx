@@ -7,20 +7,29 @@ class Header extends Component {
       queryd: ''
     };
   }
-  handleInputChange = () => {
-    this.setState({
+
+  handleInputChange = () => 
+  {
+    this.setState(
+    {
       queryd: this.search.value.toLowerCase(),
       
     });
   }
 
-  handleInputClick = () => {
-      this.setState({
-        queryd: this.search.value.toLowerCase(),
-        
-      })
-     
-      }
+  preventHandler = (e) => 
+  {
+    
+      e.preventDefault();
+  }
+  
+  executeSearchEnter = (e) => 
+  {
+    if (e.key === 'Enter'){
+      e.preventDefault();
+      this.refs.but.click()
+    }
+  }
   
 
   render() {
@@ -44,18 +53,25 @@ class Header extends Component {
             </Link>
           </h1>
           <div className="header__navigation">
-            <input
+              <Link to={`/search/${queryd}`}>
+              <form>
+                <div>
+              <input
                 type='text'
                 id='text'
                 placeholder="Search for..."
-                ref={input => this.search = input}
+                onClick={ e => this.preventHandler(e) }
+                onKeyPress={ e => this.executeSearchEnter(e) }
                 onKeyUp={this.handleInputChange}
+                ref={input => this.search = input}
             />
-              <Link to={`/search/${queryd}`}>
-                <button type="button">
+                <button type="button" ref="but">
                   Zoeken
                 </button>
+                </div>
+                </form>
              </Link>
+             
              
             <NavLink exact activeClassName="is-active" to="/">
               Home
@@ -97,9 +113,6 @@ class Header extends Component {
             <NavLink exact activeClassName="is-active" to="/SignUp">
               Registreren
               </NavLink>
-              <NavLink exact activeClassName="is-active" to="/Search">
-              Search
-            </NavLink>
             <NavLink exact activeClassName="is-active" to="/winkelmand">
               Winkelmand ({cartAmount})
             </NavLink>
