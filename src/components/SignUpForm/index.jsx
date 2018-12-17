@@ -296,7 +296,7 @@ class SignUpForm extends Component {
         //.type('form') 
         .send(jsonregi)
         .then(res => {
-          alert('register succesvol'+ hashedPassword)
+          //alert('register succesvol'+ hashedPassword)
           this.setState({
             voornaam: '',
             voornaamError: '',
@@ -364,7 +364,7 @@ if (!err1) {
               //.type('form') 
               .send(jsonlogi)
               .then(res => {
-                alert('Login succesvol' + res.body)
+                //alert('Login succesvol' + res.body)
                 sessionStorage.setItem('SessieID', JSON.stringify(res.body));
 
                 sessionStorage.setItem('klantID', JSON.stringify(storage));
@@ -447,7 +447,7 @@ render() {
           this.setState({
           loginsucc: false
         })
-        this.props.history.push('/mijnaccount')
+        this.props.history.push('/MijnAccount')
       }, 3000);
       return <div id="succes">Login is succesvol</div>
     }
