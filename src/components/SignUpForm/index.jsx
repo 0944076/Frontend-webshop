@@ -365,7 +365,7 @@ if (!err1) {
               .send(jsonlogi)
               .then(res => {
                 //alert('Login succesvol' + res.body)
-                sessionStorage.setItem('SessieID', JSON.stringify(res.body));
+                sessionStorage.setItem('sessieID', JSON.stringify(res.body));
 
                 sessionStorage.setItem('klantID', JSON.stringify(storage));
                 //localStorage.setItem('Login2', JSON.parse(JSON.stringify(this.state.hasspass)));
