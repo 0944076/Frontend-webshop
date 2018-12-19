@@ -53,7 +53,24 @@ class Header extends Component {
             </Link>
           </h1>
           <div className="header__navigation">
-
+              <Link to={`/search/${queryd}`}>
+              <form>
+                <div id="header__search">
+              <input
+                type='text'
+                id='text'
+                placeholder="Search for..."
+                onClick={ e => this.preventHandler(e) }
+                onKeyPress={ e => this.executeSearchEnter(e) }
+                onKeyUp={this.handleInputChange}
+                ref={input => this.search = input}
+               />
+                <button type="button" ref="but">
+                  Zoeken
+                </button>
+                </div>
+                </form>
+             </Link>
              
              
             <NavLink exact activeClassName="is-active" to="/">
@@ -105,26 +122,6 @@ class Header extends Component {
             <NavLink exact activeClassName="is-active" to="/AboutUs">
               About Us
             </NavLink>
-            <div id="header__search">
-            <Link to={`/search/${queryd}`}>
-              <form>
-                <div>
-              <input
-                type='text'
-                id='text'
-                placeholder="Search for..."
-                onClick={ e => this.preventHandler(e) }
-                onKeyPress={ e => this.executeSearchEnter(e) }
-                onKeyUp={this.handleInputChange}
-                ref={input => this.search = input}
-               />
-                <button type="button" ref="but">
-                  Zoeken
-                </button>
-                </div>
-                </form>
-             </Link>
-             </div>
           </div>
         </div>
       </header>
