@@ -11,9 +11,13 @@ import ProductAmount from '../../components/ProductAmount';
 class ProductSingle extends Component {
   constructor(props) {
     super(props);
+    this.getProduct = this.getProduct.bind(this);
+    this.isLoggedIn = this.isLoggedIn.bind(this);
+
     this.state = {
       loading: true,
-      response: null
+      response: null,
+      toegevoegd: false
     };
   }
 
@@ -28,6 +32,34 @@ class ProductSingle extends Component {
         loading: false
       });
     });
+  }
+
+  isLoggedIn(id){
+    let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+    if(sessieObject !== null && sessieObject.id > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  addToWishlist(id){
+    let klant = JSON.parse(sessionStorage.getItem('klantID'));
+    const postBody = {
+      productid: id,
+      geregistreerdeklantid: parseInt(klant.id)
+    }
+    request
+    .post('http://localhost:5000/api/verlanglijstitem')
+    .send(postBody)
+    .then((res) => {
+      if (res.statusCode === 200){
+        this.setState({toegevoegd: true});
+      } else {
+        alert('Het is niet geluk product ' + id + ' aan je verlanglijstje toe te voegen.');
+      }
+    })
+    
   }
 
   render() {
@@ -54,10 +86,7 @@ class ProductSingle extends Component {
                     &euro;{response.prijs}
                   </span>
                   <p className="product-information__description">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                    eget leo sed eros varius ultrices sed nec risus. Nulla
-                    mattis tellus tellus, vel ornare nulla porttitor nec. Donec
-                    et libero erat. Morbi justo ante, pretium ut eros a!
+                    {response.beschrijving}
                   </p>
                   <ul className="specifications">
                     <li>
@@ -76,6 +105,14 @@ class ProductSingle extends Component {
                   <div className="add-to-cart">
                     <ProductAmount id={response.id} />
                   </div>
+                  <br />
+                  <div className='add-to-cart'>
+                  <button
+                    onClick={() => { return this.addToWishlist(response.id)}}
+                    className={`button${this.isLoggedIn() ? '' : ' button--is-disabled'}`}>
+                    {(this.state.toegevoegd) ? 'Product aan verlanglijstje toegevoegd':'Voeg product toe aan verlanglijstje'}
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : (
@@ -84,7 +121,7 @@ class ProductSingle extends Component {
           </div>
         </LayoutDefault>
       </React.Fragment>
-    );
+    )
   }
 }
 
