@@ -21,11 +21,13 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getFeaturedProducts();
+    this.getProducts();
     this.setState({loading: false});
   }
 
-  getFeaturedProducts = () => {
+  async getProducts(page) 
+  {// eslint-disable-next-line
+    const res = await
     request.get(`http://localhost:5000/api/product?pageSize=3&page=420`)
     .then(response => {
       this.setState({
@@ -33,8 +35,6 @@ class Home extends Component {
         loading: false
       });
       console.log("response13", response);
-      console.log("response14", response.data);
-      console.log("response15", response.body.data);
     });
   };
 
