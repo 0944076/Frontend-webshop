@@ -102,11 +102,8 @@ class ProductAmount extends Component {
       <button
         onClick={this.addToCart}
         className={`button${added ? ' button--is-disabled' : ''}`}>
-        {added ? 'Gelukt!' : 'Toevoegen aan winkelmand'}
-        
-          
+        {added ? 'Gelukt!' : 'Toevoegen aan winkelmand'} 
         </button>
-      
     ];
   }
 }
