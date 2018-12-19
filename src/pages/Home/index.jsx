@@ -21,19 +21,20 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getFeaturedProducts();
+    this.getProducts();
     this.setState({loading: false});
   }
 
-  getFeaturedProducts = () => {
-    request.get(`https://reqres.in/api/product?per_page=3`).then(response => {
+  async getProducts(page) 
+  {// eslint-disable-next-line
+    const res = await
+    request.get(`http://localhost:5000/api/product?pageSize=3&page=420`)
+    .then(response => {
       this.setState({
         response: response.body,
         loading: false
       });
       console.log("response13", response);
-      console.log("response14", response.data);
-      console.log("response15", response.body.data);
     });
   };
 
@@ -45,7 +46,7 @@ class Home extends Component {
           <PageHero
             intro
             title="Welkom!"
-            description="Welkom bij kamerplant inc. De website voor al je exlcusieve planten. Sterk door service zijn we gegroeid tot de webshop die we vandaag zijn"
+            description="Welkom bij kamerplant inc. De website voor al je exclusieve planten. Sterk door service zijn we gegroeid tot de webshop die we vandaag zijn"
             image="https://www.zoover.nl/blog/wp-content/uploads/2017/12/Kamperen-in-Kroati%C3%AB-Plitvicemeren.jpeg"
           />
           
@@ -53,14 +54,14 @@ class Home extends Component {
           <div className="wrapper">
             {loading ? (
               <Loading text="Producten ophalen..." />
-            ) : response && response && response.data.length > 0 ? (
+            ) : response && response && response.length > 0 ? (
               [
                 <SimpleHeading
                   title="Actuele aanbiedingen"
                   description="Hier kunt u al onze actuele aanbiedingen vinden"
                   key="heading"
                 />,
-                <ProductGrid items={response.data} key="grid" />
+                <ProductGrid items={response.splice(0,response.length-1)} key="grid" />
               ]
             ) : (
               <p>Geen producten gevonden...</p>
