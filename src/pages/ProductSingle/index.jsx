@@ -34,7 +34,7 @@ class ProductSingle extends Component {
     });
   }
 
-  isLoggedIn(id){
+  isLoggedIn(){
     let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
     if(sessieObject !== null && sessieObject.id > 0){
       return true;
