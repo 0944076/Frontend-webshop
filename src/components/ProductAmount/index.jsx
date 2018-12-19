@@ -73,7 +73,7 @@ class ProductAmount extends Component {
     let isPresent = false;
 
     for(let i =0; i < items.length; i++){
-      if(items[i].id == item.id){ //Als item al in local storage zit
+      if(items[i].id === item.id){ //Als item al in local storage zit
         items[i].qty = parseInt(items[i].qty) + item.qty;
         isPresent = true;
       }

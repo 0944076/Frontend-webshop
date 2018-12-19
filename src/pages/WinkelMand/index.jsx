@@ -5,7 +5,7 @@ import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
 import Loader from '../../components/Loading';
 
 // layout
-import LayoutAccount from "../../layout/Account";
+//import LayoutAccount from "../../layout/Account";
 import LayoutDefault from '../../layout/Default';
 
 // components
@@ -92,7 +92,7 @@ class WinkelMand extends Component {
         //console.log('telt: ' + JSON.stringify(product));
         for(let i = 0; i < this.state.aantallen.length; i++){
           //console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
-          if(product.res.id == this.state.aantallen[i].id){
+          if(product.res.id === this.state.aantallen[i].id){
             //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
             total  = total + (product.res.prijs * parseInt(this.state.aantallen[i].aantal));
           }
@@ -114,7 +114,7 @@ class WinkelMand extends Component {
       console.log('Increase: ' + id);
       for(let i = 0; i < this.state.aantallen.length; i++){
         if(this.state.aantallen[i].id === id){
-         const nieuwAantal = parseInt(this.state.aantallen[i].aantal) + 1;
+         const nieuwAantal = parseInt(this.state.aantallen[i].aantal) + 1;// eslint-disable-next-line
          this.setState(this.state.aantallen[i] = {id: this.state.aantallen[i].id, aantal: nieuwAantal});
         }
       }
@@ -126,7 +126,7 @@ class WinkelMand extends Component {
       for(let i = 0; i < this.state.aantallen.length; i++){
         if(this.state.aantallen[i].id === id){
           if(this.state.aantallen[i].aantal > 1){
-            const nieuwAantal = parseInt(this.state.aantallen[i].aantal) - 1;
+            const nieuwAantal = parseInt(this.state.aantallen[i].aantal) - 1;// eslint-disable-next-line
             this.setState(this.state.aantallen[i] = {id: this.state.aantallen[i].id, aantal: nieuwAantal});
             break;
           } else {
@@ -140,7 +140,7 @@ class WinkelMand extends Component {
             let newProductArray;
             for(let x = 0; x < productenArray.length; x++){
               console.log('Op iteratie ' + x + ' vinden wij: ' + JSON.stringify(productenArray[x]));
-              if(productenArray[x].res.id == id){
+              if(productenArray[x].res.id === id){
                 console.log('product ' + id + ' uit state verwijderen.');
                 newProductArray = productenArray.splice(x,1);
                 break;

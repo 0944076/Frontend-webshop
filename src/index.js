@@ -19,7 +19,7 @@ import Payment from './pages/Payment';
 
 
 // styles
-import './styles.scss';
+import './styles.scss';// eslint-disable-next-line
 import MijnAccount from './components/MijnAccount';
 
 ReactDOM.render(

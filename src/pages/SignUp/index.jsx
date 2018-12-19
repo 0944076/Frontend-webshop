@@ -1,12 +1,10 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 
 // layout
 import LayoutAccount from "../../layout/Account";
 
 // components
-import SimpleHeading from "../../components/SimpleHeading";
 import LoginForm from "../../components/SignUpForm";
 
 
