@@ -14,11 +14,13 @@ import NotFound from './pages/NotFound';
 import WishList from './pages/WishList';
 import Search from './pages/Search';
 import WinkelMand from './pages/WinkelMand';
+import Account from './pages/Account';
 import Payment from './pages/Payment';
 
 
 // styles
-import './styles.scss';
+import './styles.scss';// eslint-disable-next-line
+import MijnAccount from './components/MijnAccount';
 
 ReactDOM.render(
   <BrowserRouter>
@@ -29,6 +31,7 @@ ReactDOM.render(
       <Route exact path="/product/:id" component={ProductSingle} />
       <Route exact path="/product/:categorieID" component={ProductSingle} />
       <Route exact path="/inloggen" component={Login} />
+      <Route exact path="/account" component={Account} />
       <Route exact path="/SignUp" component={SignUp} />
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />

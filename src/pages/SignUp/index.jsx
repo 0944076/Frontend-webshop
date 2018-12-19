@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 
 
-
 // layout
 import LayoutAccount from "../../layout/Account";
 
 // components
-import SimpleHeading from "../../components/SimpleHeading";
 import LoginForm from "../../components/SignUpForm";
 
 
@@ -24,11 +22,9 @@ class SignUp extends Component {
     return (
       <React.Fragment>
         
-        <LayoutAccount className="SignUp" simple="true">
+        <LayoutAccount className="SignUp" simple>
           <div className="wrapper">
-            <SimpleHeading
-             
-            />
+            
             <LoginForm />
             
 
