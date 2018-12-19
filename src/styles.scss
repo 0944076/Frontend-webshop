@@ -192,12 +192,23 @@ main {
     margin-right: 0;
   }
 }
+
 .header__navigation a.is-active {
   &::after {
     bottom: -3px;
     opacity: 1;
   }
 }
+
+#header__search {
+  padding: 5px;
+  bottom: -7px;
+  margin-right: -24px;
+  margin-left: -240px;
+  margin-top: -24px;
+}
+
+
 
 // header--simple
 .header--simple {
