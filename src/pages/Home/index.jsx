@@ -26,7 +26,8 @@ class Home extends Component {
   }
 
   getFeaturedProducts = () => {
-    request.get(`https://reqres.in/api/product?per_page=3`).then(response => {
+    request.get(`http://localhost:5000/api/product?pageSize=3&page=420`)
+    .then(response => {
       this.setState({
         response: response.body,
         loading: false
@@ -53,14 +54,14 @@ class Home extends Component {
           <div className="wrapper">
             {loading ? (
               <Loading text="Producten ophalen..." />
-            ) : response && response && response.data.length > 0 ? (
+            ) : response && response && response.length > 0 ? (
               [
                 <SimpleHeading
                   title="Actuele aanbiedingen"
                   description="Hier kunt u al onze actuele aanbiedingen vinden"
                   key="heading"
                 />,
-                <ProductGrid items={response.data} key="grid" />
+                <ProductGrid items={response.splice(0,response.length-1)} key="grid" />
               ]
             ) : (
               <p>Geen producten gevonden...</p>
