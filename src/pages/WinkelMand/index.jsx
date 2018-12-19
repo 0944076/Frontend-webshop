@@ -24,6 +24,7 @@ class WinkelMand extends Component {
     this.increaseAmount = this.increaseAmount.bind(this);
     this.decreaseAmount = this.decreaseAmount.bind(this);
     this.updateLocal = this.updateLocal.bind(this);
+    this.order = this.order.bind(this);
 
     this.state = {
       loading: true,
@@ -184,6 +185,24 @@ class WinkelMand extends Component {
       this.setState(this.state);
     }
 
+    order(){
+      //producten uit aantallen array tot bestelling array maken en in sessionStorage pleuren
+      const aantallenArray = this.state.aantallen;
+      let bestelArray = [];
+      for(let i = 0 ; i < aantallenArray.length; i++){
+        let productAantal = parseInt(aantallenArray[i].aantal);
+        let productID = aantallenArray[i].id;
+        console.log('van product ' + productID + ' hebben we: ' + productAantal);
+        let currentCount = 0
+        while (currentCount < productAantal){
+          bestelArray.push(productID);
+          currentCount += 1;
+        }
+      }
+      sessionStorage.setItem('order', bestelArray);
+      console.log('Order: '+ sessionStorage.getItem('order'));
+    }
+
   render() {
     if (!this.state.loading){
       this.outputState();
@@ -227,15 +246,14 @@ class WinkelMand extends Component {
                       </tr>
                     </tbody>
                   </table>   
-                  <button>Volgende stap...</button>
+                  <a href="/"><button onClick={() => {return this.order()}}>Volgende stap...</button></a>
               </div>
               <div className="paginaFrame">
                 <div className="mandFrame">
-                
                   {this.state.producten.map((item) => {
                     return <WinkelmandItem 
                       id={item.res.id}
-                      foto={item.res.foto} 
+                      foto={item.res.foto}
                       titel={item.res.naam} 
                       prijs={item.res.prijs} 
                       aantal={this.getAmount(item.res.id)} 
