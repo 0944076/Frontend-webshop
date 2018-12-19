@@ -12,7 +12,7 @@ class MijnAccount extends Component {
     this.state = {
       session: null,
       isloading: true,
-      session: []
+      gebruikers: []
     }
   }
   // componentDidMount(){
@@ -65,7 +65,7 @@ fetchData(){
   //});
   //console.log("test " + this.state.session);
   const testT = sessionStorage.getItem('klantID');
-  const testS = sessionStorage.getItem('sessieID');
+  const testS = sessionStorage.getItem('SessieID');
   const testT2 = localStorage.setItem('klantID2', testT);
   const testT3 = localStorage.getItem('klantID2');
   const testS2 = localStorage.setItem('sessieID2', testS);
@@ -75,17 +75,30 @@ fetchData(){
   console.log("test2" + testT.naam);
 
 
+  //fetch('http://localhost:5000/api/geregistreerdeklant/')
+  //.then(res => res.json())
+  //.then(parsedJSON => console.log(JSON.stringify(parsedJSON.results)))
+  //.catch(error => console.log('parsing failed', error));
 
-
-  //request.get('http://localhost:5000/api/geregistreerdeklant/')
-        //.then(res => {
+  request.get('http://localhost:5000/api/geregistreerdeklant/')
+        
+        .then(res => {
          
-          //var localid = JSON.stringify(res.body.id);
+          var results = JSON.stringify(res.body.map(user =>
+             ({
+              id: "${user.id}" ,
+              email: '${user.email}',
+              naam: '${user.naam}',
+              wachtwoord: '${user.wachtwoord}'
+             }
+             )));
+          console.log(JSON.parse(results));
           //var localnaam = JSON.stringify(res.body.naam);
           //var localemail = JSON.stringify(this.state.email1);
           //var localpass = JSON.stringify(res.body.wachtwoord)
           
         //}).catch((err) => console.log('kon niet session ophalen'));
+}).catch((err) => console.log('parsing failed',err));
 }
 
 
@@ -93,15 +106,20 @@ fetchData(){
 
 render() {
 
-  const {isLoading, sessionid} = this.state;
+  const {isLoading, gebruikers} = this.state;
   const { title, description } = this.props;
   
   return (   
   <div>
     <div className = "test">
       {
-            //this.session.sessioncheck &&
-            //this.state.sessioncheck.map(item => <div key={item.id}>{item.naam}</div>)
+            
+            //gebruikers.map(gebruiker =>{
+              //const {id,naam,email} = gebruiker;
+              //return <Collapsible key={id} title={naam}>
+                //    <p>{email}</p> <Button onClick={e => this.onChange({id})}>Update</Button> <Button onClick={e => this.onDelete({id})}>Delete</Button>
+              //</Collapsible>
+            //})
           }
     </div>
    
