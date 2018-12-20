@@ -62,6 +62,46 @@ class Search extends Component {
   }
 
 
+  catFilter(button) {
+    if (button === 'Kamerplanten') 
+    {
+      this.setState({
+        cat: 3
+      })
+    }
+   else if (button === 'Rozen') 
+    {
+      this.setState({
+        cat: 4
+      })
+    }
+   else if (button === 'Bloembollen') 
+    {
+      this.setState({
+        cat: 1
+      })
+    }
+    else if (button === 'Zaden') 
+    {
+      this.setState({
+        cat: 5
+      })
+    }
+    else if (button === 'Fruitbomen') 
+    {
+      this.setState({
+        cat: 2
+      })
+    }
+    else if (button === 'Alles') 
+    {
+      this.setState({
+        cat: null
+      })
+    }
+    this.handleInputFilter()
+  }
+
   handleInputChange = () => 
   {
     this.setState({
@@ -119,23 +159,39 @@ class Search extends Component {
 
   render() 
   {
-    // console.log("response2",this.state.response2)
+     console.log("response2",this.state.response2)
+     console.log("cat",this.state.cat)
+     if (this.state.cat != null){
+      this.handleInputFilter()
+     }
     const { loading, response2 } = this.state;
     return (
       <React.Fragment> 
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
-          <input
-          type='text'
-          id='text'
-          placeholder="Search for..."
-          ref={input => this.search = input}
-         //onKeyDown={this.handleInputChange}
-         onKeyUp={this.handleInputChange}
+        <input type = "button" id = "Bloembollen"
+        value="Bloembollen"
+        onClick={() => this.catFilter('Bloembollen')}
         />
-
-        <input type = "button" id = "go" 
-        onClick={this.handleInputClick}
+        <input type = "button" id = "Kamerplanten"
+        value="Kamerplanten"
+        onClick={() => this.catFilter('Kamerplanten')}
+        />
+        <input type = "button" id = "Rozen"
+        value="Rozen"
+        onClick={() => this.catFilter('Rozen')}
+        />
+        <input type = "button" id = "Fruitbomen"
+        value="Fruitbomen"
+        onClick={() => this.catFilter('Fruitbomen')}
+        />
+        <input type = "button" id = "Zaden"
+        value="Zaden"
+        onClick={() => this.catFilter('Zaden')}
+        />
+        <input type = "button" id = "Alles"
+        value="Alles"
+        onClick={() => this.catFilter('Alles')}
         />
 
             {loading ? (
