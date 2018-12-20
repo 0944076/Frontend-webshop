@@ -16,7 +16,11 @@ import Search from './pages/Search';
 import WinkelMand from './pages/WinkelMand';
 import Account from './pages/Account';
 import Payment from './pages/Payment';
-
+            // 1	Bloembollen
+            // 2	Fruitbomen
+            // 3	Kamerplanten
+            // 4	Rozen
+            // 5	Zaden
 
 // styles
 import './styles.scss';// eslint-disable-next-line
