@@ -4,21 +4,62 @@ import SimpleHeading from "../../components/SimpleHeading";
 import LayoutDefault from "../../layout/Default";
 import PageHero from "../../components/PageHero";
 import WishlistItem from "../../components/WishlistItem";
+import Loader from '../../components/Loading';
+import request from 'superagent';
 
 class WishList extends Component {
   constructor(props) {
     super(props);
 
     this.isLoggedIn = this.isLoggedIn.bind(this);
+    this.retrieveWishlist = this.retrieveWishlist.bind(this);
+    this.removeFromWishlist = this.removeFromWishlist.bind(this);
+    this.reloadComponent = this.reloadComponent.bind(this);
 
     this.state = {
+      producten: [],
+      items: [],
+      loading: true
     };
 
-
+    this.retrieveWishlist();
   }
 
-  retrieveWishlist(){
+  async retrieveWishlist(){
+    let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+    let items;
+    if(this.isLoggedIn()) {
+      await request.get('http://localhost:5000/api/verlanglijstitem/' + klantObject.id)
+      .then((res) => items = JSON.parse(res.text))
+      .then((res) => this.setState({items: res}))
+
+      for(let i = 0; i < items.length; i++){
+        let product;
+        await request.get('http://localhost:5000/api/product/' + items[i].productID)
+          .then((res) => {
+            let productsInState = this.state.producten;
+            productsInState.push(res.text);
+            this.setState({producten: productsInState});
+          })
+      }
+    }
+    this.setState({loading: false});
+  }
+
+  async removeFromWishlist(id){
+    let verlanglijstItems = this.state.items;
     
+    for(let i = 0; i < verlanglijstItems.length; i++){
+      if(verlanglijstItems[i].productID === id){
+        await request.delete('http://localhost:5000/api/verlanglijstitem/' + verlanglijstItems[i].id);
+      }
+    }
+    await this.reloadComponent();
+  }
+
+  async reloadComponent(){
+    this.setState({producten: [], items: [], loading: true});
+    await this.retrieveWishlist();
   }
 
   isLoggedIn(){
@@ -51,7 +92,21 @@ class WishList extends Component {
           </LayoutDefault>
         </React.Fragment>
       );
-    } else {
+    } else if (this.state.loading === true) {
+      return (
+        <React.Fragment>
+          <LayoutDefault className="SignUp" simple="true">
+            <div className="wrapper">
+            <SimpleHeading
+                title="Verlanglijstje"
+                description="Een overzicht van de producten op uw verlanglijstje:"
+              /> 
+              <Loader />
+            </div>
+          </LayoutDefault>
+        </React.Fragment>
+      );
+    } else if (this.state.loading === false && this.state.producten.length > 0) {
       return (
         <React.Fragment>
           <LayoutDefault className="SignUp" simple="true">
@@ -61,11 +116,36 @@ class WishList extends Component {
                 description="Een overzicht van de producten op uw verlanglijstje:"
               />           
             </div>
-            <WishlistItem titel="kanker geile plant" prijs={69} foto="https://www.cnnbs.nl/wp-content/uploads/2015/09/revegged.jpg" />
+            {this.state.producten.map((item) => { 
+              let jitem = JSON.parse(item)
+              return <WishlistItem 
+                titel = {jitem.naam}
+                foto = {jitem.foto}
+                prijs = {jitem.prijs}
+                id = {jitem.id}
+                remove = {this.removeFromWishlist}
+              />})}
+              <br /><br />
+              <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
           </LayoutDefault>
         </React.Fragment>
       );
-    } 
+    } else {
+      return (
+        <React.Fragment>
+          <LayoutDefault className="SignUp" simple="true">
+            <div className="wrapper">
+              <SimpleHeading
+                title="Verlanglijstje"
+                description="U heeft nog geen producten aan uw verlanglijstje toegevoegd."
+              />
+              <a href="/overzicht"><button>Klik hier om verder te winkelen</button></a>
+            </div>
+          </LayoutDefault>
+          
+        </React.Fragment>
+        );
+    }
   }
 }
 
