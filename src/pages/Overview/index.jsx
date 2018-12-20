@@ -24,10 +24,19 @@ class Overview extends Component {
 
   componentDidUpdate(prevProps) 
   {
-    if(this.props.match.params.cID !==
-      prevProps.match.params.cID)
+    if(this.props.match.params.cID !== prevProps.match.params.cID)
+      {
+        if (this.props.match.params.cID && this.state.cid != this.props.match.params.cID)
+        {
+            this.setState({
+              cid: this.props.match.params.cID
+            })
+            this.getProducts(this.props.match.params.page,this.props.match.params.cID)
+        }
+        
+      }
 
-    this.getProducts(1,this.props.match.params.cID)
+    
   } 
 
   componentWillReceiveProps(nextProps) {
@@ -44,7 +53,7 @@ class Overview extends Component {
 
   }
 
-  getProducts(page,cid) {
+  async getProducts(page,cid) {
     this.setState({
       response: null,
       loading: true
@@ -56,7 +65,8 @@ class Overview extends Component {
             // 5	Zaden
 
 
-    
+    // eslint-disable-next-line
+    const res = await
     request
       .get(`http://localhost:5000/api/product?pageSize=42&page=${page}&cid=${cid}`)
       .then(response => {
@@ -74,6 +84,7 @@ class Overview extends Component {
   }
 
   render() {
+    console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
     const { loading, response } = this.state;
     return (
       <React.Fragment>
