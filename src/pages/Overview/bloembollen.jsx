@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import ProductGrid from "../../components/ProductGrid";
 import Pagination from "../../components/Pagination";
 
-class Overview extends Component {
+class Bloembollen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,4 +102,4 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+export default Bloembollen;

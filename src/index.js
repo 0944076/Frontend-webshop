@@ -6,6 +6,11 @@ import 'normalize.css';
 // pages
 import Home from './pages/Home';
 import Overview from './pages/Overview';
+import Bloembollen from './pages/Overview';
+import Fruitbomen from './pages/Overview';
+import Zaden from './pages/Overview';
+import Kamerplanten from './pages/Overview';
+import Rozen from './pages/Overview';
 import ProductSingle from './pages/ProductSingle';
 import Login from './pages/Login';
 import SignUp from './pages/SignUp';
@@ -31,7 +36,11 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/overzicht" component={Overview} />
-      <Route exact path="/overzicht/:cID" component={Overview} />
+      <Route exact path="/overzicht/1" component={Bloembollen} />
+      <Route exact path="/overzicht/2" component={Fruitbomen} />
+      <Route exact path="/overzicht/3" component={Kamerplanten} />
+      <Route exact path="/overzicht/4" component={Rozen} />
+      <Route exact path="/overzicht/5" component={Zaden} />
       <Route exact path="/overzicht/pagina/:page" component={Overview} />
       <Route exact path="/product/:id" component={ProductSingle} />
       <Route exact path="/product/:categorieID" component={ProductSingle} />

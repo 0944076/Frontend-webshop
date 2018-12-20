@@ -10,7 +10,7 @@ import Loading from "../../components/Loading";
 import ProductGrid from "../../components/ProductGrid";
 import Pagination from "../../components/Pagination";
 
-class Overview extends Component {
+class Fruitbomen extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,7 +49,7 @@ class Overview extends Component {
 
     
     request
-      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}&cid=1`)
+      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}&cid=2`)
       .then(response => {
 
 
@@ -102,4 +102,4 @@ class Overview extends Component {
   }
 }
 
-export default Overview;
+export default Fruitbomen;
