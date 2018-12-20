@@ -77,8 +77,11 @@ class Header extends Component {
               Home
             </NavLink>
             <div className="dropdown">
-              <button className="dropbtn is-active ">Producten</button>
+              <button className="dropbtn is-active ">Producten </button>
               <div className="dropdown-content">
+              <NavLink activeClassName="is-active" to="/overzicht">
+                Alle Producten
+              </NavLink>
               <NavLink activeClassName="is-active" to="/overzicht">
                 Bloembollen
               </NavLink>
