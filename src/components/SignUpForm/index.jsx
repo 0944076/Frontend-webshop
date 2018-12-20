@@ -567,7 +567,7 @@ render() {
 
       </form> 
     <form className="Login" onSubmit={this.onSubmit1}>
-    <h1>inloggen</h1>
+    <h1>Inloggen</h1>
     <p>Vul hier u accountgegevens in om in te loggen</p>
     <fieldset>
       <div className="fieldsetDiv">
