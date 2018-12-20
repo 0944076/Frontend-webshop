@@ -6,6 +6,7 @@ import LayoutAccount from "../../layout/Account";
 // components
 import SimpleHeading from "../../components/SimpleHeading";
 import MijnAccount from "../../components/MijnAccount";
+import BestelGeschiedenis from "../../components/BestelGeschiedenis";
 
 class Account extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class Account extends Component {
               description="Hier vind uw gegevens en bestellingen"
             />
             <MijnAccount />
+            <BestelGeschiedenis />
           </div>
         </LayoutAccount>
       </React.Fragment>
