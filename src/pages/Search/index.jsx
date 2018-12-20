@@ -9,7 +9,7 @@ import LayoutDefault from "../../layout/Default";
 // components
 import Loading from "../../components/Loading";
 import ProductGrid from "../../components/ProductGrid";
-import Pagination from "../../components/Pagination";
+//import Pagination from "../../components/Pagination";
 
 
 class Search extends Component {
@@ -104,16 +104,16 @@ class Search extends Component {
               <Loading text="Producten ophalen..." />
             ) : response2 && response2 && response2.length > 0  ? (
               [
-                <Pagination
-                  perPage={response2.per_page}
-                  totalPages={response2.total_pages}
-                  currentPage={response2.page}
-                  key="pagination"
+                // <Pagination
+                //   perPage={response2.per_page}
+                //   totalPages={response2.total_pages}
+                //   currentPage={response2.page}
+                //   key="pagination"
              
-                  //  .__(.)< (MEOW)
-                  //   \___)   
+                //   //  .__(.)< (MEOW)
+                //   //   \___)   
 
-                />,
+                // />,
                 
                 <ProductGrid items={response2} key="grid" />  
               ]
