@@ -38,7 +38,11 @@ class Overview extends Component {
       response: null,
       loading: true
     });
-
+            // 1	Bloembollen
+            // 2	Fruitbomen
+            // 3	Kamerplanten
+            // 4	Rozen
+            // 5	Zaden
     
 
 
