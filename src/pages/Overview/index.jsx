@@ -15,25 +15,36 @@ class Overview extends Component {
     super(props);
     this.state = {
       loading: true,
-      response: null
+      response: null,
+      cid: this.props.match.params.cID
     };
   }
+
+
+
+  componentDidUpdate(prevProps) 
+  {
+    if(this.props.match.params.cID !==
+      prevProps.match.params.cID)
+
+    this.getProducts(1,this.props.match.params.cID)
+  } 
 
   componentWillReceiveProps(nextProps) {
     const currentParams = this.props.match.params;
     const nextParams = nextProps.match.params;
     if (currentParams.page !== nextParams.page) {
-      this.getProducts(nextParams.page);
+      this.getProducts(nextParams.page,this.state.cid);
     }
 
   }
 
   componentDidMount() {
-    this.getProducts(this.props.match.params.page);
+    this.getProducts(this.props.match.params.page,this.state.cid);
 
   }
 
-  getProducts(page) {
+  getProducts(page,cid) {
     this.setState({
       response: null,
       loading: true
@@ -43,14 +54,11 @@ class Overview extends Component {
             // 3	Kamerplanten
             // 4	Rozen
             // 5	Zaden
-    
-
 
 
     
     request
-      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}`)
-     // .get(`https://jsonplaceholder.typicode.com/users/`)
+      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}&cid=${cid}`)
       .then(response => {
 
 

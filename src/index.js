@@ -31,6 +31,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/overzicht" component={Overview} />
+      <Route exact path="/overzicht/:cID" component={Overview} />
       <Route exact path="/overzicht/pagina/:page" component={Overview} />
       <Route exact path="/product/:id" component={ProductSingle} />
       <Route exact path="/product/:categorieID" component={ProductSingle} />

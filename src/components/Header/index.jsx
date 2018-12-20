@@ -79,33 +79,33 @@ class Header extends Component {
             <div className="dropdown">
               <button className="dropbtn is-active ">Producten </button>
               <div className="dropdown-content">
-              <NavLink activeClassName="is-active" to="/overzicht">
+              <NavLink activeClassName="is-active" to="/overzicht/0">
                 Alle Producten
               </NavLink>
-              <NavLink activeClassName="is-active" to="/overzicht">
+              <NavLink activeClassName="is-active" to="/overzicht/1">
                 Bloembollen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/fruitbomen"
+                to="/overzicht/2"
               >
                 Fruitbomen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/kamerplanten"
+                to="/overzicht/3"
               >
                 Kamerplanten
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/rozen"
+                to="/overzicht/4"
               >
                 Rozen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/zaden"
+                to="/overzicht/5"
               >
                 Zaden
               </NavLink>
