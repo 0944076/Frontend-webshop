@@ -6,21 +6,28 @@ import request from 'superagent';
 class BestelGeschiedenis extends Component {
   constructor(props) {
     super(props);
+    this.retrieveClientOrders = this.retrieveClientOrders.bind(this);
     this.state = {
-        klantID: null
     };
+    this.retrieveClientOrders();
   }
 
-  retrieveOrderHistory(){
-      let klant = sessionStorage.getItem('klantID');
-      request.get('http://localhost:5000/api/bestelling/' + klant.id)
-      .then((res) => console.log(res));
-
-      this.setState({klantID: klant.id});
+  retrieveClientOrders(){
+      request.get('http://localhost:5000/api/bestelling/')
+      .then((res) => {
+        let klant = sessionStorage.getItem('klantID');
+          const alleBestellingen = res.text;
+          console.log('alle bestelingen: ' + alleBestellingen);
+          for(let i = 0; i < alleBestellingen.length; i++){
+            if(alleBestellingen[i].id === klant.id){
+                console.log("Klant " + klant.id + " heeft besteld: " + alleBestellingen);
+            }
+          }
+      });
   }
 
   render() {
-      this.retrieveOrderHistory();
+      
     return (
         <div className= "mandjeItem">
             {this.state.klantID}
