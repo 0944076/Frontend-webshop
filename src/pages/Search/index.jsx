@@ -20,6 +20,7 @@ class Search extends Component {
       loading: true,
       response: null,
       response2: null,
+      cat: null
       
       
     };
@@ -30,8 +31,11 @@ class Search extends Component {
     if(this.props.match.params.queryd !==
       prevProps.match.params.queryd)
     {
+      this.setState(
+        {
+        cat: null
+        })
       this.handleInputFilter();
-      //this.forceUpdate();
     }
   } 
   componentWillReceiveProps(nextProps) 
@@ -40,14 +44,14 @@ class Search extends Component {
     const nextParams = nextProps.match.params;
     if (currentParams.page !== nextParams.page) 
     {
-      this.getProducts(nextParams.page,this.state.query);
+      this.getProducts(nextParams.page);
     }
   }
 
   componentDidMount() 
   {
     console.log("this.props", this.props);
-    this.getProducts(this.props.match.params.page,this.state.query);
+    this.getProducts(this.props.match.params.page);
     this.handleInputFilter();
   }
 
@@ -57,23 +61,44 @@ class Search extends Component {
     this.handleInputFilter()
   }
 
+
+  handleInputChange = () => 
+  {
+    this.setState({
+      cat: parseInt(this.search.value)
+      
+    })
+  }
+
   handleInputFilter() 
   {
-    console.log("props", this.props.match.params.queryd);
     let querys = this.props.match.params.queryd
-
-    if (this.state.response)
+    let cats = this.state.cat
+    if (this.state.response && cats != null)
     {
-    this.setState(
-      {
-      response2: this.state.response.filter(function(product)
+      this.setState(
         {
-        return (product.naam && product.naam.toLowerCase().includes(querys));
+        response2: this.state.response.filter(function(product)
+          {
+          return (product.naam && product.categorieID && product.naam.toLowerCase().includes(querys) && (product.categorieID == (cats)));
+          }),
+          cat: null
         })
-      })
+        
     }
-
+    else if(this.state.response)
+    {
+      this.setState(
+        {
+        response2: this.state.response.filter(function(product)
+          {
+          return (product.naam && product.categorieID && product.naam.toLowerCase().includes(querys));
+          }),
+        })
+        
+    }
   }
+
 
   async getProducts(page,query) 
   {// eslint-disable-next-line
@@ -94,11 +119,24 @@ class Search extends Component {
 
   render() 
   {
+    // console.log("response2",this.state.response2)
     const { loading, response2 } = this.state;
     return (
       <React.Fragment> 
         <LayoutDefault simple="true" className="Search">
           <div className="wrapper">
+          <input
+          type='text'
+          id='text'
+          placeholder="Search for..."
+          ref={input => this.search = input}
+         //onKeyDown={this.handleInputChange}
+         onKeyUp={this.handleInputChange}
+        />
+
+        <input type = "button" id = "go" 
+        onClick={this.handleInputClick}
+        />
 
             {loading ? (
               <Loading text="Producten ophalen..." />
