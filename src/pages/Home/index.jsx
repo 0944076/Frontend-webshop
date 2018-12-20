@@ -46,19 +46,18 @@ class Home extends Component {
           <PageHero
             intro
             title="Welkom!"
-            description="Welkom bij kamerplant inc. De website voor al je exclusieve planten. Sterk door service zijn we gegroeid tot de webshop die we vandaag zijn"
+            description="Welkom bij kamerplant inc. De website voor al uw exclusieve planten."
             image="https://www.zoover.nl/blog/wp-content/uploads/2017/12/Kamperen-in-Kroati%C3%AB-Plitvicemeren.jpeg"
           />
           
-
           <div className="wrapper">
             {loading ? (
               <Loading text="Producten ophalen..." />
             ) : response && response && response.length > 0 ? (
               [
                 <SimpleHeading
-                  title="Actuele aanbiedingen"
-                  description="Hier kunt u al onze actuele aanbiedingen vinden"
+                  title="Trending"
+                  description="Bekijk hier onze meest verkochte artikelen"
                   key="heading"
                 />,
                 <ProductGrid items={response.splice(0,response.length-1)} key="grid" />

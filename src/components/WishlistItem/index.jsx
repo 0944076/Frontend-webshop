@@ -9,11 +9,18 @@ class WishlistItem extends Component
 
     render()
     {
+        console.log('Dit is een id: ' + JSON.stringify(this.props.id));
         return (
             <div className="wishlistItem">
                 <img src={this.props.foto} className= "productFoto"/>
                 <div>
                     <h2>{this.props.titel}</h2>
+                    
+                    <img src="https://img.icons8.com/metro/1600/trash.png"
+                        onClick={() => {return this.props.remove(this.props.id)}} 
+                        height = "40px"
+                        className = "itemButton"
+                        />
                     <p>€{this.props.prijs}</p>
                 </div>
             </div>

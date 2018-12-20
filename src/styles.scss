@@ -238,7 +238,7 @@ main {
 .page-hero__description {
   margin-top: 8px;
   margin-bottom: 0;
-  color: white;
+  color: rgb(255, 255, 255);
   font-size: 1.125em;
 }
 .page-hero--small {
@@ -671,7 +671,8 @@ form.SignUp{
   }
   div#succes {
     font-size: 30px;
-    color: #2efb83;
+    color: #30c26d;
+    text-align: center
   }
 
   .mandFrame{
