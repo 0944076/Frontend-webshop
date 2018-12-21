@@ -6,6 +6,7 @@ import Collapsible from 'react-collapsible';
 
 // components
 import Button from "../../components/Button";
+import BestelGeschiedenis from "../BestelGeschiedenis";
 
 class MijnAccount extends Component {
    constructor(props) {
@@ -113,11 +114,11 @@ render() {
   const {isLoading, gebruikers} = this.state;
   const { title, description } = this.props;
   console.log(this.state.gebruikers);
-  return (   
-  <div>
-       
-    </div>
-);
+  return ( <div>
+    <BestelGeschiedenis />
+  </div>
+    
+  );
 }
 }
 
