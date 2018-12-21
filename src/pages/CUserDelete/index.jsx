@@ -6,9 +6,9 @@ import LayoutAccount from "../../layout/Account";
 
 // components
 import SimpleHeading from "../../components/SimpleHeading";
-import MijnAccount from "../../components/MijnAccount";
+import CrudUserDelete from "../../components/CrudUserDelete";
 
-class Account extends Component {
+class CUserDelete extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,13 +19,13 @@ class Account extends Component {
   render() {
     return (
       <React.Fragment>
-        <LayoutAccount className="Account" simple>
+        <LayoutAccount className="CUserDelete" simple>
           <div className="wrapper">
             <SimpleHeading
-              title="Mijn account"
-              description="Hier vind uw gegevens en bestellingen"
+              title="User Delete"
+              description="Hier komt de delete van user"
             />
-            <MijnAccount />
+            <CrudUserDelete />
           </div>
         </LayoutAccount>
       </React.Fragment>
@@ -33,4 +33,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default CUserDelete;

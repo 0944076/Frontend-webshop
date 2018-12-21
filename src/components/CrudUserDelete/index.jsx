@@ -7,7 +7,7 @@ import Collapsible from 'react-collapsible';
 // components
 import Button from "../../components/Button";
 
-class MijnAccount extends Component {
+class CrudUserDelete extends Component {
    constructor(props) {
     super(props);
     this.state = {
@@ -67,7 +67,10 @@ fetchData(){
   //console.log("test " + this.state.session);
   const testT = sessionStorage.getItem('klantID');
   const testS = sessionStorage.getItem('SessieID');
-
+  const testT2 = localStorage.setItem('klantID2', testT);
+  const testT3 = localStorage.getItem('klantID2');
+  const testS2 = localStorage.setItem('sessieID2', testS);
+  const testS3 = localStorage.getItem('sessieID2');
   console.log("testKlant" + testT);
   console.log("testSessie" + testS);
   console.log("test2" + testT.naam);
@@ -115,10 +118,20 @@ render() {
   console.log(this.state.gebruikers);
   return (   
   <div>
-       
+    
+      {
+                
+            gebruikers.map(gebruiker =>{
+              const {id,naam,email} = gebruiker;
+              return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
+                    <p>{email}</p> <Button onClick={e => this.onChange({id})}>Update</Button> <Button onClick={e => this.onDelete({id})}>Delete</Button>
+              </Collapsible>
+            })
+          }
+   
     </div>
 );
 }
 }
 
-export default withRouter(MijnAccount);
+export default withRouter(CrudUserDelete);

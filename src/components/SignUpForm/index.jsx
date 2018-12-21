@@ -76,8 +76,9 @@ class SignUpForm extends Component {
       };
       //voornaam
       
-      if (this.state.voornaam.length === 0){
-        isError = true;
+      if (document.getElementById('voornaam').value == ""){
+       
+        isError = true;  
         errors.voornaamError = 'Vul hier uw voornaam in'
         document.getElementById('voornaam').style.borderColor = "red";
       }
@@ -95,7 +96,7 @@ class SignUpForm extends Component {
         document.getElementById('voornaam').style.borderColor = "green";
       }
       //achternaam
-      if (this.state.achternaam.length === 0){
+      if (document.getElementById('achternaam').value == ""){
         isError = true;
         errors.achternaamError = 'Vul hier uw achternaam in'
         document.getElementById('achternaam').style.borderColor = "red";
@@ -168,7 +169,7 @@ class SignUpForm extends Component {
       } */
 
       //email 
-      if (this.state.email.length === 0){
+      if (document.getElementById('email').value == ""){
         isError = true;
         errors.emailError = 'Vul hier uw email in'
         document.getElementById('email').style.borderColor = "red";
@@ -187,7 +188,7 @@ class SignUpForm extends Component {
         document.getElementById('email').style.borderColor = "green";
       }
       //wachtwoord
-      if (this.state.wachtwoord.length === 0){
+      if (document.getElementById('wachtwoord').value == ""){
         isError = true;
         errors.wachtwoordError = 'Vul hier uw wachtwoord in'
         document.getElementById('wachtwoord').style.borderColor = "red";
@@ -206,7 +207,7 @@ class SignUpForm extends Component {
         document.getElementById('wachtwoord').style.borderColor = "green";
       }
       //wachtwoord1
-      if (this.state.wachtwoord1.length === 0){
+      if (document.getElementById('wachtwoord1').value == ""){
         isError = true;
         errors.wachtwoord1Error = 'Vul hier nogmaals u wachtwoord in'
         document.getElementById('wachtwoord1').style.borderColor = "red";
@@ -232,7 +233,7 @@ class SignUpForm extends Component {
           wachtwoord2Error: ''
       };
       //email 
-      if (this.state.email1.length === 0){
+      if (document.getElementById('email1').value == ""){
         isError = true;
         errors.email1Error = 'Vul hier uw email in'
         document.getElementById('email1').style.borderColor = "red";
@@ -251,7 +252,7 @@ class SignUpForm extends Component {
         document.getElementById('email1').style.borderColor = "green";
       }
       //wachtwoord
-      if (this.state.wachtwoord2.length === 0){
+      if (document.getElementById('wachtwoord2').value == ""){
         isError = true;
         errors.wachtwoord2Error = 'Vul hier uw wachtwoord in'
         document.getElementById('wachtwoord2').style.borderColor = "red";
@@ -275,7 +276,10 @@ class SignUpForm extends Component {
     onSubmit = e => {
       e.preventDefault();
       const err = this.validate();
-      let vanaam = this.state.voornaam + " " + this.state.achternaam;
+      
+      
+      if (!err) {
+        let vanaam = this.state.voornaam + " " + this.state.achternaam;
       let password = this.state.wachtwoord;
       let hashedPassword = passwordHash.generate(password);
       const register = {
@@ -288,8 +292,6 @@ class SignUpForm extends Component {
       //let register = [naam,this.state.email,hashedPassword];
       console.log(jsonregi);
       console.log(this.state);
-      
-      if (!err) {
         request.post(`http://localhost:5000/api/geregistreerdeklant/`)
         //.send(new FormData(document.getElementById('SignUp')))
         //.set('Content-Type', 'application/json')
@@ -567,7 +569,7 @@ render() {
 
       </form> 
     <form className="Login" onSubmit={this.onSubmit1}>
-    <h1>Inloggen</h1>
+    <h1>inloggen</h1>
     <p>Vul hier u accountgegevens in om in te loggen</p>
     <fieldset>
       <div className="fieldsetDiv">

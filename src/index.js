@@ -16,6 +16,14 @@ import Search from './pages/Search';
 import WinkelMand from './pages/WinkelMand';
 import Account from './pages/Account';
 import Payment from './pages/Payment';
+import CUserView from './pages/CUserView';
+import CUserUpdate from './pages/CUserUpdate';
+import CUserDelete from './pages/CUserDelete';
+import CUserCreate from './pages/CUserCreate';
+import CProductView from './pages/CProductView';
+import CProductUpdate from './pages/CProductUpdate';
+import CProductDelete from './pages/CProductDelete';
+import CProductCreate from './pages/CProductCreate';
             // 1	Bloembollen
             // 2	Fruitbomen
             // 3	Kamerplanten
@@ -38,6 +46,15 @@ ReactDOM.render(
       <Route exact path="/inloggen" component={Login} />
       <Route exact path="/account" component={Account} />
       <Route exact path="/SignUp" component={SignUp} />
+      <Route exact path="/crud/user/view" component={CUserView} /> 
+      <Route exact path="/crud/user/update" component={CUserUpdate} /> 
+      <Route exact path="/crud/user/delete" component={CUserDelete} /> 
+      <Route exact path="/crud/user/create" component={CUserCreate} /> 
+
+      <Route exact path="/crud/product/view" component={CProductView} /> 
+      <Route exact path="/crud/product/update" component={CProductUpdate} /> 
+      <Route exact path="/crud/product/delete" component={CProductDelete} /> 
+      <Route exact path="/crud/product/create" component={CProductCreate} /> 
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />
       <Route exact path="/Search" component={Search} />
