@@ -12,7 +12,6 @@ class BestelGeschiedenisItem extends Component
         this.close = this.close.bind(this);
 
         this.state = {
-            klant: null,
             opened: false
         }
  
