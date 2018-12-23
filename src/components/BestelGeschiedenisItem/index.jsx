@@ -8,28 +8,64 @@ class BestelGeschiedenisItem extends Component
     {
         super(props);
 
+        this.open = this.open.bind(this);
+        this.close = this.close.bind(this);
+
         this.state = {
-            klant: null
+            klant: null,
+            opened: false
         }
  
+    }
+
+    open(){
+        this.setState({opened: true});
+    }
+
+    close(){
+        this.setState({opened: false});
     }
 
 
     render()
     {
-        return (
-            <div className= "mandjeItem">
-                <img src={this.props.foto} className= "productFoto" alt=""/>
-                <div>
-                    <h2>{(this.props.geregistreerd)?'Klant: ':'Gast: '}{this.props.klantID}</h2>
-                    <p>{this.props.adres}</p>
-                    <h4>€{this.props.prijs.toFixed(2)}</h4>
+        if(this.state.opened === false){
+            return (
+                <div className= "besteloverzichtItemCLOSED" onClick={() => {return this.open()}}>
+                    <img src={this.props.foto} className= "productFoto" alt=""/>
+                    <div>
+                        <h2>{(this.props.geregistreerd)?'Klant: ':'Gast: '}{this.props.klantID}</h2><h3>{this.props.producten.length} producten: (€{this.props.prijs.toFixed(2)})</h3>
+                        <p>{this.props.adres}</p>
+                    </div>
                 </div>
-                <div>
-                    <h1>{this.props.producten.length}</h1>
+            );
+        } else {
+            return (
+                <div className= "besteloverzichtItemOPEN" onClick={() => {return this.close()}}>
+                    <img src={this.props.foto} className= "productFoto" alt=""/>
+                    <div>
+                        <h2>{(this.props.geregistreerd)?'Klant: ':'Gast: '}{this.props.klantID}</h2><h3>{this.props.producten.length} producten: (€{this.props.prijs.toFixed(2)})</h3>
+                        <p>{this.props.adres}</p>
+                    </div>
+                    <div>
+                        <table>
+                            <tbody>
+                                {this.props.producten.map((product) => { 
+                                    return (
+                                    <tr>
+                                        <td>{this.props.producten.indexOf(product) + 1}.</td>
+                                        <td>{product.naam}</td>
+                                        <td>€{product.prijs}</td>
+                                    </tr>
+                                    );
+                                })}
+                            </tbody>
+                        </table>
+                        
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } 
     }
 }
 

@@ -115,7 +115,7 @@ render() {
   const { title, description } = this.props;
   console.log(this.state.gebruikers);
   return ( <div>
-    <BestelGeschiedenis />
+    <BestelGeschiedenis />  
   </div>
     
   );

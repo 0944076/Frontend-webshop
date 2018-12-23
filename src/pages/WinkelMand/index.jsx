@@ -262,7 +262,7 @@ class WinkelMand extends Component {
                     />
                   })}
                 </div>
-                <a href="/overzicht"><button class="button">Klik hier om verder te winkelen</button></a>
+                <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
               </div>
             </div>
           </LayoutDefault>
@@ -277,7 +277,7 @@ class WinkelMand extends Component {
               title="Winkelmand"
               description="U heeft nog geen producten aan uw winkelmand toegevoegd."
             />
-            <a href="/overzicht"><button class="button">Klik hier om verder te winkelen</button></a>
+            <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
           </div>
         </LayoutDefault>
         

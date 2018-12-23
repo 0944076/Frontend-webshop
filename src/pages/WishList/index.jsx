@@ -126,7 +126,7 @@ class WishList extends Component {
                 remove = {this.removeFromWishlist}
               />})}
               <br /><br />
-              <a href="/overzicht"><button class="button">Klik hier om verder te winkelen</button></a>
+              <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
           </LayoutDefault>
         </React.Fragment>
       );
@@ -139,7 +139,7 @@ class WishList extends Component {
                 title="Verlanglijstje"
                 description="U heeft nog geen producten aan uw verlanglijstje toegevoegd."
               />
-              <a href="/overzicht"><button class="button">Klik hier om verder te winkelen</button></a>
+              <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
             </div>
           </LayoutDefault>
           
