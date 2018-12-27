@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import request from 'superagent';
-import Loader from '../../components/Loading';
+
 
 class BestelGeschiedenisItem extends Component 
 {

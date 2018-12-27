@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
-import PageHero from "../../components/PageHero";
-import LayoutDefault from "../../layout/Default";
+//import PageHero from "../../components/PageHero";
+//import LayoutDefault from "../../layout/Default";
 import request from "superagent";
 import Collapsible from 'react-collapsible';
 

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
 import request from "superagent";
-import Collapsible from 'react-collapsible';
 
 
 // components

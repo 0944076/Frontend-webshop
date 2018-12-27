@@ -120,7 +120,7 @@ class Search extends Component {
         {
         response2: this.state.response.filter(function(product)
           {
-          return (product.naam && product.categorieID && product.naam.toLowerCase().includes(querys) && (product.categorieID == (cats)));
+          return (product.naam && product.categorieID && product.naam.toLowerCase().includes(querys) && (product.categorieID === (cats)));
           }),
           cat: null
         })
