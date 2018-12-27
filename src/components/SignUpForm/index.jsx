@@ -76,7 +76,7 @@ class SignUpForm extends Component {
       };
       //voornaam
       
-      if (document.getElementById('voornaam').value == ""){
+      if (document.getElementById('voornaam').value === ""){
        
         isError = true;  
         errors.voornaamError = 'Vul hier uw voornaam in'
@@ -87,7 +87,7 @@ class SignUpForm extends Component {
         errors.voornaamError = 'Vul een geldige voornaam in'
         document.getElementById('voornaam').style.borderColor = "red";
       }
-      else if (this.state.voornaam.match(/[!@#$%^&*()[]:;'",\.0-9]/i) || this.state.voornaam.match(/[-]/i )){
+      else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
         isError = true;
         errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('voornaam').style.borderColor = "red";
@@ -96,7 +96,7 @@ class SignUpForm extends Component {
         document.getElementById('voornaam').style.borderColor = "green";
       }
       //achternaam
-      if (document.getElementById('achternaam').value == ""){
+      if (document.getElementById('achternaam').value === ""){
         isError = true;
         errors.achternaamError = 'Vul hier uw achternaam in'
         document.getElementById('achternaam').style.borderColor = "red";
@@ -169,7 +169,7 @@ class SignUpForm extends Component {
       } */
 
       //email 
-      if (document.getElementById('email').value == ""){
+      if (document.getElementById('email').value === ""){
         isError = true;
         errors.emailError = 'Vul hier uw email in'
         document.getElementById('email').style.borderColor = "red";
@@ -188,7 +188,7 @@ class SignUpForm extends Component {
         document.getElementById('email').style.borderColor = "green";
       }
       //wachtwoord
-      if (document.getElementById('wachtwoord').value == ""){
+      if (document.getElementById('wachtwoord').value === ""){
         isError = true;
         errors.wachtwoordError = 'Vul hier uw wachtwoord in'
         document.getElementById('wachtwoord').style.borderColor = "red";
@@ -207,7 +207,7 @@ class SignUpForm extends Component {
         document.getElementById('wachtwoord').style.borderColor = "green";
       }
       //wachtwoord1
-      if (document.getElementById('wachtwoord1').value == ""){
+      if (document.getElementById('wachtwoord1').value === ""){
         isError = true;
         errors.wachtwoord1Error = 'Vul hier nogmaals u wachtwoord in'
         document.getElementById('wachtwoord1').style.borderColor = "red";
@@ -233,7 +233,7 @@ class SignUpForm extends Component {
           wachtwoord2Error: ''
       };
       //email 
-      if (document.getElementById('email1').value == ""){
+      if (document.getElementById('email1').value === ""){
         isError = true;
         errors.email1Error = 'Vul hier uw email in'
         document.getElementById('email1').style.borderColor = "red";
@@ -252,7 +252,7 @@ class SignUpForm extends Component {
         document.getElementById('email1').style.borderColor = "green";
       }
       //wachtwoord
-      if (document.getElementById('wachtwoord2').value == ""){
+      if (document.getElementById('wachtwoord2').value === ""){
         isError = true;
         errors.wachtwoord2Error = 'Vul hier uw wachtwoord in'
         document.getElementById('wachtwoord2').style.borderColor = "red";
@@ -322,10 +322,10 @@ class SignUpForm extends Component {
         email: this.state.email1,
         wachtwoord: this.state.wachtwoord2
       }
-      let json
+      
       let jsonlogi = JSON.parse(JSON.stringify(login));
       console.log(jsonlogi);
-const { isLoaded, items } = this.state;
+
 
 //console.log(passwordHash.verify(this.state.wachtwoord, hashedPassword)); // true
 //console.log(passwordHash.verify('test1234', hashedPassword2)); // true

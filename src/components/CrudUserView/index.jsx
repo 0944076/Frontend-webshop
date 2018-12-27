@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from 'react-router-dom';
+import PageHero from "../../components/PageHero";
+import LayoutDefault from "../../layout/Default";
 import request from "superagent";
 import Collapsible from 'react-collapsible';
 
@@ -13,9 +15,18 @@ class CrudUserView extends Component {
     this.state = {
       session: null,
       isloading: true,
+      name:'',
+      email:'',
+      id: 0,
       gebruikers: []
     }
+    this.onUpdate = this.onUpdate.bind(this);
   }
+  state = {
+  hiddenid: 0
+  
+  }
+  
   // componentDidMount(){
   //   //fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
   //   fetch('https://jsonplaceholder.typicode.com/users')
@@ -56,9 +67,61 @@ class CrudUserView extends Component {
   //});
   //console.log("test" + this.state.sesionid);
 //}
+
 componentDidMount(){
-  this.fetchData();
+  if(!this.isLoggedIn()){
+    console.log('not logged in')
+  }
+  else{
+    this.fetchData();
+  }
 }
+change = e => {
+  this.setState({
+    [e.target.name]: e.target.value
+  });
+};
+isLoggedIn(){
+  let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+  if(sessieObject !== null && sessieObject.id > 0){
+    return true;
+  } else {
+    return false;
+  }
+}
+onUpdate(gebruiker){
+  this.setState({
+    
+    name: gebruiker.naam,
+    email: gebruiker.email,
+    id: gebruiker.id
+});
+var testI = this.state.id;
+var testE = this.state.email;
+const update = {
+  id: testI,
+  email: testE
+}
+
+  var test = this.state.id;
+  console.log(this.state)
+  console.log("test id: " );
+  if(test === 0){
+    console.log('werkt nog nie');
+  }
+  else{
+    let jsonlogi = JSON.parse(JSON.stringify(update));
+    let test = JSON.parse(JSON.stringify(update));
+    console.log(test);
+    console.log('test ID ' + testI);
+    console.log('test Email ' + testE);
+    console.log('test samen' + jsonlogi);
+    sessionStorage.setItem('editID',testE);
+    this.props.history.push('/crud/user/update');
+    
+  }
+}
+
 fetchData(){
   //sessionStorage.getItem('sessionid') && this.setState({
     //session: JSON.stringify(sessionStorage.getItem('sessionid')),
@@ -67,10 +130,6 @@ fetchData(){
   //console.log("test " + this.state.session);
   const testT = sessionStorage.getItem('klantID');
   const testS = sessionStorage.getItem('SessieID');
-  const testT2 = localStorage.setItem('klantID2', testT);
-  const testT3 = localStorage.getItem('klantID2');
-  const testS2 = localStorage.setItem('sessieID2', testS);
-  const testS3 = localStorage.getItem('sessieID2');
   console.log("testKlant" + testT);
   console.log("testSessie" + testS);
   console.log("test2" + testT.naam);
@@ -112,9 +171,25 @@ fetchData(){
 
 
 render() {
+  if(!this.isLoggedIn()){
+    return (
+      <React.Fragment>
+       
 
-  const {isLoading, gebruikers} = this.state;
-  const { title, description } = this.props;
+          <div className="wrapper">
+            <div className="not-found">
+              <h1 className="not-found__title">U bent niet ingelogd</h1>
+              <p className="not-found__description">
+                <Link to="/signup">Login met u account om u account om crud weer te geven.<br/></Link>
+              </p>
+            </div>
+          </div>
+      </React.Fragment>
+    );
+  }
+  else{
+  const {gebruikers} = this.state;
+
   console.log(this.state.gebruikers);
   return (   
   <div>
@@ -122,16 +197,19 @@ render() {
     <button class="button" >Gebruiker aanmaken</button></a>
       {
                 
-            gebruikers.map(gebruiker =>{
+            this.state.gebruikers.map(gebruiker =>{
               const {id,naam,email} = gebruiker;
               return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
-                    <p>{email}</p> <Button onClick={e => this.onChange({id})}>Update</Button> <Button onClick={e => this.onDelete({id})}>Delete</Button>
+                    <p>{email}</p>
+                    <a onClick={() => this.onUpdate(gebruiker)}><Button>Update</Button></a>
+                <Button onClick={e => this.onDelete({id})}>Delete</Button>
               </Collapsible>
             })
           }
    
     </div>
 );
+}
 }
 }
 

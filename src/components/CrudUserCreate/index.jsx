@@ -67,7 +67,7 @@ validate = () => {
       adminerror: '' 
   };
   //voornaam
-  if (document.getElementById('voornaam').value == ""){
+  if (document.getElementById('voornaam').value === ""){
     isError = true;
     errors.voornaamError = 'Vul hier uw voornaam in'
     document.getElementById('voornaam').style.borderColor = "red";
@@ -77,7 +77,7 @@ validate = () => {
     errors.voornaamError = 'Vul een geldige voornaam in'
     document.getElementById('voornaam').style.borderColor = "red";
   }
-  else if (this.state.voornaam.match(/[!@#$%^&*()[]:;'",\.0-9]/i) || this.state.voornaam.match(/[-]/i )){
+  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
     isError = true;
     errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
     document.getElementById('voornaam').style.borderColor = "red";
@@ -86,7 +86,7 @@ validate = () => {
     document.getElementById('voornaam').style.borderColor = "green";
   }
   //achternaam
-  if (document.getElementById('achternaam').value == ""){
+  if (document.getElementById('achternaam').value === ""){
     isError = true;
     errors.achternaamError = 'Vul hier uw achternaam in'
     document.getElementById('achternaam').style.borderColor = "red";
@@ -105,7 +105,7 @@ validate = () => {
     document.getElementById('achternaam').style.borderColor = "green";
   }
   //email 
-  if (document.getElementById('email').value == ""){
+  if (document.getElementById('email').value === ""){
     isError = true;
     errors.emailError = 'Vul hier uw email in'
     document.getElementById('email').style.borderColor = "red";
@@ -115,7 +115,7 @@ validate = () => {
     errors.emailError = 'Vul een geldig emailadress in'
     document.getElementById('email').style.borderColor = "red";
   }
-  else if (this.state.email.match(/[!#$%^&*()[]:;'",\ ]/i)){
+  else if (this.state.email.match(/[!#$%^&*()[]:;'",]/i)){
     isError = true;
     errors.emailError = 'alleen leestekens mogen gebruikt worden'
     document.getElementById('email').style.borderColor = "red";
@@ -124,7 +124,7 @@ validate = () => {
     document.getElementById('email').style.borderColor = "green";
   }
   //wachtwoord
-  if (document.getElementById('wachtwoord').value == ""){
+  if (document.getElementById('wachtwoord').value === ""){
     isError = true;
     errors.wachtwoordError = 'Vul hier uw wachtwoord in'
     document.getElementById('wachtwoord').style.borderColor = "red";
@@ -134,7 +134,7 @@ validate = () => {
     errors.wachtwoordError = 'Vul een geldig wachtwoord in'
     document.getElementById('wachtwoord').style.borderColor = "red";
   }
-  else if (this.state.wachtwoord.match(/[!#$%^&*()[]:;'",\ ]/i)){
+  else if (this.state.wachtwoord.match(/[!#$%^&*():;'",]/i)){
     isError = true;
     errors.wachtwoordError = 'alleen leestekens en cijfers mogen gebruikt worden'
     document.getElementById('wachtwoord').style.borderColor = "red";
@@ -143,7 +143,7 @@ validate = () => {
     document.getElementById('wachtwoord').style.borderColor = "green";
   }
   //wachtwoord1
-  if (document.getElementById('wachtwoord1').value == ""){
+  if (document.getElementById('wachtwoord1').value === ""){
     isError = true;
     errors.wachtwoord1Error = 'Vul hier nogmaals u wachtwoord in'
     document.getElementById('wachtwoord1').style.borderColor = "red";
@@ -183,7 +183,7 @@ onSubmit = e => {
   
   if (!err) {
     let adminc = false
-    if(this.state.selectedOption == 'option2'){
+    if(this.state.selectedOption === 'option2'){
       console.log("ik kom in de admin true statement")
       adminc = true
      
@@ -239,8 +239,7 @@ render() {
       
 
     }
-  const {isLoading, gebruikers} = this.state;
-  const { title, description } = this.props;
+
   
   return (   
   <div>

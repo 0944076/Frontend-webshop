@@ -6,132 +6,355 @@ import Collapsible from 'react-collapsible';
 
 // components
 import Button from "../../components/Button";
-
+let passwordHash = require('password-hash');
 class CrudUserUpdate extends Component {
-   constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
       session: null,
       isloading: true,
-      gebruikers: []
+      response: null,
     }
   }
-  // componentDidMount(){
-  //   //fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //   .then(res => res.json())
-  //     .then(json => {
-  //       this.setState({
-  //         isLoaded: true,
-  //         items: json,
-  //       })
-      
-  //     });
-      
-  // } 
-  
-
-////if (!err) {
-  ////request.post(`http://localhost:5000/api/sessie/`)
-        //.send(new FormData(document.getElementById('SignUp')))
-        //.set('Content-Type', 'application/json')
-        //.type('form') 
-        //.send(jsonlogi)
-        ////.then(res => {
-          //alert('Account succesvol' + res.body)
-          ////this.setState({
-            ////email1: '',
-            ////email1Error: '',
-            ////wachtwoord: '',
-            ////wachtwoordError: ''
-          ////});
-        ////});
-  //console.log(JSON.stringify(register));
-  //this.addRegister(register);
-//}
-//componentDidMount(){
-  //sessionStorage.getItem('sessionid') && this.setState({
-    //sessionid: JSON.parse(sessionStorage.getItem('sessionid')),
-    //isLoading: false
-  //});
-  //console.log("test" + this.state.sesionid);
-//}
 componentDidMount(){
   this.fetchData();
 }
 fetchData(){
-  //sessionStorage.getItem('sessionid') && this.setState({
-    //session: JSON.stringify(sessionStorage.getItem('sessionid')),
-    //isLoading: false
-  //});
-  //console.log("test " + this.state.session);
-  const testT = sessionStorage.getItem('klantID');
-  const testS = sessionStorage.getItem('SessieID');
-  const testT2 = localStorage.setItem('klantID2', testT);
-  const testT3 = localStorage.getItem('klantID2');
-  const testS2 = localStorage.setItem('sessieID2', testS);
-  const testS3 = localStorage.getItem('sessieID2');
-  console.log("testKlant" + testT);
-  console.log("testSessie" + testS);
-  console.log("test2" + testT.naam);
+  const gebruiker = sessionStorage.getItem('editID');
+  console.log('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)
+  request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
+  .then(res => {
+   
+   var results = JSON.parse(JSON.stringify(res.body));
+   this.setState({
+    response: results,
+  });
+  console.log(this.state.response);
+});
+  console.log(this.state.response);    
 
 
-  //fetch('http://localhost:5000/api/geregistreerdeklant/')
-  //.then(res => res.json())
-  //.then(parsedJSON => console.log(JSON.stringify(parsedJSON.results)))
-  //.catch(error => console.log('parsing failed', error));
-  request.get('http://localhost:5000/api/geregistreerdeklant/')
-        
-        .then(res => {
-         
-          var results = JSON.stringify(res.body.map(user =>
-             ({
-              id: `${user.id}` ,
-              email: `${user.email}`,
-              naam: `${user.naam}`,
-              //wachtwoord: `${user.wachtwoord}`
-             }
-             
-             )));
-             var user1 = JSON.parse(results);
-             this.setState({
-              isLoaded: false,
-              gebruikers: user1
-            })
-            
-          console.log(this.state.gebruikers);
-          //var localnaam = JSON.stringify(res.body.naam);
-          //var localemail = JSON.stringify(this.state.email1);
-          //var localpass = JSON.stringify(res.body.wachtwoord)
-          
-        //}).catch((err) => console.log('kon niet session ophalen'));
-}).catch((err) => console.log('parsing failed',err));
 }
+state = {
+  hashpass: null,
+  loading: true,
+  response: null,
+  voornaam: '',
+  voornaamError: '',
+  achternaam: '',
+  achternaamError: '',
+  email: '',
+  emailError: '',
+  wachtwoord: '',
+  wachtwoordError: '',
+  wachtwoord1: '',
+  wachtwoord1Error: '',
+  adminerror:'',
+  admin: null,
+  toHome: false,
+  accsucc: false,
+};
+change = e => {
+  this.setState({
+    [e.target.name]: e.target.value
+    
+  });
+};
+
+handleOptionChange = changeEvent => {
+  this.setState({
+    selectedOption: changeEvent.target.value
+  });
+};
+validate = () => {
+  let isError = false;
+  const errors = {
+      voornaamError: '',
+      achternaamError: '',
+      emailError: '',
+      wachtwoordError: '',
+      wachtwoord1Error: '',
+      adminerror: '' 
+  };
+  //voornaam
+  if (document.getElementById('voornaam').value === ""){
+    isError = true;
+    errors.voornaamError = 'Vul hier uw voornaam in'
+    document.getElementById('voornaam').style.borderColor = "red";
+  }
+  else if (this.state.voornaam.length < 3 || this.state.voornaam.length > 50){
+    isError = true;
+    errors.voornaamError = 'Vul een geldige voornaam in'
+    document.getElementById('voornaam').style.borderColor = "red";
+  }
+  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
+    isError = true;
+    errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
+    document.getElementById('voornaam').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('voornaam').style.borderColor = "green";
+  }
+  //achternaam
+  if (document.getElementById('achternaam').value === ""){
+    isError = true;
+    errors.achternaamError = 'Vul hier uw achternaam in'
+    document.getElementById('achternaam').style.borderColor = "red";
+  }
+  else if (this.state.achternaam.length < 3 || this.state.achternaam.length > 50){
+    isError = true;
+    errors.achternaamError = 'Vul een geldige achternaam in'
+    document.getElementById('achternaam').style.borderColor = "red";
+  }
+  else if (this.state.achternaam.match(/[!@#$%^&*()[]:;'",.0-9]/i) || this.state.achternaam.match(/[-]/i )){
+    isError = true;
+    errors.achternaamError = 'alleen leestekens mogen gebruikt worden'
+    document.getElementById('achternaam').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('achternaam').style.borderColor = "green";
+  }
+  //email 
+  if (document.getElementById('email').value === ""){
+    isError = true;
+    errors.emailError = 'Vul hier uw email in'
+    document.getElementById('email').style.borderColor = "red";
+  }
+  else if (this.state.email.length < 7 || this.state.email.length > 50 || this.state.email.indexOf("@") === -1){
+    isError = true;
+    errors.emailError = 'Vul een geldig emailadress in'
+    document.getElementById('email').style.borderColor = "red";
+  }
+  else if (this.state.email.match(/[!#$%^&*()[]:;'",]/i)){
+    isError = true;
+    errors.emailError = 'alleen leestekens mogen gebruikt worden'
+    document.getElementById('email').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('email').style.borderColor = "green";
+  }
+  //wachtwoord
+  if (document.getElementById('wachtwoord').value === ""){
+    isError = true;
+    errors.wachtwoordError = 'Vul hier uw wachtwoord in'
+    document.getElementById('wachtwoord').style.borderColor = "red";
+  }
+  else if (this.state.wachtwoord.length < 7 || this.state.wachtwoord.length > 20){
+    isError = true;
+    errors.wachtwoordError = 'Vul een geldig wachtwoord in'
+    document.getElementById('wachtwoord').style.borderColor = "red";
+  }
+  else if (this.state.wachtwoord.match(/[!#$%^&*():;'",]/i)){
+    isError = true;
+    errors.wachtwoordError = 'alleen leestekens en cijfers mogen gebruikt worden'
+    document.getElementById('wachtwoord').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('wachtwoord').style.borderColor = "green";
+  }
+  //wachtwoord1
+  if (document.getElementById('wachtwoord1').value === ""){
+    isError = true;
+    errors.wachtwoord1Error = 'Vul hier nogmaals u wachtwoord in'
+    document.getElementById('wachtwoord1').style.borderColor = "red";
+  }
+  else if (this.state.wachtwoord !== this.state.wachtwoord1){
+    isError = true;
+    errors.wachtwoord1Error = 'wachtwoorden komen niet overheen'
+    document.getElementById('wachtwoord1').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('wachtwoord1').style.borderColor= "green";
+  }
+  //admin
+  if (this.state.selectedOption == null){
+    isError = true;
+    errors.adminerror = 'kies een van de velden.'
+    document.getElementById('admin1').style.borderColor = "red";
+    document.getElementById('admin2').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('admin1').style.borderColor= "green";
+    document.getElementById('admin2').style.borderColor= "green";
+  }
+
+    this.setState({
+      ...this.setState,
+      ...errors
+    });
+  return isError;
+}
+onSubmit = e => {
+
+  e.preventDefault();
+  console.log('You have selected:', this.state.selectedOption);
+  const err = this.validate();
+  
+  
+  if (!err) {
+    let adminc = false
+    if(this.state.selectedOption === 'option2'){
+      console.log("ik kom in de admin true statement")
+      adminc = true
+     
+      //console.log("wat is de adminstate: "+ this.state.admin);
+  }
+    
+    console.log("wat is admin: "+adminc);
+    let vanaam = this.state.voornaam + " " + this.state.achternaam;
+    let password = this.state.wachtwoord;
+    let hashedPassword = passwordHash.generate(password);
+    const register = {
+      naam: vanaam,
+      email: this.state.email,
+      wachtwoord: hashedPassword,
+      admin: adminc
+    }
+  let jsonregi = JSON.parse(JSON.stringify(register));
+  console.log(jsonregi);
+  
+    request.put(`http://localhost:5000/api/geregistreerdeklant/`)
+    .send(jsonregi)
+    .then(res => {
+      this.setState({
+        voornaam: '',
+        voornaamError: '',
+        achternaam: '',
+        achternaamError: '',
+        email: '',
+        emailError: '',
+        wachtwoord: '',
+        wachtwoordError: '',
+        admin: false,
+        accsucc: true
+      });
+    });
+  }
+
+};
 
 
 
 
 render() {
+  const { accsucc, response } = this.state;
+    if(this.state.accsucc === true){
+      setTimeout(() => {
+        this.setState({
+        accsucc: false
+      })
+    }, 3000);
+      return <div id="succes">Account aanmaken is succesvol</div>;
+      
+      
 
-  const {isLoading, gebruikers} = this.state;
-  const { title, description } = this.props;
-  console.log(this.state.gebruikers);
+    }
+
+  
   return (   
   <div>
     
-      {
-                
-            gebruikers.map(gebruiker =>{
-              const {id,naam,email} = gebruiker;
-              return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
-                    <p>{email}</p> <Button onClick={e => this.onChange({id})}>Update</Button> <Button onClick={e => this.onDelete({id})}>Delete</Button>
-              </Collapsible>
-            })
-          }
+    <form className="SignUp1" onSubmit={this.onSubmit}>
+      <fieldset>
+      <div className="fieldsetDiv">
+      <input
+          type="string"
+          name="voornaam"
+          id="voornaam"
+          //value={response.naam}
+          placeholder="voornaam"
+          value={this.state.voornaam}
+          onChange={e => this.change(e)}
+          errorText={this.state.voornaamError}
+          aria-label="voornaam"
+        /><br/>
+        <span> {this.state.voornaamError}</span>
+        <br />
+        <input
+          type="string"
+          name="achternaam"
+          id="achternaam"
+          placeholder="achternaam"
+          value={this.state.achternaam}
+          onChange={e => this.change(e)}
+          errorText={this.state.achternaamError}
+          aria-label="achternaam"
+        /><br/>
+        <span> {this.state.achternaamError}</span>
+        <br />
+    
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="E-mailaddress"
+          onChange={e => this.change(e)}
+          errorText={this.state.emailError}
+          aria-label="emailaddress"
+        /><br />
+        <span> {this.state.emailError}</span>
+        <br/>
+        <input
+          type="password"
+          name="wachtwoord"
+          id="wachtwoord"
+          placeholder="Wachtwoord"
+          onChange={e => this.change(e)}
+          errorText={this.state.wachtwoordError}
+          aria-label="wachtwoord"
+        />
+        <br />
+        <span> {this.state.wachtwoordError}</span>
+        <br />
+        <input
+          type="password"
+          name="wachtwoord1"
+          id="wachtwoord1"
+          placeholder="herhaling Wachtwoord"
+          onChange={e => this.change(e)}
+          errorText={this.state.wachtwoord1Error}
+          aria-label="wachtwoord1"
+        />
+        <br />
+        <span> {this.state.wachtwoord1Error}</span>
+        <br/>
+        <p>Admin?</p>
+        <div className="radio">
+          <label>
+            <input type="radio"
+             value="option1"
+             id="admin1"
+             errorText={this.state.adminerror}
+             checked={this.state.selectedOption === 'option1'}
+             onChange={this.handleOptionChange}
+            />
+            False
+          </label>
+        </div>
+        <div className="radio">
+          <label>
+            <input
+             type="radio"
+             id="admin2"
+             value="option2"
+             errorText={this.state.adminerror}
+             checked={this.state.selectedOption === 'option2'}
+             onChange={this.handleOptionChange}
+            />
+            True
+          </label><br/>
+          <span>{this.state.adminerror}</span>
+          <br />
+        </div>
+        
+        </div>
+      </fieldset>
+      <Button onClick={e => this.onSubmit(e)}>Signup</Button>
+
+      </form> 
    
     </div>
 );
 }
 }
-
 export default withRouter(CrudUserUpdate);
