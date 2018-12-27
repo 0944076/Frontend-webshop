@@ -58,7 +58,7 @@ class FooterNavigation extends Component {
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
+                to="/overzicht/0"
               >
                 Producten
               </NavLink>
