@@ -2,7 +2,9 @@ import React, { Component } from "react";
 
 
 // layout
-import LayoutAccount from "../../layout/Account";
+//import LayoutAccount from "../../layout/Account";
+import LayoutDefault from '../../layout/Default';
+
 
 // components
 import LoginForm from "../../components/SignUpForm";
@@ -22,7 +24,7 @@ class SignUp extends Component {
     return (
       <React.Fragment>
         
-        <LayoutAccount className="SignUp" simple>
+        <LayoutDefault className="SignUp" simple>
           <div className="wrapper">
             
             <LoginForm />
@@ -30,7 +32,7 @@ class SignUp extends Component {
 
 
           </div>
-        </LayoutAccount>
+        </LayoutDefault>
       </React.Fragment>
     );
   }
