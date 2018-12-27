@@ -32,8 +32,10 @@ class WinkelMand extends Component {
       aantallen: []
     };
 
-    this.productToState();
+  }
 
+  componentDidMount(){
+    this.productToState();
   }
 
 
@@ -45,25 +47,24 @@ class WinkelMand extends Component {
       if(items !== null){
         for(let i = 0; i < items.length; i++){
           //product ophalen
-          // eslint-disable-next-line
           const product = this.retrieveProduct(items[i].id)
           .then((res) => {
-            if(this.isPresent(aantal, res.id)){
-              //Producten toevoegen die al in het mandje zitten:
-              for(let a = 0; a < aantal.length; a++){ //Vindt het juiste aantal object en update het aantal
-                if(aantal[a].id === res.id){
-                  const oudAantal = parseInt(aantal[a].aantal);
-                  const nieuwAantal = oudAantal + parseInt(items[i].qty);
-                  aantal[a].aantal = nieuwAantal.toString();
+              if(this.isPresent(aantal, res.id)){
+                //Producten toevoegen die al in het mandje zitten:
+                for(let a = 0; a < aantal.length; a++){ //Vindt het juiste aantal object en update het aantal
+                  if(aantal[a].id === res.id){
+                    const oudAantal = parseInt(aantal[a].aantal);
+                    const nieuwAantal = oudAantal + parseInt(items[i].qty);
+                    aantal[a].aantal = nieuwAantal.toString();
+                  }
                 }
+              } else {
+                //Producten toevoegen die NOG NIET in het mandje zitten:
+                result.push({res});
+                aantal.push({id: res.id, aantal: items[i].qty});
               }
-            } else {
-              //Producten toevoegen die NOG NIET in het mandje zitten:
-              result.push({res});
-              aantal.push({id: res.id, aantal: items[i].qty});
-            }
-            
-            //State setten
+
+              //State setten
               if(i === items.length - 1){  
                 //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
                 this.setState({producten: result});
@@ -77,14 +78,13 @@ class WinkelMand extends Component {
     }
 
     isPresent(QArray, id){
-      let outcome = false;
       for(let i = 0; i < QArray.length; i++){
         //console.log('Vergelijk: ' + QArray[i].id + 'met: ' + id)
         if(QArray[i].id === id){
-          outcome = true;
+          return true;
         }
       }
-      return outcome;
+      return false;
     }
 
     getTotal(){
