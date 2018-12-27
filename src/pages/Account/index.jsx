@@ -23,7 +23,7 @@ class Account extends Component {
           <div className="wrapper">
             <SimpleHeading
               title="Mijn account"
-              description="Hier vind uw gegevens en bestellingen"
+              description="Hier vind u uw gegevens en bestellingen"
             />
             <MijnAccount />
           </div>
