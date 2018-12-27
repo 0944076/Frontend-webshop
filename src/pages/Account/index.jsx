@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
 
 // layout
 import LayoutAccount from "../../layout/Account";
@@ -23,7 +22,7 @@ class Account extends Component {
           <div className="wrapper">
             <SimpleHeading
               title="Mijn account"
-              description="Hier vind uw gegevens en bestellingen"
+              description="Hier vind u uw gegevens en bestellingen"
             />
             <MijnAccount />
           </div>

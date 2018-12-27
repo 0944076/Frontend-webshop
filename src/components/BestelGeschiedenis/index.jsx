@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import LayoutAccount from "../../layout/Account";
-import SimpleHeading from "../../components/SimpleHeading";
 import request from 'superagent';
 import Loader from '../../components/Loading';
 import BestelGeschiedenisItem from '../../components/BestelGeschiedenisItem';

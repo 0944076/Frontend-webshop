@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import FooterNavigation from "../../components/FooterNavigation";
 
 class LayoutAccount extends Component {
   render() {
@@ -9,6 +10,7 @@ class LayoutAccount extends Component {
       <div {...this.props} className={className}>
         <Header simple />
         <main className={`${simple ? "main--simple" : ""}`}>{children}</main>
+        <FooterNavigation />
         <Footer />
       </div>
     );

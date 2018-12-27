@@ -26,7 +26,7 @@ class Overview extends Component {
   {
     if(this.props.match.params.cID !== prevProps.match.params.cID)
       {
-        if (this.props.match.params.cID && this.state.cid != this.props.match.params.cID)
+        if (this.props.match.params.cID && this.state.cid !== this.props.match.params.cID)
         {
             this.setState({
               cid: this.props.match.params.cID

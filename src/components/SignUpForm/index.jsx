@@ -179,7 +179,7 @@ class SignUpForm extends Component {
         errors.emailError = 'Vul een geldig emailadress in'
         document.getElementById('email').style.borderColor = "red";
       }
-      else if (this.state.email.match(/[!#$%^&*()[]:;'",\ ]/i)){
+      else if (this.state.email.match(/[!#$%^&*()[]:;'", ]/i)){
         isError = true;
         errors.emailError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('email').style.borderColor = "red";
@@ -198,7 +198,7 @@ class SignUpForm extends Component {
         errors.wachtwoordError = 'Vul een geldig wachtwoord in'
         document.getElementById('wachtwoord').style.borderColor = "red";
       }
-      else if (this.state.wachtwoord.match(/[!#$%^&*()[]:;'",\ ]/i)){
+      else if (this.state.wachtwoord.match(/[!#$%^&*()[]:;'", ]/i)){
         isError = true;
         errors.wachtwoordError = 'alleen leestekens en cijfers mogen gebruikt worden'
         document.getElementById('wachtwoord').style.borderColor = "red";
