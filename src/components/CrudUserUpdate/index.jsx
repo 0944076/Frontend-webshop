@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import request from "superagent";
+import { Link } from "react-router-dom";
 
 // components
 import Button from "../../components/Button";
