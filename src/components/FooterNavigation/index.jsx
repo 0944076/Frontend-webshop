@@ -21,30 +21,30 @@ class FooterNavigation extends Component {
           <div className="footer-navigation__columns">
             <div className="footer-navigation__list">
               <h4 className="footer-navigation__title">Categorieën</h4>
-              <NavLink activeClassName="is-active" to="/bloembollen">
+              <NavLink activeClassName="is-active" to="/overzicht/1">
                 Bloembollen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/fruitbomen"
+                to="/overzicht/2"
               >
                 Fruitbomen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/kamerplanten"
+                to="/overzicht/3"
               >
                 kamerplanten
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/rozen"
+                to="/overzicht/4"
               >
                 rozen
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht/categorie-1/subcategorie-3"
+                to="/overzicht/5"
               >
                 zaden
               </NavLink>
@@ -58,7 +58,7 @@ class FooterNavigation extends Component {
               </NavLink>
               <NavLink
                 activeClassName="is-active"
-                to="/overzicht"
+                to="/overzicht/0"
               >
                 Producten
               </NavLink>
