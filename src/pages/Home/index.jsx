@@ -70,7 +70,7 @@ class Home extends Component {
           <div className="wrapper_h">
             <div className="not-found">
               <p className="not-found__description">
-                <Link to="/overzicht">klik hier om verder te winkelen.<br/></Link>
+                <Link to="/overzicht/0">klik hier om verder te winkelen.<br/></Link>
               </p>
             </div>
           </div>
