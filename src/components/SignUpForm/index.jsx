@@ -344,6 +344,7 @@ if (!err1) {
           var localnaam = JSON.stringify(res.body.naam);
           var localemail = JSON.stringify(this.state.email1);
           var localpass = JSON.stringify(res.body.wachtwoord);
+          var localadmin = JSON.stringify(res.body.admin);
           
           this.setState({
             loginid: localid,
@@ -353,7 +354,8 @@ if (!err1) {
             id: this.state.loginid,
             naam: localnaam,
             email: localemail,
-            wachtwoord: this.state.hashpass
+            wachtwoord: this.state.hashpass,
+            admin: localadmin
           };
           
 

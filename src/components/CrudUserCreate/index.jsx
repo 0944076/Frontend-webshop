@@ -25,6 +25,15 @@ fetchData(){
 
 
 }
+isLoggedIn(){
+  let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+  let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+  if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "true"){
+    return true;
+  } else {
+    return false;
+  }
+}
 state = {
   hashpass: null,
   loading: true,
@@ -227,6 +236,23 @@ onSubmit = e => {
 
 
 render() {
+  if(!this.isLoggedIn()){
+    return (
+      <React.Fragment>
+       
+
+          <div className="wrapper">
+            <div className="not-found">
+              <h1 className="not-found__title">U bent niet ingelogd</h1>
+              <p className="not-found__description">
+                <Link to="/signup">Login met een admin account om bij het adminpaneel te komen<br/></Link>
+              </p>
+            </div>
+          </div>
+      </React.Fragment>
+    );
+  }
+  else{
   var { accsucc } = this.state;
     if(this.state.accsucc === true){
       setTimeout(() => {
@@ -344,6 +370,7 @@ render() {
    
     </div>
 );
+}
 }
 }
 

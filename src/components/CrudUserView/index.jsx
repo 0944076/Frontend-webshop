@@ -83,7 +83,8 @@ change = e => {
 };
 isLoggedIn(){
   let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
-  if(sessieObject !== null && sessieObject.id > 0){
+  let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+  if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "true"){
     return true;
   } else {
     return false;
@@ -180,7 +181,24 @@ render() {
             <div className="not-found">
               <h1 className="not-found__title">U bent niet ingelogd</h1>
               <p className="not-found__description">
-                <Link to="/signup">Login met u account om u account om crud weer te geven.<br/></Link>
+                <Link to="/signup">Login met een admin account om bij het adminpaneel te komen<br/></Link>
+              </p>
+            </div>
+          </div>
+      </React.Fragment>
+    );
+  }
+  else{
+  if(!this.isLoggedIn()){
+    return (
+      <React.Fragment>
+       
+
+          <div className="wrapper">
+            <div className="not-found">
+              <h1 className="not-found__title">U bent niet ingelogd</h1>
+              <p className="not-found__description">
+                <Link to="/signup">Login met een  account om bij uw Account te komen<br/></Link>
               </p>
             </div>
           </div>
@@ -209,6 +227,7 @@ render() {
    
     </div>
 );
+}
 }
 }
 }

@@ -17,6 +17,15 @@ class MijnAccount extends Component {
       gebruikers: []
     }
   }
+  isLoggedIn(){
+    let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+    let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+    if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "false"){
+      return true;
+    } else {
+      return false;
+    }
+  }
   // componentDidMount(){
   //   //fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
   //   fetch('https://jsonplaceholder.typicode.com/users')
@@ -58,7 +67,14 @@ class MijnAccount extends Component {
   //console.log("test" + this.state.sesionid);
 //}
 componentDidMount(){
-  this.fetchData();
+  if(!this.isLoggedIn()){
+    console.log('not logged in')
+    this.props.history.push('/SignUp');
+    
+  }
+  else{
+    this.fetchData();
+  }
 }
 fetchData(){
   //sessionStorage.getItem('sessionid') && this.setState({

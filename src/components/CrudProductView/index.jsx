@@ -52,12 +52,36 @@ fetchData(){
         //}).catch((err) => console.log('kon niet session ophalen'));
 }).catch((err) => console.log('parsing failed',err));
 }
-
+isLoggedIn(){
+  let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+  let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+  if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "true"){
+    return true;
+  } else {
+    return false;
+  }
+}
 
 
 
 render() {
+  if(!this.isLoggedIn()){
+    return (
+      <React.Fragment>
+       
 
+          <div className="wrapper">
+            <div className="not-found">
+              <h1 className="not-found__title">U bent niet ingelogd</h1>
+              <p className="not-found__description">
+                <Link to="/signup">Login met een admin account om bij het adminpaneel te komen<br/></Link>
+              </p>
+            </div>
+          </div>
+      </React.Fragment>
+    );
+  }
+  else{
   const {isLoading, products} = this.state;
   const { title, description } = this.props;
   console.log(this.state.products);
@@ -83,6 +107,7 @@ render() {
    
     </div>
 );
+}
 }
 }
 
