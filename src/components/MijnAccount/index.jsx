@@ -69,7 +69,7 @@ class MijnAccount extends Component {
 componentDidMount(){
   if(!this.isLoggedIn()){
     console.log('not logged in')
-    this.props.history.push('/SignUp');
+    this.props.history.push('/');
     
   }
   else{
