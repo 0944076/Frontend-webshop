@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import 'normalize.css';
 
 // pages
+import Charts from './pages/Charts';
 import Home from './pages/Home';
 import Overview from './pages/Overview';
 import ProductSingle from './pages/ProductSingle';
@@ -61,6 +62,8 @@ ReactDOM.render(
       <Route exact path="/Search/:queryd" component={Search} />
       <Route exact path="/winkelmand" component={WinkelMand} />
       <Route exact path="/Payment" component={Payment} />
+      <Route exact path="/Charts" component={Charts} />
+
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>,
