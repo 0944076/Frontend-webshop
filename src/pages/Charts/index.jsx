@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import request from 'superagent';
-import { Link } from "react-router-dom";
 import Plot from 'react-plotly.js';
 
 
@@ -11,8 +10,7 @@ import LayoutDefault from '../../layout/Default';
 // components
 import PageHero from '../../components/PageHero';
 import Loading from '../../components/Loading';
-import ProductGrid from '../../components/ProductGrid';
-import SimpleHeading from '../../components/SimpleHeading';
+
 
 class Charts extends Component {
   constructor(props) {
@@ -23,55 +21,70 @@ class Charts extends Component {
       x: [],
       y: [],
       data: [],
-      average: null
+      average: null,
+      klantcount: null,
+      geregistreerdeklantpercentage: null
     };
   }
 
   
   componentDidMount() {
-    this.getProducts();
-
+    this.getProducts("api/bestelling");
+    this.getProducts("api/geregistreerdeklant");
+    this.setState(
+      {
+      loading: false
+      })
    
   }
 
 
-  async getProducts(page) 
+  async getProducts(link) 
   {// eslint-disable-next-line
     const res = await
-    request.get(`http://localhost:5000/api/bestelling`)
+    request.get(`http://localhost:5000/${link}`)
     .then(response => {
       this.setState({
         response: response.body
       });
       console.log("response13", response.body);
+      if (link === "api/bestelling")
+      {
       let bestellingcount = [];
       let bestellingprijs = [];
       let avg = 0;
       let avgscrewthisshit = [];
-      for (let i = 0; i < response.body.length; i++) {
+      for (let i = 0; i < response.body.length; i++) 
+      {
         bestellingcount.push(response.body[i].id);
         bestellingprijs.push(response.body[i].prijs);
         avg = avg + response.body[i].prijs;
       }
       avgscrewthisshit.push(avg/response.body.length);
-
       this.setState({
         x: bestellingcount,
         y: bestellingprijs,
-        loading: false,
         average: avgscrewthisshit
       });
-  
       console.log("bestellingcount", bestellingcount);
       console.log("bestellingprijs", bestellingprijs);
+    }
+    if (link === "api/geregistreerdeklant")
+    {
+      let klantcountarray = [];
+      klantcountarray.push(response.body.length);
+      this.setState({
+        klantcount: klantcountarray
+      });
+    }
     });
   };
 
   
 
   render() {
-    const { loading, response, x, y, average} = this.state;
-    if (x.length === 0 || average === null) {
+    const { loading, response, x, y, average, klantcount} = this.state;
+    if (x.length === 0 || average === null || klantcount === null) {
       return null
     }
     console.log("x,y", x,y,average);
@@ -114,6 +127,17 @@ class Charts extends Component {
                 }
               ]}
               layout={ {width: 320, height: 640, title: 'gemiddelde prijs'} }
+            />
+                          <Plot
+              data={[
+                {
+                  x: [1],
+                  y: klantcount,
+                  type: 'bar',
+                  marker: {color: 'yellow'},
+                }
+              ]}
+              layout={ {width: 320, height: 640, title: 'Aantal geregistreerde klanten'} }
             />
                  </div>
               ]
