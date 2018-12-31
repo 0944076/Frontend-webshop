@@ -22,7 +22,8 @@ class Charts extends Component {
       response: null,
       x: [],
       y: [],
-      data: []
+      data: [],
+      average: null
     };
   }
 
@@ -45,16 +46,20 @@ class Charts extends Component {
       console.log("response13", response.body);
       let bestellingcount = [];
       let bestellingprijs = [];
+      let avg = 0;
+      let avgscrewthisshit = [];
       for (let i = 0; i < response.body.length; i++) {
         bestellingcount.push(response.body[i].id);
-      }
-      for (let i = 0; i < response.body.length; i++) {
         bestellingprijs.push(response.body[i].prijs);
+        avg = avg + response.body[i].prijs;
       }
+      avgscrewthisshit.push(avg/response.body.length);
+
       this.setState({
         x: bestellingcount,
         y: bestellingprijs,
-        loading: false
+        loading: false,
+        average: avgscrewthisshit
       });
   
       console.log("bestellingcount", bestellingcount);
@@ -65,11 +70,11 @@ class Charts extends Component {
   
 
   render() {
-    const { loading, response, x, y} = this.state;
-    if (x.length === 0) {
+    const { loading, response, x, y, average} = this.state;
+    if (x.length === 0 || average === null) {
       return null
     }
-    console.log("x,y", x,y);
+    console.log("x,y", x,y,average);
     return (
       <React.Fragment>
         <LayoutDefault className="charts">
@@ -87,7 +92,7 @@ class Charts extends Component {
              
                 //   //  .__(.)< (MEOW)
                 //   //   \___)   
-
+                <div>
                 <Plot
                 data={[
                   {
@@ -99,7 +104,18 @@ class Charts extends Component {
                 ]}
                 layout={ {width: 820, height: 640, title: 'Bestellingen en prijs'} }
               />
-                 
+              <Plot
+              data={[
+                {
+                  x: [1],
+                  y: average,
+                  type: 'bar',
+                  marker: {color: 'orange'},
+                }
+              ]}
+              layout={ {width: 320, height: 640, title: 'gemiddelde prijs'} }
+            />
+                 </div>
               ]
             ) : (
               <p>loading</p>
