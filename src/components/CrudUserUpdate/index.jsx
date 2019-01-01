@@ -9,6 +9,7 @@ let passwordHash = require('password-hash');
 class CrudUserUpdate extends Component {
   constructor(props) {
     super(props);
+    this.fetchData = this.fetchData.bind(this);
     this.state = {
       session: null,
       isloading: true,
@@ -24,13 +25,13 @@ fetchData(){
   request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
   .then(res => {
    
-   var results = JSON.parse(JSON.stringify(res.body));
+   //var results = JSON.parse(JSON.stringify(res.body));
    this.setState({
-    response: results,
+    response: res.body,
   });
-  console.log(this.state.response);
+  
 });
-  console.log(this.state.response);    
+     
 
 
 }
@@ -46,7 +47,6 @@ isLoggedIn(){
 state = {
   hashpass: null,
   loading: true,
-  response: null,
   voornaam: '',
   voornaamError: '',
   achternaam: '',
@@ -263,6 +263,8 @@ render() {
   }
   else{
   const { accsucc, response } = this.state;
+  console.log(response);
+  console.log(JSON.stringify(response.naam));
     if(this.state.accsucc === true){
       setTimeout(() => {
         this.setState({

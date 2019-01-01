@@ -24,6 +24,7 @@ import CProductView from './pages/CProductView';
 import CProductUpdate from './pages/CProductUpdate';
 import CProductDelete from './pages/CProductDelete';
 import CProductCreate from './pages/CProductCreate';
+import Loguit from './pages/LogUit';
             // 1	Bloembollen
             // 2	Fruitbomen
             // 3	Kamerplanten
@@ -33,6 +34,8 @@ import CProductCreate from './pages/CProductCreate';
 // styles
 import './styles.scss';// eslint-disable-next-line
 import MijnAccount from './components/MijnAccount';
+import Loguitcomp from './components/Loguitcomp';
+
 
 ReactDOM.render(
   <BrowserRouter>
@@ -46,6 +49,7 @@ ReactDOM.render(
       <Route exact path="/inloggen" component={Login} />
       <Route exact path="/account" component={Account} />
       <Route exact path="/SignUp" component={SignUp} />
+      <Route exact path="/Loguit" component={Loguit} />
       <Route exact path="/crud/user/view" component={CUserView} /> 
       <Route exact path="/crud/user/update" component={CUserUpdate} /> 
       <Route exact path="/crud/user/delete" component={CUserDelete} /> 

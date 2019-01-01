@@ -17,15 +17,13 @@ class CrudUserView extends Component {
       isloading: true,
       name:'',
       email:'',
+      delesucc: false,
       id: 0,
       gebruikers: []
     }
     this.onUpdate = this.onUpdate.bind(this);
   }
-  state = {
-  hiddenid: 0
-  
-  }
+
   
   // componentDidMount(){
   //   //fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
@@ -91,6 +89,7 @@ isLoggedIn(){
   }
 }
 onUpdate(gebruiker){
+  
   this.setState({
     
     name: gebruiker.naam,
@@ -121,6 +120,36 @@ const update = {
     this.props.history.push('/crud/user/update');
     
   }
+}
+onDelete(gebruiker){
+  if (this.state.id === 0){
+    console.log('standaard id');
+    this.setState({
+    
+      name: gebruiker.naam,
+      email: gebruiker.email,
+      id: gebruiker.id
+  });
+  }
+  else{
+    if(window.confirm("wil je zeker "+ gebruiker.naam + " " + "verwijderen?")){
+      
+    var testI = this.state.id;
+    console.log(testI);
+    request.delete('http://localhost:5000/api/geregistreerdeklant/'+testI)
+      .then(res => {
+        this.setState({
+          delesucc: true
+      });
+      });
+    }
+    else{
+      console.log('verwijderen gestopt');
+    }
+  
+  
+
+}
 }
 
 fetchData(){
@@ -172,6 +201,18 @@ fetchData(){
 
 
 render() {
+  if(this.state.delesucc === true){
+    setTimeout(() => {
+      this.setState({
+      delesucc: false
+    })
+    window.location.reload();
+  }, 3000);
+    return <div id="succes">Delete is succesvol</div>;
+    
+    
+
+  }
   if(!this.isLoggedIn()){
     return (
       <React.Fragment>
@@ -208,7 +249,7 @@ render() {
   else{
   const {gebruikers} = this.state;
 
-  console.log(this.state.gebruikers);
+  console.log(this.state.gebruikers.email);
   return (   
   <div>
     <a href="http://localhost:3000/crud/user/create">
@@ -220,7 +261,7 @@ render() {
               return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
                     <p>{email}</p>
                     <a onClick={() => this.onUpdate(gebruiker)}><Button>Update</Button></a>
-                <Button onClick={e => this.onDelete({id})}>Delete</Button>
+                    <a onClick={() => this.onDelete(gebruiker)}><Button>Delete</Button></a>
               </Collapsible>
             })
           }

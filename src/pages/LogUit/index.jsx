@@ -6,7 +6,7 @@ import LayoutAccount from "../../layout/Account";
 
 // components
 import SimpleHeading from "../../components/SimpleHeading";
-import LogUitComp from "../../components/Loguitcomp";
+import Loguitcomp from "../../components/Loguitcomp";
 
 class LogUit extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class LogUit extends Component {
               title="Uitgeloged"
               description="U bent uitgelogd"
             />
-            <LogUitComp />
+            <Loguitcomp />
           </div>
         </LayoutAccount>
       </React.Fragment>
