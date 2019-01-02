@@ -25,11 +25,30 @@ fetchData(){
   request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
   .then(res => {
    
-   //var results = JSON.parse(JSON.stringify(res.body));
+   var results = JSON.parse(JSON.stringify(res.body.naam));
+   var test111 = res.body.naam;
    this.setState({
     response: res.body,
+    voornaam: res.body.naam,
+    achternaam: res.body.naam,
+    email: res.body.email,
+    admin: res.body.admin,
+
+
   });
-  
+  if(this.state.admin === true){
+    this.setState({
+      selectedOption: 'option2',
+    });
+    
+  }
+  else{
+    this.setState({
+      selectedOption: 'option1',
+    });
+  }
+  console.log(results);
+  console.log(test111);
 });
      
 
@@ -47,7 +66,6 @@ isLoggedIn(){
 state = {
   hashpass: null,
   loading: true,
-  voornaam: '',
   voornaamError: '',
   achternaam: '',
   achternaamError: '',
@@ -264,14 +282,14 @@ render() {
   else{
   const { accsucc, response } = this.state;
   console.log(response);
-  console.log(JSON.stringify(response.naam));
+  //console.log(JSON.stringify(response.naam));
     if(this.state.accsucc === true){
       setTimeout(() => {
         this.setState({
         accsucc: false
       })
     }, 3000);
-      return <div id="succes">Account aanmaken is succesvol</div>;
+      return <div id="succes">Account updaten is succesvol</div>;
       
       
 
@@ -288,7 +306,6 @@ render() {
           type="string"
           name="voornaam"
           id="voornaam"
-          //value={response.naam}
           placeholder="voornaam"
           value={this.state.voornaam}
           onChange={e => this.change(e)}
@@ -314,6 +331,7 @@ render() {
           type="email"
           name="email"
           id="email"
+          value={this.state.email}
           placeholder="E-mailaddress"
           onChange={e => this.change(e)}
           errorText={this.state.emailError}
@@ -345,7 +363,9 @@ render() {
         <br />
         <span> {this.state.wachtwoord1Error}</span>
         <br/>
+
         <p>Admin?</p>
+        {}
         <div className="radio">
           <label>
             <input type="radio"
@@ -376,7 +396,7 @@ render() {
         
         </div>
       </fieldset>
-      <Button onClick={e => this.onSubmit(e)}>Signup</Button>
+      <Button onClick={e => this.onSubmit(e)}>Account updaten</Button>
 
       </form> 
    

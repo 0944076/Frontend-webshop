@@ -13,12 +13,92 @@ class CrudProductView extends Component {
     this.state = {
       session: null,
       isloading: true,
+      delesucc: false,
+      id: 0,
       products: []
     }
   }
   
 componentDidMount(){
-  this.fetchData();
+  if(!this.isLoggedIn()){
+    console.log('not logged in')
+  }
+  else{
+    this.fetchData();
+  }
+}
+change = e => {
+  this.setState({
+    [e.target.name]: e.target.value
+  });
+};
+
+onUpdate(product){
+  
+   this.setState({
+    
+    naam: product.naam,
+       prijs: product.prijs,
+       id: product.id,
+       beschrijving: product.beschrijving,
+       voorraad: product.voorraad,
+       categorieID: product.categorieID
+ });
+  var testI = this.state.id;
+ 
+  const update = {
+   id: testI,
+  }  
+
+   var test = this.state.id;
+   console.log(this.state)
+   
+   if(test === 0){
+     console.log('werkt nog nie');
+   }
+   else{
+     let jsonlogi = JSON.parse(JSON.stringify(update));
+     let test = JSON.parse(JSON.stringify(update));
+     //console.log(test);
+   //console.log('test ID ' + testI);
+//     console.log('test Email ' + testE);
+//     console.log('test samen' + jsonlogi);
+     sessionStorage.setItem('editpID',testI);
+    this.props.history.push('/crud/product/update');
+    
+  }
+}
+onDelete(product){
+  if (this.state.id === 0){
+    console.log('standaard id');
+     this.setState({
+       naam: product.naam,
+       prijs: product.prijs,
+       id: product.id,
+       beschrijving: product.beschrijving,
+       voorraad: product.voorraad,
+       categorieID: product.categorieID
+   });
+  }
+  else{
+     if(window.confirm("wil je zeker "+ product.naam + " " + "verwijderen?")){
+      
+    var testI = this.state.id;
+    console.log(testI);
+      //request.delete('http://localhost:5000/api/product/'+testI)
+    //   .then(res => {
+    //     this.setState({
+    //       delesucc: true
+    //   });
+    //   });
+     }
+      else{
+       console.log('verwijderen gestopt');
+     }
+  
+  
+
+}
 }
 fetchData(){
 
@@ -100,7 +180,8 @@ render() {
                     <p>beschrijving: {beschrijving}</p>
                     <p>Voorraad: {voorraad}</p>
                     <p>Categorie: {categorieID}</p>
-                     <Button onClick={e => this.onChange({id})}>Update</Button> <Button onClick={e => this.onDelete({id})}>Delete</Button>
+                    <a onClick={() => this.onUpdate(product)}><Button>Update</Button></a>
+                    <a onClick={() => this.onDelete(product)}><Button>Delete</Button></a>
               </Collapsible>
             })
           }

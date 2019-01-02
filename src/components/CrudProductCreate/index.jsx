@@ -108,7 +108,7 @@ validate = () => {
     errors.beschrijvingError = 'Vul hier de product beschrijving in'
     document.getElementById('beschrijving').style.borderColor = "red";
   }
-  else if (this.state.beschrijving.length < 3 || this.state.beschrijving.length > 200 ){
+  else if (this.state.beschrijving.length < 3 ){
     isError = true;
     errors.beschrijvingError = 'Vul een geldig product beschrijving in'
     document.getElementById('beschrijving').style.borderColor = "red";
@@ -116,10 +116,19 @@ validate = () => {
   else{
     document.getElementById('beschrijving').style.borderColor = "green";
   }
+  //foto
+  if (document.getElementById('foto').value === ""){
+    isError = true;
+    errors.fotoError = 'Vul hier een link voor uw foto in'
+    document.getElementById('foto').style.borderColor = "red";
+  }
+  else{
+    document.getElementById('foto').style.borderColor = "green";
+  }
   //voorraad
   if (document.getElementById('voorraad').value === ""){
     isError = true;
-    errors.voorraadError = 'Vul hier uw voorraad aantal in'
+    errors.voorraadError = 'Vul hier een nummer in voor het aantal voor de voorraad'
     document.getElementById('voorraad').style.borderColor = "red";
   }
   else{
@@ -155,6 +164,7 @@ onSubmit = e => {
     let anaam = this.state.naam;
     let aprijs = JSON.parse(this.state.prijs);
     let abeschrijving = this.state.beschrijving;
+    let afoto = this.state.foto;
     let avoorraad = JSON.parse(this.state.voorraad)
     let acategorieID = JSON.parse(this.state.categorie)
   
@@ -164,7 +174,7 @@ onSubmit = e => {
       naam: anaam,
       prijs: aprijs,
       beschrijving: abeschrijving,
-      foto: "https://www.tuinflora.com/media/catalog/product/cache/5/image/500x/9df78eab33525d08d6e5fb8d27136e95/F/D/FD14861WH_23.jpg",
+      foto: afoto,
       voorraad: avoorraad,
       categorieID: acategorieID,
       bestellingen: null,
@@ -174,25 +184,28 @@ onSubmit = e => {
   //let jsonprod = JSON.parse(JSON.stringify(product));
   console.log("Naam: "+anaam1);
   console.log("prijs: "+aprijs);
+  console.log("foto: "+ afoto);
   console.log("beschrijving: "+abeschrijving1);
   console.log("voorraad: "+avoorraad);
   console.log("categorieID: "+acategorieID);
   console.log(product)
-    request.post(`http://localhost:5000/api/product/`)
-    .send(product)
-    .then(res => {
-      this.setState({
-        naam: '',
-        naamError: '',
-        prijs: '',
-        prijsError: '',
-        beschrijving: '',
-        beschrijvingError: '',
-        voorraad: '',
-        voorraadError: '',
-        prosucc: true
-      });
-    });
+    // request.post(`http://localhost:5000/api/product/`)
+    // .send(product)
+    // .then(res => {
+    //   this.setState({
+    //     naam: '',
+    //     naamError: '',
+    //     prijs: '',
+    //     prijsError: '',
+    //     foto:'',
+    //     fotoError:'',
+    //     beschrijving: '',
+    //     beschrijvingError: '',
+    //     voorraad: '',
+    //     voorraadError: '',
+    //     prosucc: true
+    //   });
+    // });
   }
 
 };
@@ -225,7 +238,7 @@ render() {
         prosucc: false
       })
     }, 3000);
-      return <div id="succes">Account aanmaken is succesvol</div>;
+      return <div id="succes">Product is succesvol aangemaakt</div>;
       
       
 
@@ -278,6 +291,18 @@ render() {
         <span> {this.state.beschrijvingError}</span>
         <br/>
         <input
+          type="string"
+          name="foto"
+          id="foto"
+          placeholder="foto link"
+          value={this.state.foto}
+          onChange={e => this.change(e)}
+          errorText={this.state.fotoError}
+          aria-label="foto"
+        /><br/>
+        <span> {this.state.fotoError}</span>
+        <br />
+        <input
           type="number"
           min="1"
           max="999"
@@ -291,6 +316,13 @@ render() {
         <br />
         <span> {this.state.voorraadError}</span>
         <br />
+        <p>Categorie:
+          1:	Bloembollen
+          2:	Fruitbomen
+          3:	Kamerplanten
+          4:	Rozen
+          5:	Zaden
+        </p>
         <input
           type="number"
           min="1"
@@ -305,38 +337,10 @@ render() {
         <br />
         <span> {this.state.categorieError}</span>
         <br/>
-        <p>Admin?</p>
-        <div className="radio">
-          <label>
-            <input type="radio"
-             value="option1"
-             id="admin1"
-             errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option1'}
-             onChange={this.handleOptionChange}
-            />
-            False
-          </label>
-        </div>
-        <div className="radio">
-          <label>
-            <input
-             type="radio"
-             id="admin2"
-             value="option2"
-             errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option2'}
-             onChange={this.handleOptionChange}
-            />
-            True
-          </label><br/>
-          <span>{this.state.adminerror}</span>
-          <br />
-        </div>
         
         </div>
       </fieldset>
-      <Button onClick={e => this.onSubmit(e)}>Signup</Button>
+      <Button onClick={e => this.onSubmit(e)}>Product aanmaken</Button>
 
       </form> 
    

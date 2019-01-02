@@ -258,8 +258,9 @@ render() {
         this.setState({
         accsucc: false
       })
+      this.props.history.push('/crud/user/view')
     }, 3000);
-      return <div id="succes">Account aanmaken is succesvol</div>;
+      return <div id="succes">Account is succesvol aangemaakt</div>;
       
       
 
@@ -363,7 +364,7 @@ render() {
         
         </div>
       </fieldset>
-      <Button onClick={e => this.onSubmit(e)}>Signup</Button>
+      <Button onClick={e => this.onSubmit(e)}>Account aanmaken</Button>
 
       </form> 
    

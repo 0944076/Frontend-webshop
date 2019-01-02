@@ -105,7 +105,6 @@ const update = {
 
   var test = this.state.id;
   console.log(this.state)
-  console.log("test id: " );
   if(test === 0){
     console.log('werkt nog nie');
   }
