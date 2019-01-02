@@ -87,7 +87,7 @@ class SignUpForm extends Component {
         errors.voornaamError = 'Vul een geldige voornaam in'
         document.getElementById('voornaam').style.borderColor = "red";
       }
-      else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
+      else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[- ""]/i )){
         isError = true;
         errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
         document.getElementById('voornaam').style.borderColor = "red";
@@ -602,9 +602,6 @@ render() {
       
       </div>
     </fieldset>
-    <div className="form__links">
-              <Link to="/wachtwoord-vergeten">Wachtwoord vergeten?</Link>
-    </div>
       <Button class="Login" onClick={e => this.onSubmit1(e)}>Login</Button>
       
     

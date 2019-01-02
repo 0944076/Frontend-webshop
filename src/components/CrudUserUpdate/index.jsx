@@ -26,13 +26,27 @@ fetchData(){
   .then(res => {
    
    var results = JSON.parse(JSON.stringify(res.body.naam));
-   var test111 = res.body.naam;
+   var test111 = res.body.naam.split(" ");
+   var voor = test111[0];
+   if(test111.length > 2){
+     var achter = "";
+    for (var i=1; i < test111.length; i++) {
+      achter += test111[i] + " ";  
+    } 
+   }
+   else{
+    var achter = test111[1];
+   }
+   console.log(test111);
    this.setState({
     response: res.body,
-    voornaam: res.body.naam,
-    achternaam: res.body.naam,
+    //voornaam: res.body.naam,
+    //achternaam: res.body.naam,
+    voornaam: voor,
+    achternaam: achter,
     email: res.body.email,
     admin: res.body.admin,
+    id: res.body.id
 
 
   });
@@ -113,7 +127,7 @@ validate = () => {
     errors.voornaamError = 'Vul een geldige voornaam in'
     document.getElementById('voornaam').style.borderColor = "red";
   }
-  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
+  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[- ""]/i )){
     isError = true;
     errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
     document.getElementById('voornaam').style.borderColor = "red";
@@ -226,11 +240,12 @@ onSubmit = e => {
       //console.log("wat is de adminstate: "+ this.state.admin);
   }
     
-    console.log("wat is admin: "+adminc);
+    console.log("wat is id: "+ this.state.id);
     let vanaam = this.state.voornaam + " " + this.state.achternaam;
     let password = this.state.wachtwoord;
     let hashedPassword = passwordHash.generate(password);
     const register = {
+      id: this.state.id,
       naam: vanaam,
       email: this.state.email,
       wachtwoord: hashedPassword,
@@ -243,6 +258,7 @@ onSubmit = e => {
     .send(jsonregi)
     .then(res => {
       this.setState({
+        id: '',
         voornaam: '',
         voornaamError: '',
         achternaam: '',
@@ -288,8 +304,9 @@ render() {
         this.setState({
         accsucc: false
       })
+
     }, 3000);
-      return <div id="succes">Account updaten is succesvol</div>;
+      return <div id="succes">Account is succesvol geupdate</div>;
       
       
 
@@ -299,7 +316,7 @@ render() {
   return (   
   <div>
     
-    <form className="SignUp1" onSubmit={this.onSubmit}>
+    <form className="SignUp crud" onSubmit={this.onSubmit}>
       <fieldset>
       <div className="fieldsetDiv">
       <input
@@ -369,13 +386,13 @@ render() {
         <div className="radio">
           <label>
             <input type="radio"
-             value="option1"
+             value="option2"
              id="admin1"
              errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option1'}
+             checked={this.state.selectedOption === 'option2'}
              onChange={this.handleOptionChange}
             />
-            False
+            True
           </label>
         </div>
         <div className="radio">
@@ -383,12 +400,12 @@ render() {
             <input
              type="radio"
              id="admin2"
-             value="option2"
+             value="option1"
              errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option2'}
+             checked={this.state.selectedOption === 'option1'}
              onChange={this.handleOptionChange}
             />
-            True
+            False
           </label><br/>
           <span>{this.state.adminerror}</span>
           <br />
