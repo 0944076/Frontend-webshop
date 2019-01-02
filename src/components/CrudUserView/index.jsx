@@ -136,7 +136,7 @@ onDelete(gebruiker){
   else{
     if(window.confirm("wil je zeker "+ gebruiker.naam + " " + "verwijderen?")){
       
-    var testI = this.state.id;
+    var testI = gebruiker.id;
     console.log(testI);
     request.delete('http://localhost:5000/api/geregistreerdeklant/'+testI)
       .then(res => {
