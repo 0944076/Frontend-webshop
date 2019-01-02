@@ -72,6 +72,7 @@ componentDidMount(){
   }
   else{
     this.fetchData();
+    
   }
 }
 change = e => {
@@ -89,7 +90,6 @@ isLoggedIn(){
   }
 }
 onUpdate(gebruiker){
-  
   this.setState({
     
     name: gebruiker.naam,
@@ -97,16 +97,19 @@ onUpdate(gebruiker){
     id: gebruiker.id
 });
 var testI = this.state.id;
-var testE = this.state.email;
+var testE = gebruiker.email;
+console.log(testE);
 const update = {
   id: testI,
   email: testE
 }
 
-  var test = this.state.id;
-  console.log(this.state)
+  var test = gebruiker.id;
+  console.log(test)
+  
   if(test === 0){
     console.log('werkt nog nie');
+    
   }
   else{
     let jsonlogi = JSON.parse(JSON.stringify(update));
@@ -121,7 +124,7 @@ const update = {
   }
 }
 onDelete(gebruiker){
-  if (this.state.id === 0){
+  if (gebruiker.id === 0){
     console.log('standaard id');
     this.setState({
     

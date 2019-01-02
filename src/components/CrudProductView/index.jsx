@@ -50,10 +50,10 @@ onUpdate(product){
    id: testI,
   }  
 
-   var test = this.state.id;
+   var test2 = product.id;
    console.log(this.state)
    
-   if(test === 0){
+   if(test2 === 0){
      console.log('werkt nog nie');
    }
    else{
@@ -63,13 +63,13 @@ onUpdate(product){
    //console.log('test ID ' + testI);
 //     console.log('test Email ' + testE);
 //     console.log('test samen' + jsonlogi);
-     sessionStorage.setItem('editpID',testI);
+     sessionStorage.setItem('editpID',test2);
     this.props.history.push('/crud/product/update');
     
   }
 }
 onDelete(product){
-  if (this.state.id === 0){
+  if (product.id === 0){
     console.log('standaard id');
      this.setState({
        naam: product.naam,

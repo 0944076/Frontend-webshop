@@ -361,7 +361,7 @@ render() {
         
         </div>
       </fieldset>
-      <Button onClick={e => this.onSubmit(e)}>Signup</Button>
+      <Button onClick={e => this.onSubmit(e)}>Product updaten</Button>
 
       </form> 
    
