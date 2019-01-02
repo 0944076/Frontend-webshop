@@ -152,7 +152,7 @@ class Charts extends Component {
                     marker: {color: 'red'},
                   }
                 ]}
-                layout={ {width: 520, height: 640, title: 'Bestellingen en prijs'} }
+                layout={ {width: 420, height: 640, title: 'Bestellingen en prijs'} }
               />
               <Plot
               data={[
@@ -163,7 +163,7 @@ class Charts extends Component {
                   marker: {color: 'orange'},
                 }
               ]}
-              layout={ {width: 220, height: 640, title: 'gemiddelde totale prijs per bestelling'} }
+              layout={ {width: 320, height: 640, title: 'gemiddelde totale prijs per bestelling'} }
             />
               <Plot
               data={[
@@ -174,7 +174,7 @@ class Charts extends Component {
                   marker: {color: 'yellow'},
                 }
               ]}
-              layout={ {width: 220, height: 640, title: 'Aantal geregistreerde klanten'} }
+              layout={ {width: 320, height: 640, title: 'Aantal geregistreerde klanten'} }
             />
               <Plot
               data={[
@@ -185,7 +185,7 @@ class Charts extends Component {
                   marker: {color: 'blue'},
                 }
               ]}
-              layout={ {width: 220, height: 640, title: 'Gemiddeld aantal bestellingen per geregistreerde klant'} }
+              layout={ {width: 400, height: 640, title: 'Aantal bestellingen per geregistreerde klant'} }
             />
               <Plot
               data={[
