@@ -126,7 +126,7 @@ class Charts extends Component {
                   marker: {color: 'orange'},
                 }
               ]}
-              layout={ {width: 320, height: 640, title: 'gemiddelde prijs'} }
+              layout={ {width: 320, height: 640, title: 'gemiddelde totale prijs per bestelling'} }
             />
                           <Plot
               data={[
