@@ -23,7 +23,9 @@ class Charts extends Component {
       data: [],
       average: null,
       klantcount: null,
-      geregistreerdeklantpercentage: null
+      geregistreerdeklantpercentage: null,
+      categoriecount: [0,0,0,0,0],
+      categorieprijsavg: [0,0,0,0,0]
     };
   }
 
@@ -31,6 +33,9 @@ class Charts extends Component {
   componentDidMount() {
     this.getProducts("api/bestelling");
     this.getProducts("api/geregistreerdeklant");
+    this.getProducts("api/product?pagesize=99999");
+
+    
     this.setState(
       {
       loading: false
@@ -77,14 +82,33 @@ class Charts extends Component {
         klantcount: klantcountarray
       });
     }
+    if (link === "api/product?pagesize=99999")
+    {
+      let categoriecount = [0,0,0,0,0]
+      let categorieprijsavg = [0,0,0,0,0]
+      for (let i = 0; i < (response.body.length-1); i++) 
+      {
+        categoriecount[response.body[i].categorieID-1] = categoriecount[response.body[i].categorieID-1]+1;
+        categorieprijsavg[response.body[i].categorieID-1] = categorieprijsavg[response.body[i].categorieID-1]+response.body[i].prijs;
+      }
+      console.log("categorieprijsavg", categorieprijsavg[0]);
+      for (let i = 0; i < categorieprijsavg.length; i++) 
+      {
+        categorieprijsavg[i] = categorieprijsavg[i]/categoriecount[i]
+      }
+      this.setState({
+        categoriecount: categoriecount,
+        categorieprijsavg: categorieprijsavg
+      });
+    }
     });
   };
 
   
 
   render() {
-    const { loading, response, x, y, average, klantcount} = this.state;
-    if (x.length === 0 || average === null || klantcount === null) {
+    const { loading, response, x, y, average, klantcount, categoriecount, categorieprijsavg} = this.state;
+    if (x.length === 0 || average === null || klantcount === null || categoriecount[0] === 0 || categorieprijsavg <= 0) {
       return null
     }
     console.log("x,y", x,y,average);
@@ -115,7 +139,7 @@ class Charts extends Component {
                     marker: {color: 'red'},
                   }
                 ]}
-                layout={ {width: 820, height: 640, title: 'Bestellingen en prijs'} }
+                layout={ {width: 520, height: 640, title: 'Bestellingen en prijs'} }
               />
               <Plot
               data={[
@@ -126,9 +150,9 @@ class Charts extends Component {
                   marker: {color: 'orange'},
                 }
               ]}
-              layout={ {width: 320, height: 640, title: 'gemiddelde prijs'} }
+              layout={ {width: 320, height: 640, title: 'gemiddelde totale prijs per bestelling'} }
             />
-                          <Plot
+              <Plot
               data={[
                 {
                   x: [1],
@@ -138,6 +162,28 @@ class Charts extends Component {
                 }
               ]}
               layout={ {width: 320, height: 640, title: 'Aantal geregistreerde klanten'} }
+            />
+              <Plot
+              data={[
+                {
+                  x: ['Bloembollen','Fruitbomen','Kamerplanten','Rozen','Zaden'],
+                  y: categoriecount,
+                  type: 'bar',
+                  marker: {color: 'green'},
+                }
+              ]}
+              layout={ {width: 520, height: 640, title: 'Aantal producten per categorie'} }
+            />
+            <Plot
+              data={[
+                {
+                  x: ['Bloembollen','Fruitbomen','Kamerplanten','Rozen','Zaden'],
+                  y: categorieprijsavg,
+                  type: 'bar',
+                  marker: {color: 'purple'},
+                }
+              ]}
+              layout={ {width: 520, height: 640, title: 'gemiddelde prijs per product per categorie'} }
             />
                  </div>
               ]
