@@ -3,6 +3,7 @@ import axios from 'axios';
 import WinkelmandItem from "../../components/winkelmandItem";
 import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
 import Loader from '../../components/Loading';
+import { Link } from "react-router-dom";
 
 // layout
 //import LayoutAccount from "../../layout/Account";
@@ -216,7 +217,7 @@ class WinkelMand extends Component {
               />
               <div className="betaalOverzicht">
                   <h1>Betaal overzicht</h1>
-                  <a href="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" alt="refresh" className="refresh"/></a><br />
+                  <Link to="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" alt="refresh" className="refresh"/></Link><br />
                   Totaal: <br />
                   <table>
                     <tbody>
@@ -246,7 +247,7 @@ class WinkelMand extends Component {
                       </tr>
                     </tbody>
                   </table>   
-                  <a href="/"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></a>
+                  <Link to="/winkelmand"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></Link><br />
               </div>
               <div className="paginaFrame">
                 <div className="mandFrame">
@@ -262,7 +263,7 @@ class WinkelMand extends Component {
                     />
                   })}
                 </div>
-                <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
+                <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>
               </div>
             </div>
           </LayoutDefault>
@@ -277,7 +278,7 @@ class WinkelMand extends Component {
               title="Winkelmand"
               description="U heeft nog geen producten aan uw winkelmand toegevoegd."
             />
-            <a href="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></a>
+            <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>
           </div>
         </LayoutDefault>
         
