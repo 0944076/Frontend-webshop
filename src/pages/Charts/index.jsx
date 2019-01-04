@@ -18,12 +18,16 @@ class Charts extends Component {
     this.state = {
       loading: true,
       response: null,
-      x: [],
-      y: [],
+      x: [],  //bestellingcount
+      y: [],  //bestellingprijs
       data: [],
       average: null,
       klantcount: null,
-      geregistreerdeklantpercentage: null
+      geregistreerdeklantpercentage: null,
+      categoriecount: [0,0,0,0,0],
+      categorieprijsavg: [0,0,0,0,0],
+      totalwaardevoorraadcat: [0,0,0,0,0,0],
+      bestellingenperklant: null
     };
   }
 
@@ -31,6 +35,9 @@ class Charts extends Component {
   componentDidMount() {
     this.getProducts("api/bestelling");
     this.getProducts("api/geregistreerdeklant");
+    this.getProducts("api/product?pagesize=99999");
+
+    
     this.setState(
       {
       loading: false
@@ -66,15 +73,43 @@ class Charts extends Component {
         y: bestellingprijs,
         average: avgscrewthisshit
       });
-      console.log("bestellingcount", bestellingcount);
-      console.log("bestellingprijs", bestellingprijs);
     }
     if (link === "api/geregistreerdeklant")
     {
-      let klantcountarray = [];
-      klantcountarray.push(response.body.length);
+      let klantcountarray = [0];
+      let bestellingenperklant = [];
+      klantcountarray[0] = response.body.length;
+      bestellingenperklant[0] = this.state.x.length/response.body.length
       this.setState({
-        klantcount: klantcountarray
+        klantcount: klantcountarray,
+        bestellingenperklant: bestellingenperklant
+      });
+    }
+    if (link === "api/product?pagesize=99999")
+    {
+      let categoriecount = [0,0,0,0,0]
+      let categorieprijsavg = [0,0,0,0,0]
+      let totalwaardevoorraadcat = [0,0,0,0,0,0]
+      for (let i = 0; i < (response.body.length-1); i++) 
+      {
+        categoriecount[response.body[i].categorieID-1] = categoriecount[response.body[i].categorieID-1]+1;
+        categorieprijsavg[response.body[i].categorieID-1] =
+         categorieprijsavg[response.body[i].categorieID-1]+response.body[i].prijs;
+        totalwaardevoorraadcat[response.body[i].categorieID-1] =
+        totalwaardevoorraadcat[response.body[i].categorieID-1]+(response.body[i].prijs*response.body[i].voorraad);
+      }
+      for (let i = 0; i < totalwaardevoorraadcat.length-1; i++) 
+      {
+        totalwaardevoorraadcat[5] = totalwaardevoorraadcat[5]+totalwaardevoorraadcat[i]
+      }
+      for (let i = 0; i < categorieprijsavg.length; i++) 
+      {
+        categorieprijsavg[i] = categorieprijsavg[i]/categoriecount[i]
+      }
+      this.setState({
+        categoriecount: categoriecount,
+        categorieprijsavg: categorieprijsavg,
+        totalwaardevoorraadcat: totalwaardevoorraadcat
       });
     }
     });
@@ -83,11 +118,13 @@ class Charts extends Component {
   
 
   render() {
-    const { loading, response, x, y, average, klantcount} = this.state;
-    if (x.length === 0 || average === null || klantcount === null) {
+    const { loading, response, x, y, average, klantcount, categoriecount,
+      categorieprijsavg, totalwaardevoorraadcat, bestellingenperklant} = this.state;
+    if (x.length === 0 || average === null || klantcount === null || categoriecount[0] === 0 ||
+       categorieprijsavg <= 0 || totalwaardevoorraadcat[0] === 0 || bestellingenperklant === null) {
       return null
     }
-    console.log("x,y", x,y,average);
+    console.log('bestellingenperklant',bestellingenperklant[0])
     return (
       <React.Fragment>
         <LayoutDefault className="charts">
@@ -115,7 +152,7 @@ class Charts extends Component {
                     marker: {color: 'red'},
                   }
                 ]}
-                layout={ {width: 820, height: 640, title: 'Bestellingen en prijs'} }
+                layout={ {width: 420, height: 640, title: 'Bestellingen en prijs'} }
               />
               <Plot
               data={[
@@ -126,9 +163,9 @@ class Charts extends Component {
                   marker: {color: 'orange'},
                 }
               ]}
-              layout={ {width: 320, height: 640, title: 'gemiddelde prijs'} }
+              layout={ {width: 320, height: 640, title: 'gemiddelde totale prijs per bestelling'} }
             />
-                          <Plot
+              <Plot
               data={[
                 {
                   x: [1],
@@ -138,6 +175,50 @@ class Charts extends Component {
                 }
               ]}
               layout={ {width: 320, height: 640, title: 'Aantal geregistreerde klanten'} }
+            />
+              <Plot
+              data={[
+                {
+                  x: [1],
+                  y: bestellingenperklant,
+                  type: 'bar',
+                  marker: {color: 'blue'},
+                }
+              ]}
+              layout={ {width: 400, height: 640, title: 'Aantal bestellingen per geregistreerde klant'} }
+            />
+              <Plot
+              data={[
+                {
+                  x: ['Bloembollen','Fruitbomen','Kamerplanten','Rozen','Zaden'],
+                  y: categoriecount,
+                  type: 'bar',
+                  marker: {color: 'green'},
+                }
+              ]}
+              layout={ {width: 470, height: 640, title: 'Aantal producten per categorie'} }
+            />
+            <Plot
+              data={[
+                {
+                  x: ['Bloembollen','Fruitbomen','Kamerplanten','Rozen','Zaden'],
+                  y: categorieprijsavg,
+                  type: 'bar',
+                  marker: {color: 'purple'},
+                }
+              ]}
+              layout={ {width: 470, height: 640, title: 'gemiddelde prijs per product per categorie'} }
+            />
+            <Plot
+              data={[
+                {
+                  x: ['Bloembollen','Fruitbomen','Kamerplanten','Rozen','Zaden','gecombineerd'],
+                  y: totalwaardevoorraadcat,
+                  type: 'bar',
+                  marker: {color: 'brown'},
+                }
+              ]}
+              layout={ {width: 520, height: 640, title: 'totale waarde voorraad'} }
             />
                  </div>
               ]

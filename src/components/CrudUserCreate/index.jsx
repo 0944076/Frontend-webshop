@@ -85,7 +85,7 @@ validate = () => {
     errors.voornaamError = 'Vul een geldige voornaam in'
     document.getElementById('voornaam').style.borderColor = "red";
   }
-  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-]/i )){
+  else if (this.state.voornaam.match(/[!@#$%^&*():;'",0-9]/i) || this.state.voornaam.match(/[-""]/i )){
     isError = true;
     errors.voornaamError = 'alleen leestekens mogen gebruikt worden'
     document.getElementById('voornaam').style.borderColor = "red";
@@ -270,7 +270,7 @@ render() {
   return (   
   <div>
     
-    <form className="SignUp1" onSubmit={this.onSubmit}>
+    <form className="SignUp crud" onSubmit={this.onSubmit}>
       <fieldset>
       <div className="fieldsetDiv">
       <input
@@ -337,13 +337,13 @@ render() {
         <div className="radio">
           <label>
             <input type="radio"
-             value="option1"
+             value="option2"
              id="admin1"
              errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option1'}
+             checked={this.state.selectedOption === 'option2'}
              onChange={this.handleOptionChange}
             />
-            False
+            True
           </label>
         </div>
         <div className="radio">
@@ -351,12 +351,12 @@ render() {
             <input
              type="radio"
              id="admin2"
-             value="option2"
+             value="option1"
              errorText={this.state.adminerror}
-             checked={this.state.selectedOption === 'option2'}
+             checked={this.state.selectedOption === 'option1'}
              onChange={this.handleOptionChange}
             />
-            True
+            False
           </label><br/>
           <span>{this.state.adminerror}</span>
           <br />

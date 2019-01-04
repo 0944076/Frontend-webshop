@@ -652,16 +652,28 @@ form.SignUp{
     padding: 0px 20px 0px;
   }
   form.Login input {
+    width: 200px;
     border-style: solid;
     border-color: grey;
     border-radius: 5px;
     padding-left: 5px;
   }
   form.SignUp input {
+    width: 200px;
     border-style: solid;
     border-color: grey;
     border-radius: 5px;
     padding-left: 5px;
+  }
+  input#admin1 {
+    width: 13px;
+  }
+  input#admin2 {
+    width: 13px;
+  }
+  textarea#beschrijving {
+    width: 200px;
+    height: 75px;
   }
   .fieldsetDiv{
   //margin: auto;
@@ -746,3 +758,41 @@ form.SignUp{
     background-color: #D3D3D3;
     border-radius: 5px;
   }
+  .Collapsible{
+    background-color:#2efb83;
+    margin-bottom:10px;
+    padding:10px;
+    border-radius: 10px;
+    font-weight: 600;
+  }
+  button.button.buttona {
+    margin-bottom: 20px;
+  }
+  p.crud {
+    color: black;
+    font-weight: 100;
+  }
+  a.buttonu .button {
+    background-color:#007bff;
+    margin-right:5px;
+  }
+  a.buttond .button {
+    background-color:#dc3545;
+    margin-left:5px;
+  }
+  form.SignUp.crud p {
+    margin-left: 0px;
+  }
+  
+form.SignUp.crud fieldset {
+    height: 100%;
+    background: #2efb83;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+form.SignUp.crud p{
+  color:black;
+}
+form.SignUp.crud fieldset .fieldsetDiv {
+  padding: 15px 20px 10px 15px;
+}

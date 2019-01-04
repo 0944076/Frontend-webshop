@@ -169,19 +169,19 @@ render() {
   <div>
   
     <a href="http://localhost:3000/crud/product/create">
-    <button class="button" >Product aanmaken</button></a>
+    <button class="button buttona" >Product aanmaken</button></a>
       {
                 
             products.map(product =>{
               const {id,naam,prijs,beschrijving,voorraad,categorieID} = product;
               return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
-                    <p>Naam: {naam}</p>
-                    <p>Prijs: {prijs}</p>
-                    <p>beschrijving: {beschrijving}</p>
-                    <p>Voorraad: {voorraad}</p>
-                    <p>Categorie: {categorieID}</p>
-                    <a onClick={() => this.onUpdate(product)}><Button>Update</Button></a>
-                    <a onClick={() => this.onDelete(product)}><Button>Delete</Button></a>
+                    <p class="crud">Naam: {naam}</p>
+                    <p class="crud">Prijs: {prijs}</p>
+                    <p class="crud">beschrijving: {beschrijving}</p>
+                    <p class="crud">Voorraad: {voorraad}</p>
+                    <p class="crud">Categorie: {categorieID}</p>
+                    <a class="buttonu" onClick={() => this.onUpdate(product)}><Button>Update</Button></a>
+                    <a class="buttond" onClick={() => this.onDelete(product)}><Button>Delete</Button></a>
               </Collapsible>
             })
           }

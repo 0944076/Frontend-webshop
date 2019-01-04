@@ -136,7 +136,7 @@ onDelete(gebruiker){
   else{
     if(window.confirm("wil je zeker "+ gebruiker.naam + " " + "verwijderen?")){
       
-    var testI = this.state.id;
+    var testI = gebruiker.id;
     console.log(testI);
     request.delete('http://localhost:5000/api/geregistreerdeklant/'+testI)
       .then(res => {
@@ -255,15 +255,15 @@ render() {
   return (   
   <div>
     <a href="http://localhost:3000/crud/user/create">
-    <button class="button" >Gebruiker aanmaken</button></a>
+    <button class="button buttona" >Gebruiker aanmaken</button></a>
       {
                 
             this.state.gebruikers.map(gebruiker =>{
               const {id,naam,email} = gebruiker;
               return <Collapsible trigger={"ID: " + id + " " + "Naam: " + naam} key={id} title={naam}>
-                    <p>{email}</p>
-                    <a onClick={() => this.onUpdate(gebruiker)}><Button>Update</Button></a>
-                    <a onClick={() => this.onDelete(gebruiker)}><Button>Delete</Button></a>
+                    <p class="crud">Email: {email}</p>
+                    <a class="buttonu" onClick={() => this.onUpdate(gebruiker)}><Button id="buttonu" >Update</Button></a>
+                    <a class="buttond" onClick={() => this.onDelete(gebruiker)}><Button id="buttond">Delete</Button></a>
               </Collapsible>
             })
           }

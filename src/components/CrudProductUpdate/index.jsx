@@ -264,7 +264,7 @@ render() {
   return (   
   <div>
     
-    <form className="SignUp1" onSubmit={this.onSubmit}>
+    <form className="SignUp crud" onSubmit={this.onSubmit}>
       <fieldset>
       <div className="fieldsetDiv">
       <input
