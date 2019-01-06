@@ -22,7 +22,28 @@ componentDidMount(){
 }
 fetchData(){
 
-
+  request.get('http://localhost:5000/api/product?pagesize=5000')
+        
+        .then(res => {
+         
+          var results = JSON.stringify(res.body.map(product => parseInt(`${product.id}`))
+            
+             
+             );
+             //console.log(res.body.id); 
+             var product1 = JSON.parse(results);
+             console.log(Math.max(...product1));
+             this.setState({
+              isLoaded: false,
+              products: product1,
+              id: Math.max(...product1)
+            })
+          //var localnaam = JSON.stringify(res.body.naam);
+          //var localemail = JSON.stringify(this.state.email1);
+          //var localpass = JSON.stringify(res.body.wachtwoord)
+          
+        //}).catch((err) => console.log('kon niet session ophalen'));
+}).catch((err) => console.log('parsing failed',err));
 }
 isLoggedIn(){
   let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
@@ -167,10 +188,11 @@ onSubmit = e => {
     let afoto = this.state.foto;
     let avoorraad = JSON.parse(this.state.voorraad)
     let acategorieID = JSON.parse(this.state.categorie)
-  
+    let idtest = this.state.id + 1;
     let anaam1 = JSON.stringify(anaam);
     let abeschrijving1 = JSON.stringify(abeschrijving);
     const product = {
+      id: idtest,
       naam: anaam,
       prijs: aprijs,
       beschrijving: abeschrijving,
@@ -189,23 +211,23 @@ onSubmit = e => {
   console.log("voorraad: "+avoorraad);
   console.log("categorieID: "+acategorieID);
   console.log(product)
-    // request.post(`http://localhost:5000/api/product/`)
-    // .send(product)
-    // .then(res => {
-    //   this.setState({
-    //     naam: '',
-    //     naamError: '',
-    //     prijs: '',
-    //     prijsError: '',
-    //     foto:'',
-    //     fotoError:'',
-    //     beschrijving: '',
-    //     beschrijvingError: '',
-    //     voorraad: '',
-    //     voorraadError: '',
-    //     prosucc: true
-    //   });
-    // });
+    request.post(`http://localhost:5000/api/product/`)
+     .send(product)
+     .then(res => {
+       this.setState({
+         naam: '',
+         naamError: '',
+         prijs: '',
+         prijsError: '',
+         foto:'',
+         fotoError:'',
+         beschrijving: '',
+         beschrijvingError: '',
+         voorraad: '',
+         voorraadError: '',
+         prosucc: true
+       });
+     });
   }
 
 };
@@ -237,6 +259,7 @@ render() {
         this.setState({
         prosucc: false
       })
+      this.props.history.push('/crud/product/view')
     }, 3000);
       return <div id="succes">Product is succesvol aangemaakt</div>;
       

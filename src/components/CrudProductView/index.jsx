@@ -3,7 +3,9 @@ import { withRouter } from 'react-router-dom';
 import request from "superagent";
 import { Link } from "react-router-dom";
 import Collapsible from 'react-collapsible';
-
+import Pagination from "../../components/Pagination";
+import Loading from "../../components/Loading";
+import ProductGrid from "../../components/ProductGrid";
 // components
 import Button from "../../components/Button";
 
@@ -12,21 +14,80 @@ class CrudProductView extends Component {
     super(props);
     this.state = {
       session: null,
-      isloading: true,
+      loading: true,
+      response: null,
+      cid: this.props.match.params.cID,
       delesucc: false,
       id: 0,
       products: []
     }
   }
-  
-componentDidMount(){
-  if(!this.isLoggedIn()){
-    console.log('not logged in')
+  componentDidUpdate(prevProps) 
+  {
+    if(this.props.match.params.cID !== prevProps.match.params.cID)
+      {
+        if (this.props.match.params.cID && this.state.cid !== this.props.match.params.cID)
+        {
+            this.setState({
+              cid: this.props.match.params.cID
+            })
+            this.getProducts(this.props.match.params.page,this.props.match.params.cID)
+        }
+        
+      }
+
+    
+  } 
+
+  componentWillReceiveProps(nextProps) {
+    const currentParams = this.props.match.params;
+    const nextParams = nextProps.match.params;
+    if (currentParams.page !== nextParams.page) {
+      this.getProducts(nextParams.page,this.state.cid);
+    }
+
   }
-  else{
-    this.fetchData();
+
+  componentDidMount() {
+    this.getProducts(this.props.match.params.page,this.state.cid);
+    if(!this.isLoggedIn()){
+      console.log('not logged in')
+    }
+    else{
+      console.log(window.location.href)
+      this.fetchData();
+    }
   }
-}
+
+  async getProducts(page,cid) {
+    this.setState({
+      response: null,
+      loading: true
+    });
+            // 1	Bloembollen
+            // 2	Fruitbomen
+            // 3	Kamerplanten
+            // 4	Rozen
+            // 5	Zaden
+
+
+    // eslint-disable-next-line
+    const res = await
+    request
+      .get(`http://localhost:5000/api/product?pageSize=42&page=${page}&cid=${cid}`)
+      .then(response => {
+
+
+       
+     
+
+        this.setState({
+          response: response.body,
+          loading: false
+        });
+
+      });
+  }  
 change = e => {
   this.setState({
     [e.target.name]: e.target.value
@@ -77,32 +138,53 @@ onDelete(product){
        id: product.id,
        beschrijving: product.beschrijving,
        voorraad: product.voorraad,
-       categorieID: product.categorieID
+       categorieID: product.categorieID,
+       bestellingen: product.bestellingen,
+       
    });
   }
   else{
+     if(product.bestellingen != null){
+        alert('product kan niet worden verwijderd: product in bestelling');
+     }
+  else{
      if(window.confirm("wil je zeker "+ product.naam + " " + "verwijderen?")){
       
-    var testI = this.state.id;
+    var testI = product.id;
     console.log(testI);
-      //request.delete('http://localhost:5000/api/product/'+testI)
-    //   .then(res => {
-    //     this.setState({
-    //       delesucc: true
-    //   });
-    //   });
+      request.delete('http://localhost:5000/api/product/'+testI)
+       .then(res => {
+        var results = JSON.stringify(res.body.map(product =>
+          ({
+           id: `${product.id}` ,
+           naam: `${product.naam}`,
+           prijs: `${product.prijs}`,
+           beschrijving: `${product.beschrijving}`,
+           voorraad: `${product.voorraad}`,
+           categorie: `${product.categorieID}`
+           //wachtwoord: `${user.wachtwoord}`
+          }
+          
+          )));
+          
+          var product1 = JSON.parse(results);
+         this.setState({
+           delesucc: true,
+           products: product1
+       });
+       });
      }
       else{
        console.log('verwijderen gestopt');
      }
   
   
-
-}
+    }
+  }
 }
 fetchData(){
 
-  request.get('http://localhost:5000/api/product/')
+  request.get('http://localhost:5000/api/product?pagesize=5000')
         
         .then(res => {
          
@@ -145,6 +227,20 @@ isLoggedIn(){
 
 
 render() {
+  console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
+    const { loading, response } = this.state;
+  if(this.state.delesucc === true){
+    setTimeout(() => {
+      this.setState({
+      delesucc: false
+    })
+    //window.location.reload();
+  }, 3000);
+    return <div id="succes">Delete is succesvol</div>;
+    
+    
+
+  }
   if(!this.isLoggedIn()){
     return (
       <React.Fragment>
@@ -162,14 +258,39 @@ render() {
     );
   }
   else{
-  const {isLoading, products} = this.state;
+  const {loading, products,response} = this.state;
   const { title, description } = this.props;
+  console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
   console.log(this.state.products);
-  return (   
+  return ( 
+      
   <div>
   
     <a href="http://localhost:3000/crud/product/create">
     <button class="button buttona" >Product aanmaken</button></a>
+    {loading ? (
+              <Loading text="Producten ophalen..." />
+            ) : response && response && response.length > 0  ? (
+              [
+            //id=pageSize voorraad=total_pages categorieID=page
+            //vieze hack
+                <Pagination
+                  perPage={response[response.length-1].id}
+                  totalPages={response[response.length-1].voorraad}
+                  currentPage={response[response.length-1].categorieID}
+                  key="pagination"
+             
+                  //  .__(.)< (MEOW)
+                  //   \___)   
+
+                />,
+                
+                <ProductGrid items={response.splice(0,response.length-1)} key="grid" />
+                
+              ]
+            ) : (
+              <p>Geen producten gevonden...</p>
+            )}
       {
                 
             products.map(product =>{
@@ -185,6 +306,7 @@ render() {
               </Collapsible>
             })
           }
+          
    
     </div>
 );

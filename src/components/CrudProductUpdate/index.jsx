@@ -33,6 +33,8 @@ fetchData(){
     foto: res.body.foto,
     voorraad: res.body.voorraad,
     categorieID: res.body.categorieID,
+    bestellingen: res.body.bestellingen,
+    verlanglijst: res.body.verlanglijst
 
 
   });
@@ -176,25 +178,28 @@ onSubmit = e => {
   
   
   if (!err) {
-        
+    let aid = this.state.id;
     let anaam = this.state.naam;
     let aprijs = JSON.parse(this.state.prijs);
     let abeschrijving = this.state.beschrijving;
     let afoto = this.state.foto;
     let avoorraad = JSON.parse(this.state.voorraad)
     let acategorieID = JSON.parse(this.state.categorieID)
+    let abestellingen = this.state.bestellingen;
+    let averlanglijst = this.state.verlanglijst;
   
     let anaam1 = JSON.stringify(anaam);
     let abeschrijving1 = JSON.stringify(abeschrijving);
     const product = {
+      id: aid,
       naam: anaam,
       prijs: aprijs,
       beschrijving: abeschrijving,
       foto: afoto,
       voorraad: avoorraad,
       categorieID: acategorieID,
-      bestellingen: null,
-      verlanglijst: null
+      bestellingen: abestellingen,
+      verlanglijst: averlanglijst
     }
   //let jsonregi = product;
   //let jsonprod = JSON.parse(JSON.stringify(product));
@@ -204,24 +209,26 @@ onSubmit = e => {
   console.log("foto: "+ afoto);
   console.log("voorraad: "+avoorraad);
   console.log("categorieID: "+acategorieID);
+  console.log("bestellingen: "+abestellingen);
+  console.log("verlanglijst: "+averlanglijst);
   console.log(product);
-    // request.put(`http://localhost:5000/api/product/`)
-    // .send(product)
-    // .then(res => {
-    //   this.setState({
-    //     naam: '',
-    //     naamError: '',
-    //     prijs: '',
-    //     prijsError: '',
-    //     beschrijving: '',
-    //     beschrijvingError: '',
-    //     foto: '',
-    //     fotoError: '',
-    //     voorraad: '',
-    //     voorraadError: '',
-    //     prosucc: true
-    //   });
-    // });
+     request.put(`http://localhost:5000/api/product/`)
+     .send(product)
+     .then(res => {
+       this.setState({
+         naam: '',
+         naamError: '',
+         prijs: '',
+         prijsError: '',
+         beschrijving: '',
+         beschrijvingError: '',
+         foto: '',
+         fotoError: '',
+         voorraad: '',
+         voorraadError: '',
+         prosucc: true
+       });
+     });
   }
 
 };
