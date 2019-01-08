@@ -23,46 +23,7 @@ class MijnAccount extends Component {
       return false;
     }
   }
-  // componentDidMount(){
-  //   //fetch('http://kamerplant.me:5000/api/geregistreerdeklant')
-  //   fetch('https://jsonplaceholder.typicode.com/users')
-  //   .then(res => res.json())
-  //     .then(json => {
-  //       this.setState({
-  //         isLoaded: true,
-  //         items: json,
-  //       })
-      
-  //     });
-      
-  // } 
   
-
-////if (!err) {
-  ////request.post(`http://localhost:5000/api/sessie/`)
-        //.send(new FormData(document.getElementById('SignUp')))
-        //.set('Content-Type', 'application/json')
-        //.type('form') 
-        //.send(jsonlogi)
-        ////.then(res => {
-          //alert('Account succesvol' + res.body)
-          ////this.setState({
-            ////email1: '',
-            ////email1Error: '',
-            ////wachtwoord: '',
-            ////wachtwoordError: ''
-          ////});
-        ////});
-  //console.log(JSON.stringify(register));
-  //this.addRegister(register);
-//}
-//componentDidMount(){
-  //sessionStorage.getItem('sessionid') && this.setState({
-    //sessionid: JSON.parse(sessionStorage.getItem('sessionid')),
-    //isLoading: false
-  //});
-  //console.log("test" + this.state.sesionid);
-//}
 componentDidMount(){
   if(!this.isLoggedIn()){
     console.log('not logged in')

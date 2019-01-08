@@ -16,8 +16,10 @@ class Pagination extends Component {
         {Array.apply(0, Array(totalPages)).map((item, i) => {
           let page = i + 1;
           let link = '';
-          if(window.location.href == 'http://localhost:3000/crud/product/view'){
-            link = `/crud/product/view/${page}`;
+          if(window.location.href.includes('http://localhost:3000/crud/product/view')){
+              link = `/crud/product/view/pagina/${page}`;
+              console.log('het werkt?')
+
             if (i === 0) {
               link = "/crud/product/view";
             }

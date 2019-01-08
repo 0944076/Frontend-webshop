@@ -118,13 +118,7 @@ onUpdate(product){
      console.log('werkt nog nie');
    }
    else{
-     let jsonlogi = JSON.parse(JSON.stringify(update));
-     let test = JSON.parse(JSON.stringify(update));
-     //console.log(test);
-   //console.log('test ID ' + testI);
-//     console.log('test Email ' + testE);
-//     console.log('test samen' + jsonlogi);
-     sessionStorage.setItem('editpID',test2);
+    sessionStorage.setItem('editpID',test2);
     this.props.history.push('/crud/product/update');
     
   }
@@ -228,7 +222,7 @@ isLoggedIn(){
 
 render() {
   console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
-    const { loading, response } = this.state;
+    
   if(this.state.delesucc === true){
     setTimeout(() => {
       this.setState({
@@ -259,7 +253,7 @@ render() {
   }
   else{
   const {loading, products,response} = this.state;
-  const { title, description } = this.props;
+  
   console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
   console.log(this.state.products);
   return ( 

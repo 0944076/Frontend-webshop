@@ -64,15 +64,6 @@ fetchData(){
     //isLoading: false
   //});
   //console.log("test " + this.state.session);
-  const testT = sessionStorage.getItem('klantID');
-  const testS = sessionStorage.getItem('SessieID');
-  const testT2 = localStorage.setItem('klantID2', testT);
-  const testT3 = localStorage.getItem('klantID2');
-  const testS2 = localStorage.setItem('sessieID2', testS);
-  const testS3 = localStorage.getItem('sessieID2');
-  console.log("testKlant" + testT);
-  console.log("testSessie" + testS);
-  console.log("test2" + testT.naam);
 
 
   //fetch('http://localhost:5000/api/geregistreerdeklant/')
@@ -112,8 +103,7 @@ fetchData(){
 
 render() {
 
-  const {isLoading, gebruikers} = this.state;
-  const { title, description } = this.props;
+  const {gebruikers} = this.state;
   console.log(this.state.gebruikers);
   return (   
   <div>
