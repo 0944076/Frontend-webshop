@@ -169,7 +169,7 @@ const theme = new createMuiTheme({
                         </tr>
                       </tbody>
                     </table>   
-                    <Link to="/winkelmand"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></Link><br />
+                    <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>
                 </div>
                 <div className="paginaFrame">
                   <div className="mandFrame">                    
