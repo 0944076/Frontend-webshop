@@ -25,6 +25,7 @@ import CProductView from './pages/CProductView';
 import CProductUpdate from './pages/CProductUpdate';
 import CProductDelete from './pages/CProductDelete';
 import CProductCreate from './pages/CProductCreate';
+import BView from './pages/BView';
 import Loguit from './pages/LogUit';
             // 1	Bloembollen
             // 2	Fruitbomen
@@ -34,8 +35,7 @@ import Loguit from './pages/LogUit';
 
 // styles
 import './styles.scss';// eslint-disable-next-line
-import MijnAccount from './components/MijnAccount';
-import Loguitcomp from './components/Loguitcomp';
+
 
 
 ReactDOM.render(
@@ -55,11 +55,11 @@ ReactDOM.render(
       <Route exact path="/crud/user/update" component={CUserUpdate} /> 
       <Route exact path="/crud/user/delete" component={CUserDelete} /> 
       <Route exact path="/crud/user/create" component={CUserCreate} /> 
-
       <Route exact path="/crud/product/view" component={CProductView} /> 
       <Route exact path="/crud/product/update" component={CProductUpdate} /> 
       <Route exact path="/crud/product/delete" component={CProductDelete} /> 
       <Route exact path="/crud/product/create" component={CProductCreate} /> 
+      <Route exact path="/bestellingen" component={BView} /> 
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />
       <Route exact path="/Search" component={Search} />

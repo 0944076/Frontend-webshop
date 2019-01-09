@@ -231,7 +231,13 @@ class Header extends Component {
               <NavLink activeClassName="is-active" to="/crud/product/view">
                 Producten
               </NavLink>
-             
+              <NavLink activeClassName="is-active" to="/bestellingen">
+                Bestellingen
+              </NavLink>
+              <NavLink activeClassName="is-active" to="/Charts">
+              Charts
+            </NavLink>
+              
               
               </div>
             </div>

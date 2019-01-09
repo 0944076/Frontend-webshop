@@ -247,7 +247,7 @@ class WinkelMand extends Component {
                       </tr>
                     </tbody>
                   </table>   
-                  <Link to="/winkelmand"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></Link><br />
+                  <Link to="/payment"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></Link><br />
               </div>
               <div className="paginaFrame">
                 <div className="mandFrame">

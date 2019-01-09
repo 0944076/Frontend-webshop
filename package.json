@@ -6,7 +6,9 @@
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
+    "@material-ui/core": "^3.8.2",
     "axios": "^0.18.0",
+    "material-ui": "^0.20.2",
     "node-sass": "^4.10.0",
     "normalize.css": "8.0.0",
     "password-hash": "^1.2.2",
@@ -14,6 +16,7 @@
     "plotly.js-dist": "^1.43.1",
     "react": "16.5.2",
     "react-collapsible": "^2.3.2",
+    "react-currency-formatter": "^1.1.0",
     "react-dom": "16.5.2",
     "react-plotly.js": "^2.2.0",
     "react-request": "^3.1.2",
