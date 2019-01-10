@@ -5,11 +5,15 @@ import React, { Component } from 'react';
 class ProductAmount extends Component {
   constructor(props) {
     super(props);
+
+    this.handleChange = this.handleChange.bind(this);
+
     this.state = {
       amount: '1',
       added: false
     };
   }
+
   handleChange(event) {
     const value = event.target.value;
     const amount = isNaN(value);
@@ -94,7 +98,7 @@ class ProductAmount extends Component {
         <span onClick={e => this.updateAmount('minus')}>
           <img src="https://i.imgur.com/SHOtF9W.png" alt="" />
         </span>
-        <input type="text" value={amount} onChange={this.handleChange} />
+        <input type="value" value={this.state.amount} onChange={this.handleChange} />
         <span onClick={e => this.updateAmount('plus')}>
           <img src="https://i.imgur.com/RzzuXkk.png" alt="" />
         </span>
