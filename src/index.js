@@ -25,6 +25,7 @@ import CProductView from './pages/CProductView';
 import CProductUpdate from './pages/CProductUpdate';
 import CProductDelete from './pages/CProductDelete';
 import CProductCreate from './pages/CProductCreate';
+import AccountGegevens from './pages/AccountUpdate';
 import BView from './pages/BView';
 import Loguit from './pages/LogUit';
             // 1	Bloembollen
@@ -60,6 +61,7 @@ ReactDOM.render(
       <Route exact path="/crud/product/delete" component={CProductDelete} /> 
       <Route exact path="/crud/product/create" component={CProductCreate} /> 
       <Route exact path="/bestellingen" component={BView} /> 
+      <Route exact path="/mijngegevens" component={AccountGegevens} /> 
       <Route exact path="/AboutUs" component={AboutUs} />
       <Route exact path="/WishList" component={WishList} />
       <Route exact path="/Search" component={Search} />

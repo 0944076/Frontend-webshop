@@ -37,6 +37,7 @@ class LogUitComp extends Component {
       setTimeout(() => {
           sessionStorage.removeItem('SessieID');
           sessionStorage.removeItem('klantID');
+          sessionStorage.removeItem('emailID');
           this.props.history.push('/SignUp'); 
           }, 
         3000)
