@@ -262,29 +262,7 @@ render() {
   
     <a href="http://localhost:3000/crud/product/create">
     <button class="button buttona" >Product aanmaken</button></a>
-    {loading ? (
-              <Loading text="Producten ophalen..." />
-            ) : response && response && response.length > 0  ? (
-              [
-            //id=pageSize voorraad=total_pages categorieID=page
-            //vieze hack
-                <Pagination
-                  perPage={response[response.length-1].id}
-                  totalPages={response[response.length-1].voorraad}
-                  currentPage={response[response.length-1].categorieID}
-                  key="pagination"
-             
-                  //  .__(.)< (MEOW)
-                  //   \___)   
-
-                />,
-                
-                <ProductGrid items={response.splice(0,response.length-1)} key="grid" />
-                
-              ]
-            ) : (
-              <p>Geen producten gevonden...</p>
-            )}
+    
       {
                 
             products.map(product =>{

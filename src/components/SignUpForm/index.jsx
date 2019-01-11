@@ -342,7 +342,7 @@ if (!err1) {
          
           var localid = JSON.stringify(res.body.id);
           var localnaam = JSON.stringify(res.body.naam);
-          var localemail = JSON.stringify(this.state.email1);
+          var localemail = this.state.email1;
           var localpass = JSON.stringify(res.body.wachtwoord);
           var localadmin = JSON.stringify(res.body.admin);
           
@@ -370,8 +370,9 @@ if (!err1) {
               .then(res => {
                 //alert('Login succesvol' + res.body)
                 sessionStorage.setItem('SessieID', JSON.stringify(res.body));
-
+                
                 sessionStorage.setItem('klantID', JSON.stringify(storage));
+                sessionStorage.setItem('emailID', JSON.stringify(this.state.email1));
                 //localStorage.setItem('Login2', JSON.parse(JSON.stringify(this.state.hasspass)));
                 this.setState({
                   email1: '',

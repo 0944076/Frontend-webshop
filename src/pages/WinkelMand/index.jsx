@@ -26,7 +26,7 @@ class WinkelMand extends Component {
     this.decreaseAmount = this.decreaseAmount.bind(this);
     this.updateLocal = this.updateLocal.bind(this);
     this.order = this.order.bind(this);
-
+    
     this.state = {
       loading: true,
       producten: [],
@@ -185,6 +185,8 @@ class WinkelMand extends Component {
       console.log('stateAantallen: ' + JSON.stringify(this.state.aantallen));
       this.setState(this.state);
     }
+
+    
 
     order(){
       //producten uit aantallen array tot bestelling array maken en in sessionStorage pleuren

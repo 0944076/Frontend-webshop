@@ -126,11 +126,11 @@ fetchData(){
              ({
               id: `${bestelling.id}` ,
               klantID: `${bestelling.klantID}`,
-              geregistreerd: `${bestelling.geregistreerd}`,
-              prijs: `${bestelling.prijs}`,
-              datum: `${bestelling.datum}`,
-              adres: `${bestelling.adres}`,
-              producten: `${bestelling.producten}`,
+              Geregistreerd: `${bestelling.geregistreerd}`,
+              Prijs: `${bestelling.prijs}`,
+              Datum: `${bestelling.datum}`,
+              Adres: `${bestelling.adres}`,
+              Producten: `${bestelling.producten}`,
               
              }
              
@@ -202,12 +202,12 @@ render() {
       {
                 
             this.state.bestellingen.map(bestelling =>{
-              const {id,klantID,geregistreerd,prijs,datum,adres,producten} = bestelling;
+              const {id,klantID,Geregistreerd,Prijs,Datum,Adres,producten} = bestelling;
               return <Collapsible trigger={"ID: " + id + " " + "KlantID: " + klantID} key={id} title={klantID}>
-                    <p class="crud">geregistreerd: {geregistreerd}</p>
-                    <p class="crud">prijs: {prijs}</p>
-                    <p class="crud">datum: {datum}</p>
-                    <p class="crud">adres: {adres}</p>
+                    <p class="crud">Geregistreerd: {Geregistreerd}</p>
+                    <p class="crud">Prijs: {Prijs}</p>
+                    <p class="crud">Datum: {Datum}</p>
+                    <p class="crud">Adres: {Adres}</p>
                     <p class="crud">Producten: {producten}</p>
                     <a class="buttonu" onClick={() => this.onUpdate(bestelling)}><Button id="buttonu" >Bestelling afronden</Button></a>
                     <a class="buttond" onClick={() => this.onDelete(bestelling)}><Button id="buttond">Bestelling verwijderen</Button></a>
