@@ -304,7 +304,7 @@ render() {
         this.setState({
         accsucc: false
       })
-
+      this.props.history.push('/crud/user/view')
     }, 3000);
       return <div id="succes">Account is succesvol geupdate</div>;
       

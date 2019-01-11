@@ -260,6 +260,7 @@ render() {
         this.setState({
         prosucc: false
       })
+      this.props.history.push('/crud/product/view')
     }, 3000);
       return <div id="succes">Product is succesvol geupdate</div>;
       

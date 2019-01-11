@@ -4,6 +4,7 @@ import request from "superagent";
 import { Link } from "react-router-dom";
 import Collapsible from 'react-collapsible';
 import Pagination from "../../components/Pagination";
+import Loader from '../../components/Loading';
 import Loading from "../../components/Loading";
 import ProductGrid from "../../components/ProductGrid";
 // components
@@ -197,7 +198,8 @@ fetchData(){
              var product1 = JSON.parse(results);
              this.setState({
               isLoaded: false,
-              products: product1
+              products: product1,
+              loading: false,
             })
             
           console.log(this.state.products);
@@ -251,7 +253,21 @@ render() {
       </React.Fragment>
     );
   }
-  else{
+  else if (this.state.loading === true) {
+    return (
+      <React.Fragment>
+          <div>
+          <a href="http://localhost:3000/crud/product/create">
+          <button class="button buttona" >product aanmaken</button></a>
+            {//<Loader />
+            }
+            <Loading text="Producten ophalen..." />
+          </div>
+      
+      </React.Fragment>
+    );
+  }
+  else if (this.state.loading === false && this.state.products.length > 0) {
   const {loading, products,response} = this.state;
   
   console.log("params",this.props.match.params.cID,this.props.match.params.page,"statecid",this.state.cid)
@@ -282,6 +298,22 @@ render() {
    
     </div>
 );
+}
+else{
+  return (
+    <React.Fragment>
+     
+
+        <div className="wrapper">
+          <div className="not-found">
+            <h1 className="not-found__title">Er zijn geen gebruikers gevonden</h1>
+            <a href="http://localhost:3000/crud/user/create">
+    <button class="button buttona" >Gebruiker aanmaken</button></a>
+          </div>
+        </div>
+    </React.Fragment>
+  );
+
 }
 }
 }

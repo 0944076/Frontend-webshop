@@ -340,10 +340,10 @@ if (!err1) {
   request.get('http://localhost:5000/api/geregistreerdeklant/' + this.state.email1)
         .then(res => {
          
-          var localid = JSON.stringify(res.body.id);
-          var localnaam = JSON.stringify(res.body.naam);
+          var localid = res.body.id;
+          var localnaam = res.body.naam;
           var localemail = this.state.email1;
-          var localpass = JSON.stringify(res.body.wachtwoord);
+          var localpass = res.body.wachtwoord;
           var localadmin = JSON.stringify(res.body.admin);
           
           this.setState({

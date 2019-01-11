@@ -4,6 +4,7 @@ import request from "superagent";
 
 // components
 import BestelGeschiedenis from "../BestelGeschiedenis";
+import Button from "../../components/Button";
 
 class MijnAccount extends Component {
    constructor(props) {
@@ -11,7 +12,9 @@ class MijnAccount extends Component {
     this.state = {
       session: null,
       isloading: true,
-      gebruikers: []
+      gebruikers: [],
+      klant: ''
+      
     }
   }
   isLoggedIn(){
@@ -40,13 +43,16 @@ fetchData(){
     //isLoading: false
   //});
   //console.log("test " + this.state.session);
-  const testT = sessionStorage.getItem('klantID');
-  const testS = sessionStorage.getItem('SessieID');
-
+  var testT = JSON.parse(sessionStorage.getItem('klantID'));
+  var testS = JSON.parse(sessionStorage.getItem('SessieID'));
+  
   console.log("testKlant" + testT);
   console.log("testSessie" + testS);
   console.log("test2" + testT.naam);
-
+  this.setState({
+    klant: testT
+  })
+ console.log(this.state.klant);
 
   //fetch('http://localhost:5000/api/geregistreerdeklant/')
   //.then(res => res.json())
@@ -68,7 +74,8 @@ fetchData(){
              var user1 = JSON.parse(results);
              this.setState({
               isLoaded: false,
-              gebruikers: user1
+              gebruikers: user1,
+              
             })
             
           console.log(this.state.gebruikers);
@@ -85,10 +92,22 @@ fetchData(){
 
 render() {
 
-  const {isLoading, gebruikers} = this.state;
+  const {isLoading, gebruikers,klant} = this.state;
   const { title, description } = this.props;
   console.log(this.state.gebruikers);
+  console.log(this.state.klant);
+
+  
   return ( <div>
+    
+  <p class="crud">Naam: {this.state.klant.naam 
+  }</p>
+                        <p class="crud">Email: {this.state.klant.email
+                        }</p>
+                        <a href="http://localhost:3000/mijngegevens">
+                        <button class="button buttona" >Gegevens aanpassen</button></a>
+        
+                  
     <BestelGeschiedenis />  
   </div>
     

@@ -244,21 +244,22 @@ onSubmit = e => {
     }
   let jsonregi = JSON.parse(JSON.stringify(register));
   console.log(jsonregi);
-  
+    
     request.put(`http://localhost:5000/api/geregistreerdeklant/`)
     .send(jsonregi)
     .then(res => {
       this.setState({
-        id: '',
-        voornaam: '',
-        voornaamError: '',
-        achternaam: '',
-        achternaamError: '',
-        email: '',
-        emailError: '',
-        wachtwoord: '',
-        wachtwoordError: '',
-        admin: false,
+        gegevens: register,
+        //id: '',
+        //voornaam: '',
+        //voornaamError: '',
+        //achternaam: '',
+        //achternaamError: '',
+        //email: '',
+        //emailError: '',
+        //wachtwoord: '',
+        //wachtwoordError: '',
+        //admin: false,
         accsucc: true
       });
     });
@@ -295,7 +296,10 @@ render() {
         this.setState({
         accsucc: false
       })
-
+      sessionStorage.setItem('klantID', JSON.stringify(this.state.gegevens));
+      sessionStorage.setItem('emailID', JSON.stringify(this.state.email));
+      this.isLoggedIn()
+      this.props.history.push('/Account')
     }, 3000);
       return <div id="succes">Account is succesvol geupdate</div>;
       

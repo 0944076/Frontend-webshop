@@ -19,7 +19,9 @@ class BestelView extends Component {
       email:'',
       delesucc: false,
       id: 0,
-      bestellingen: []
+      bestellingen: [],
+      bestellingen2: [],
+      items: []
     }
     this.onUpdate = this.onUpdate.bind(this);
   }
@@ -126,22 +128,39 @@ fetchData(){
              ({
               id: `${bestelling.id}` ,
               klantID: `${bestelling.klantID}`,
-              Geregistreerd: `${bestelling.geregistreerd}`,
-              Prijs: `${bestelling.prijs}`,
-              Datum: `${bestelling.datum}`,
-              Adres: `${bestelling.adres}`,
-              Producten: `${bestelling.producten}`,
+              geregistreerd: `${bestelling.geregistreerd}`,
+              prijs: `${bestelling.prijs}`,
+              datum: `${bestelling.datum}`,
+              adres: `${bestelling.adres}`,
+              producten: bestelling.producten,
               
              }
              
              )));
+             var results2 = JSON.stringify(res.body.map(bestelling =>
+              ({
+               producten: bestelling.producten,
+              }
+              
+              )));
+              
+             console.log(JSON.parse(results2));
+             //console.log(results2);
              var bestelingen1 = JSON.parse(results);
+             var bestellingen3 = JSON.parse(results2);
+             //console.log(bestellingen3[0]);
+             
              this.setState({
               isLoaded: false,
-              bestellingen: bestelingen1
+              bestellingen: bestelingen1,
+              bestellingen2: bestellingen3,
+              //producten: results2.producten
+
             })
             
-          console.log(this.state.bestellingen);
+          //console.log(this.state.bestellingen);
+          //console.log("tussenregel");
+          //console.log(this.state.items);
 
 }).catch((err) => console.log('parsing failed',err));
 }
@@ -196,26 +215,51 @@ render() {
     );
   }
   else{
+
+    
   return (   
-  <div>
+  <div className = 'test'>
   
       {
                 
             this.state.bestellingen.map(bestelling =>{
-              const {id,klantID,Geregistreerd,Prijs,Datum,Adres,producten} = bestelling;
-              return <Collapsible trigger={"ID: " + id + " " + "KlantID: " + klantID} key={id} title={klantID}>
-                    <p class="crud">Geregistreerd: {Geregistreerd}</p>
-                    <p class="crud">Prijs: {Prijs}</p>
-                    <p class="crud">Datum: {Datum}</p>
-                    <p class="crud">Adres: {Adres}</p>
-                    <p class="crud">Producten: {producten}</p>
+              const {id,klantID,geregistreerd,prijs,datum,adres,Producten} = bestelling;
+              return <Collapsible trigger={"KlantID: " + klantID} key={id} title={klantID}>
+                    <p class="crud">geregistreerd: {geregistreerd}</p>
+                    <p class="crud">prijs: {prijs}</p>
+                    <p class="crud">datum: {datum}</p>
+                    <p class="crud">adres: {adres}</p>
+                    <p class="crud">Producten:</p>
+                    <table>
+                      <tbody>
+                      <tr>
+                                  <tr>
+                                  <td>Product</td>
+                                  <td>Prijs</td>
+                                  <td>Voorraad</td>
+                                  </tr>
+                        {bestelling.producten.map(product => {
+                          console.log('Gemapt product: ' + product);
+                          return <tr>
+                                  <td><p class="table">{product.naam}</p></td>
+                                  <td><p class="table">€{product.prijs}</p></td>
+                                  <td><p class="table">{product.voorraad}</p></td>
+                                  </tr>
+                                  
+                        })}
+                        </tr>
+                      </tbody>
+                    </table>
+
+                      
+                    
                     <a class="buttonu" onClick={() => this.onUpdate(bestelling)}><Button id="buttonu" >Bestelling afronden</Button></a>
                     <a class="buttond" onClick={() => this.onDelete(bestelling)}><Button id="buttond">Bestelling verwijderen</Button></a>
               </Collapsible>
-            })
-          }
-   
-    </div>
+            })}
+
+</div>
+
 );
 }
 }

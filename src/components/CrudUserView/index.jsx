@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 //import LayoutDefault from "../../layout/Default";
 import request from "superagent";
 import Collapsible from 'react-collapsible';
+import Loader from '../../components/Loading';
+import Loading from "../../components/Loading";
 
 // components
 import Button from "../../components/Button";
@@ -14,7 +16,7 @@ class CrudUserView extends Component {
     super(props);
     this.state = {
       session: null,
-      isloading: true,
+      loading: true,
       name:'',
       email:'',
       delesucc: false,
@@ -187,7 +189,8 @@ fetchData(){
              var user1 = JSON.parse(results);
              this.setState({
               isLoaded: false,
-              gebruikers: user1
+              gebruikers: user1,
+              loading: false
             })
             
           console.log(this.state.gebruikers);
@@ -248,8 +251,20 @@ render() {
       </React.Fragment>
     );
   }
-  else{
-  const {gebruikers} = this.state;
+  else if (this.state.loading === true) {
+    return (
+      <React.Fragment>
+          <div>
+          <a href="http://localhost:3000/crud/user/create">
+          <button class="button buttona" >Gebruiker aanmaken</button></a>
+            <Loading text="Gebruikers ophalen..." />
+          </div>
+      
+      </React.Fragment>
+    );
+  }
+  else if (this.state.loading === false && this.state.gebruikers.length > 0){
+    const {gebruikers} = this.state;
 
   console.log(this.state.gebruikers.email);
   return (   
@@ -270,6 +285,22 @@ render() {
    
     </div>
 );
+}
+else{
+  return (
+    <React.Fragment>
+     
+
+        <div className="wrapper">
+          <div className="not-found">
+            <h1 className="not-found__title">Er zijn geen gebruikers gevonden</h1>
+            <a href="http://localhost:3000/crud/user/create">
+    <button class="button buttona" >Gebruiker aanmaken</button></a>
+          </div>
+        </div>
+    </React.Fragment>
+  );
+
 }
 }
 }
