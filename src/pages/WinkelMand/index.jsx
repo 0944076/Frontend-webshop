@@ -101,6 +101,7 @@ class WinkelMand extends Component {
         }
       });
       //console.log('TOTAAL: ' + total);
+      sessionStorage.setItem('total', total);
       return total;
     }
 
