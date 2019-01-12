@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import Currency from 'react-currency-formatter';
+import axios from 'axios';
+import request from 'superagent';
+
 
 
 // Material-UI
@@ -26,7 +28,7 @@ import WinkelmandItem from './../../components/winkelmandItem';
 import { Link } from "react-router-dom";
 import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
 import LayoutDefault from '../../layout/Default';
-
+import Loader from '../../components/Loading';
 
 
 
@@ -66,7 +68,18 @@ const theme = new createMuiTheme({
   class payment extends Component {
     constructor(props){
       super(props);
-      this.state = {
+      this.retrieveProduct = this.retrieveProduct.bind(this);
+      this.productToState = this.productToState.bind(this);
+      this.outputState = this.outputState.bind(this);
+      this.isPresent = this.isPresent.bind(this);
+      this.getAmount = this.getAmount.bind(this);
+      this.getTotal = this.getTotal.bind(this);
+      this.updateLocal = this.updateLocal.bind(this);
+      this.order = this.order.bind(this);
+    
+  
+      
+      this.state = {        
         buttonDisabled: true,
         // cart: this.props.cart.items,
         // order: this.props.order.items,
@@ -83,9 +96,138 @@ const theme = new createMuiTheme({
         postcode: '',
         stad: '',
         betaalwijze: '',
-        redirect: false
+        redirect: false,
+        loading: true,
+        producten: [],
+        aantallen: []
       }
     }
+  
+
+    componentDidMount(){
+      this.productToState();
+    }
+  
+  
+    productToState(){
+        const items = JSON.parse(window.localStorage.getItem('cart'));
+        //console.log('Lokaal: ' + JSON.stringify(items));
+        let result = [];
+        let aantal  = [];
+        if(items !== null){
+          for(let i = 0; i < items.length; i++){
+            //product ophalen
+            const product = this.retrieveProduct(items[i].id)
+            .then((res) => {
+                if(this.isPresent(aantal, res.id)){
+                  //Producten toevoegen die al in het mandje zitten:
+                  for(let a = 0; a < aantal.length; a++){ //Vindt het juiste aantal object en update het aantal
+                    if(aantal[a].id === res.id){
+                      const oudAantal = parseInt(aantal[a].aantal);
+                      const nieuwAantal = oudAantal + parseInt(items[i].qty);
+                      aantal[a].aantal = nieuwAantal.toString();
+                    }
+                  }
+                } else {
+                  //Producten toevoegen die NOG NIET in het mandje zitten:
+                  result.push({res});
+                  aantal.push({id: res.id, aantal: items[i].qty});
+                }
+  
+                //State setten
+                if(i === items.length - 1){  
+                  //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
+                  this.setState({producten: result});
+                  this.setState({loading: false});
+                  this.setState({aantallen: aantal});
+                }
+              }
+            );
+          }
+        }
+      }
+  
+      isPresent(QArray, id){
+        for(let i = 0; i < QArray.length; i++){
+          //console.log('Vergelijk: ' + QArray[i].id + 'met: ' + id)
+          if(QArray[i].id === id){
+            return true;
+          }
+        }
+        return false;
+      }
+  
+      getTotal(){
+        let total = 0;// eslint-disable-next-line
+        this.state.producten.map((product)=>{
+          //console.log('telt: ' + JSON.stringify(product));
+          for(let i = 0; i < this.state.aantallen.length; i++){
+            //console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
+            if(product.res.id === this.state.aantallen[i].id){
+              //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
+              total  = total + (product.res.prijs * parseInt(this.state.aantallen[i].aantal));
+            }
+          }
+        });
+        //console.log('TOTAAL: ' + total);
+        sessionStorage.setItem('total', total);
+        return total;
+      }
+  
+      getAmount(id){
+        for(let i = 0; i < this.state.aantallen.length; i++){
+          if(this.state.aantallen[i].id === id){
+           return this.state.aantallen[i].aantal;
+          }
+        }
+      }
+    
+      async retrieveProduct(id){
+        return await axios.get('http://localhost:5000/api/product/' + id)
+        .then((res) =>{
+          return res.data;
+        });
+      }
+  
+      outputState(){
+        const stateObject = this.state.producten;
+        console.log('Complete state: ' + JSON.stringify(stateObject));
+        //console.log('Lengte state: ' + stateObject.length);
+        //console.log('producten onderdeel: ' + JSON.stringify(stateObject[0]));
+        //console.log('aantallen :' + JSON.stringify(this.state.aantallen));
+      }
+  
+      //Te roepen na increase- en decrease functies om localStorage aan de state gelijk te zetten
+      updateLocal(){
+        let localArray = [];
+        for(let i = 0; i < this.state.aantallen.length; i++){
+          localArray.push({id: this.state.aantallen[i].id, qty: this.state.aantallen[i].aantal});
+        }
+        window.localStorage.setItem('cart', JSON.stringify(localArray));
+        console.log('Local items: ' + JSON.stringify(window.localStorage.getItem('cart')));
+        console.log('stateAantallen: ' + JSON.stringify(this.state.aantallen));
+        this.setState(this.state);
+      }
+  
+      
+  
+      order(){
+        //producten uit aantallen array tot bestelling array maken en in sessionStorage pleuren
+        const aantallenArray = this.state.aantallen;
+        let bestelArray = [];
+        for(let i = 0 ; i < aantallenArray.length; i++){
+          let productAantal = parseInt(aantallenArray[i].aantal);
+          let productID = aantallenArray[i].id;
+          console.log('van product ' + productID + ' hebben we: ' + productAantal);
+          let currentCount = 0
+          while (currentCount < productAantal){
+            bestelArray.push(productID);
+            currentCount += 1;
+          }
+        }
+        sessionStorage.setItem('order', bestelArray);
+        console.log('Order: '+ sessionStorage.getItem('order'));
+      }
 
     handleChange = name => event => {
       this.setState({
@@ -139,43 +281,8 @@ const theme = new createMuiTheme({
                 />
                 <div className="betaalOverzicht">
                     <h1>Betaal overzicht</h1>
-                    <Link to="/winkelmand"><img src="https://png.pngtree.com/svg/20160707/_refresh_55882.png" alt="refresh" className="refresh"/></Link><br />
-                    Totaal: <br />
-                    <table>
-                      <tbody>
-                        {this.state.producten.map((item) => {
-                          return <BetaalOverzichtItem naam={item.res.naam} aantal={this.getAmount(item.res.id)} prijs={item.res.prijs} />
-                        })}
-                      </tbody>
-                    </table>
-                    <div className='line'></div>
-                    <table>
-                      <tbody>
-                        <tr>
-                          <td>Verzending:</td>
-                          <td>€4,95</td>
-                        </tr>
-                        <tr>
-                          <td>Totaal excl. BTW:</td>
-                          <td>€{((this.getTotal()/106)*100 + 4.95).toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                          <td>6% BTW: </td>
-                          <td>€{((this.getTotal()/106)*6).toFixed(2)}</td>
-                        </tr>
-                        <tr>
-                          <td><b>Totaal incl. BTW:</b></td>
-                          <td><b>€{(this.getTotal() + 4.95).toFixed(2)}</b></td>                    
-                        </tr>
-                      </tbody>
-                    </table>   
-                    <Link to="/winkelmand"><button class="button"onClick={() => {return this.order()}}>Volgende stap...</button></Link><br />
-                </div>
-                <div className="paginaFrame">
-                  <div className="mandFrame">                    
-                  </div>
-                  <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>
-                </div>
+                    
+              </div>
               </div>
           );
 
@@ -342,8 +449,10 @@ const theme = new createMuiTheme({
       
       );
       case 3:
-      return (
-        <div className="stepper-content-container">
+      this.outputState();
+        return (  
+                        
+          <div className="stepper-content-container">
           <div className="order-form-details">
             <div className="order-form-details-column">
               {/* Gegevens user */}
@@ -369,61 +478,68 @@ const theme = new createMuiTheme({
                 {this.state.betaalwijze}
               </div>
             </div>
+            
+            <div className="wrapper">             
+              <div className="betaalOverzicht">
+                  <h1>Betaal overzicht</h1>
+                  Totaal: <br />
+                  <table>
+                    <tbody>
+                      {this.state.producten.map((producten) => {
+                        return <BetaalOverzichtItem naam={producten.res.naam} aantal={this.getAmount(producten.res.id)} prijs={producten.res.prijs} />
+                      })}
+                    </tbody>
+                  </table>
+                  
+                  <div className='line'></div>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <td>Verzending:</td>
+                        <td>€4,95</td>
+                      </tr>
+                      <tr>
+                        <td>Totaal excl. BTW:</td>
+                        <td>€{((this.getTotal()/106)*100 + 4.95).toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td>6% BTW: </td>
+                        <td>€{((this.getTotal()/106)*6).toFixed(2)}</td>
+                      </tr>
+                      <tr>
+                        <td><b>Totaal incl. BTW:</b></td>
+                        <td><b>€{(this.getTotal() + 4.95).toFixed(2)}</b></td>                    
+                      </tr>
+                    </tbody>
+                  </table>   
+              </div>
+              
+            </div>
+              
           </div>
-          {this.state.order.length ? (
-            <p className="order-ov-title">Orderlijst</p>
-          ) : null}
-          {this.state.order.map((item) => (
-            <div key={item.id}>
-              <div className="order-item-wrapper">
-                <div className="order-item-details">
-                  <p className="order-item-title">
-                    { item.title }
-                  </p>
-                </div>
-                <div className="order-item-price">
-                  <p>
-                    <Currency
-                      quantity={item.price * item.amount}
-                      symbol="€ "
-                      decimal=","
-                      group="."
-                    />
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-          {this.state.order.length ? (
-            <div className="order-ov-divider"></div>
-          ) : null}
-          {this.state.rental.length ? (
-            <p className="order-ov-title">Huurlijst</p>
-          ) : null}
-          {this.state.rental.map((item) => (
-            <div key={item.id}>
-              <div className="order-item-wrapper">
-                <div className="order-item-details">
-                  <p className="order-item-title">
-                    { item.title }
-                  </p>
-                </div>
-                <div className="order-item-price">
-                  <p>
-                    <Currency
-                      quantity={item.price * item.amount}
-                      symbol="€ "
-                      decimal=","
-                      group="."
-                    />
-                  </p>
-                </div>
-              </div>
-              <div className="cart-item-divider"></div>
-            </div>
-          ))}
         </div>
-      );
+          
+      
+          
+        );
+      // } if (window.localStorage.getItem('cart') === null || JSON.parse(window.localStorage.getItem('cart')).length === 0) {
+      //   return (
+      //   <React.Fragment>
+          
+      //         <SimpleHeading
+      //           title="Winkelmand"
+      //           description="U heeft nog geen producten aan uw winkelmand toegevoegd."
+      //         />
+      //         <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>                
+      //   </React.Fragment>
+      //   );
+      // } else {
+      //   return <Loader />
+        
+      // }
+      
+         
+      
       case 4:
       return (
         <div className="stepper-content-container">
@@ -551,17 +667,22 @@ const theme = new createMuiTheme({
                     </MuiThemeProvider>
                   )}
                   {activeStep === 3 ? (
-                    <MuiThemeProvider theme={theme}>
-                    
+                    <MuiThemeProvider theme={theme}>                   
+                          <Button
+                            variant="contained"
+                            color='primary'
+                            onClick={() => {                        
+                              this.setState({
+                                activeStep: this.state.activeStep + 1
+                              })
+                            }}
+                          >
+                            Betalen
+                          </Button>                       
                     </MuiThemeProvider>
                   ) : null}
                   {activeStep === 4 ? (
-                    <Button
-                      variant="contained"
-                      color='primary'
-                    >
-                      Verder winkelen
-                    </Button>
+                     <Link to="/overzicht/0"><button class="button">Klik hier om verder te winkelen</button></Link>
                   ) : null}
                   
                 </div>
@@ -577,6 +698,7 @@ const theme = new createMuiTheme({
     );
   }
 }
+
   
 
 
