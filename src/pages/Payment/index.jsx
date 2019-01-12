@@ -447,8 +447,7 @@ const theme = new createMuiTheme({
       );
       case 3:
       this.outputState();
-      const total = parseInt(sessionStorage.getItem('total'));
-      const total1 = total + 4.95;
+      const total = parseFloat(sessionStorage.getItem('total'));
         return (  
                         
           <div className="stepper-content-container">
@@ -508,7 +507,7 @@ const theme = new createMuiTheme({
                       </tr>
                       <tr>
                         <td><b>Totaal incl. BTW:</b></td>
-                        <td><b>€{total1.toFixed(2)}</b></td>                    
+                        <td><b>€{(total + 4.95).toFixed(2)}</b></td>                    
                       </tr>
                     </tbody>
                   </table>   
