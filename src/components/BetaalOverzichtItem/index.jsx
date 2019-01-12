@@ -6,6 +6,7 @@ class BetaalOverzichtItem extends Component {
 
   // }
   render() {
+    console.log('AANTAL:  ' + this.props.aantal);
     return <tr>
         <td>{this.props.aantal}</td>
         <td>{(this.props.naam.length < 24)? this.props.naam : this.props.naam.substr(0,20) + '...'}</td>

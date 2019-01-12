@@ -73,9 +73,11 @@ const theme = new createMuiTheme({
       this.outputState = this.outputState.bind(this);
       this.isPresent = this.isPresent.bind(this);
       this.getAmount = this.getAmount.bind(this);
-      this.getTotal = this.getTotal.bind(this);
+      //this.getTotal = this.getTotal.bind(this);
       this.updateLocal = this.updateLocal.bind(this);
       this.order = this.order.bind(this);
+
+      
     
   
       
@@ -99,53 +101,54 @@ const theme = new createMuiTheme({
         redirect: false,
         loading: true,
         producten: [],
-        aantallen: []
+        aantallen: [],
+        order: []
       }
+
     }
   
 
-    componentDidMount(){
+    componentWillMount(){
+      console.log('COMPONENT Will MOUNT');
       this.productToState();
     }
-  
-  
+
     productToState(){
-        const items = JSON.parse(window.localStorage.getItem('cart'));
-        //console.log('Lokaal: ' + JSON.stringify(items));
-        let result = [];
-        let aantal  = [];
-        if(items !== null){
-          for(let i = 0; i < items.length; i++){
-            //product ophalen
-            const product = this.retrieveProduct(items[i].id)
+      console.log('product to state called');
+        const order = sessionStorage.getItem('order');
+        const cart = localStorage.getItem('cart');
+        //console.log('order: ' + order);
+        //console.log('cart: ' + cart);
+        this.setState({aantallen: JSON.parse(cart)}, () => {
+          
+          for(let i = 0; i < this.state.aantallen.length; i++){
+            const product = this.retrieveProduct(this.state.aantallen[i].id)
             .then((res) => {
-                if(this.isPresent(aantal, res.id)){
-                  //Producten toevoegen die al in het mandje zitten:
-                  for(let a = 0; a < aantal.length; a++){ //Vindt het juiste aantal object en update het aantal
-                    if(aantal[a].id === res.id){
-                      const oudAantal = parseInt(aantal[a].aantal);
-                      const nieuwAantal = oudAantal + parseInt(items[i].qty);
-                      aantal[a].aantal = nieuwAantal.toString();
-                    }
-                  }
-                } else {
-                  //Producten toevoegen die NOG NIET in het mandje zitten:
-                  result.push({res});
-                  aantal.push({id: res.id, aantal: items[i].qty});
-                }
-  
-                //State setten
-                if(i === items.length - 1){  
-                  //console.log('Aantallen voor state set: ' + JSON.stringify(aantal));
-                  this.setState({producten: result});
-                  this.setState({loading: false});
-                  this.setState({aantallen: aantal});
-                }
+              //console.log('Toevoegen: ' + res);
+              this.setState({producten: this.state.producten.concat(res)}, () => {
+                //console.log('State producten: ' + JSON.stringify(this.state.producten));
               }
             );
+          });
+        }
+          }
+        );
+        this.setState({order: order}, () => {
+          console.log('State order: ' + this.state.order);
+          }
+        );
+        
+      }
+        
+      getAmount(id){
+        console.log('State aantallen: ' + JSON.stringify(this.state.aantallen));
+        for(let i = 0; i < this.state.aantallen.length; i++){
+          if(this.state.aantallen[i].id === id){
+           return this.state.aantallen[i].qty;
           }
         }
       }
+      
   
       isPresent(QArray, id){
         for(let i = 0; i < QArray.length; i++){
@@ -157,30 +160,24 @@ const theme = new createMuiTheme({
         return false;
       }
   
-      getTotal(){
-        let total = 0;// eslint-disable-next-line
-        this.state.producten.map((product)=>{
-          //console.log('telt: ' + JSON.stringify(product));
-          for(let i = 0; i < this.state.aantallen.length; i++){
-            //console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
-            if(product.res.id === this.state.aantallen[i].id){
-              //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
-              total  = total + (product.res.prijs * parseInt(this.state.aantallen[i].aantal));
-            }
-          }
-        });
-        //console.log('TOTAAL: ' + total);
-        sessionStorage.setItem('total', total);
-        return total;
-      }
+      // getTotal(){
+      //   let total = 0;
+      //   this.state.producten.map((product)=>{
+      //     console.log('telt: ' + JSON.stringify(product));
+      //     for(let i = 0; i < this.state.aantallen.length; i++){
+      //       //console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
+      //       if(product.id === this.state.aantallen[i].id){
+      //         //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
+      //         total  = total + (product.prijs * parseInt(this.state.aantallen[i].aantal));
+      //       }
+      //     }
+      //   });
+      //   //console.log('TOTAAL: ' + total);
+      //   sessionStorage.setItem('total', total);
+      //   return total;
+      // }
   
-      getAmount(id){
-        for(let i = 0; i < this.state.aantallen.length; i++){
-          if(this.state.aantallen[i].id === id){
-           return this.state.aantallen[i].aantal;
-          }
-        }
-      }
+      
     
       async retrieveProduct(id){
         return await axios.get('http://localhost:5000/api/product/' + id)
@@ -450,6 +447,8 @@ const theme = new createMuiTheme({
       );
       case 3:
       this.outputState();
+      const total = parseInt(sessionStorage.getItem('total'));
+      const total1 = total + 4.95;
         return (  
                         
           <div className="stepper-content-container">
@@ -486,7 +485,8 @@ const theme = new createMuiTheme({
                   <table>
                     <tbody>
                       {this.state.producten.map((producten) => {
-                        return <BetaalOverzichtItem naam={producten.res.naam} aantal={this.getAmount(producten.res.id)} prijs={producten.res.prijs} />
+                        console.log('Een product kost: ' + JSON.stringify(producten.prijs));
+                        return <BetaalOverzichtItem naam={producten.naam} aantal={this.getAmount(producten.id)} prijs={producten.prijs} />
                       })}
                     </tbody>
                   </table>
@@ -500,15 +500,15 @@ const theme = new createMuiTheme({
                       </tr>
                       <tr>
                         <td>Totaal excl. BTW:</td>
-                        <td>€{((this.getTotal()/106)*100 + 4.95).toFixed(2)}</td>
+                        <td>€{((total/106)*100 + 4.95).toFixed(2)}</td>
                       </tr>
                       <tr>
                         <td>6% BTW: </td>
-                        <td>€{((this.getTotal()/106)*6).toFixed(2)}</td>
+                        <td>€{((total/106)*6).toFixed(2)}</td>
                       </tr>
                       <tr>
                         <td><b>Totaal incl. BTW:</b></td>
-                        <td><b>€{(this.getTotal() + 4.95).toFixed(2)}</b></td>                    
+                        <td><b>€{total1.toFixed(2)}</b></td>                    
                       </tr>
                     </tbody>
                   </table>   
@@ -610,6 +610,7 @@ const theme = new createMuiTheme({
   };
 
   render() {
+    
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
