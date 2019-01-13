@@ -105,10 +105,10 @@ class WinkelMand extends Component {
       const totalBTW = total * 0.06; 
       const totalIn = totalEx + totalBTW;
       
-      sessionStorage.setItem('total', total);
-      sessionStorage.setItem('totalEx', totalEx);
-      sessionStorage.setItem('totalIn', totalIn);
-      sessionStorage.setItem('totalBTW', totalBTW);
+      sessionStorage.setItem('total', total.toFixed(2));
+      sessionStorage.setItem('totalEx', totalEx.toFixed(2));
+      sessionStorage.setItem('totalIn', totalIn.toFixed(2));
+      sessionStorage.setItem('totalBTW', totalBTW.toFixed(2));
       return total;
     }
 
@@ -246,7 +246,7 @@ class WinkelMand extends Component {
                     <tbody>
                       <tr>
                         <td>Verzending:</td>
-                        <td>€4,95</td>
+                        <td>€4.95</td>
                       </tr>
                       <tr>
                         <td>Totaal excl. BTW:</td>
