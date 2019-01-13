@@ -49,6 +49,7 @@ fetchData(){
   if(sessionStorage.getItem('klantID2') != null){
     testT = JSON.parse(sessionStorage.getItem('klantID2'));
     testS = JSON.parse(sessionStorage.getItem('SessieID2'));
+    
   }
   else{
     testT = JSON.parse(sessionStorage.getItem('klantID'));
