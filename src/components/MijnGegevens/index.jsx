@@ -296,8 +296,8 @@ render() {
         this.setState({
         accsucc: false
       })
-      sessionStorage.setItem('klantID', JSON.stringify(this.state.gegevens));
-      sessionStorage.setItem('emailID', JSON.stringify(this.state.email));
+      sessionStorage.setItem('klantID2', JSON.stringify(this.state.gegevens));
+      sessionStorage.setItem('emailID2', JSON.stringify(this.state.email));
       this.isLoggedIn()
       this.props.history.push('/Account')
     }, 3000);
