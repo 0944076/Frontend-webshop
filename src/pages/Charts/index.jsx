@@ -27,16 +27,18 @@ class Charts extends Component {
       categoriecount: [0,0,0,0,0],
       categorieprijsavg: [0,0,0,0,0],
       totalwaardevoorraadcat: [0,0,0,0,0,0],
-      bestellingenperklant: null
+      bestellingenperklant: null,
+      asyncdone: 0
     };
   }
 
   
   componentDidMount() {
     this.getProducts("api/bestelling");
-    this.getProducts("api/geregistreerdeklant");
-    this.getProducts("api/product?pagesize=99999");
-
+    //this.getProducts("api/product?pagesize=99999");
+    //this.getProducts("api/geregistreerdeklant");
+    // console.log("dildo",this.state.x.length,this.state.klantcountarray)
+    // this.state.bestellingenperklant[0] = this.state.x.length/this.state.klantcountarray
     
     this.setState(
       {
@@ -62,16 +64,16 @@ class Charts extends Component {
       this.setState({
         response: response.body
       });
-      console.log("response13", response.body);
       if (link === "api/bestelling")
       {
+      //console.log("product count",response.body[0].producten.length)
       let bestellingcount = [];
       let bestellingprijs = [];
       let avg = 0;
       let avgscrewthisshit = [];
       for (let i = 0; i < response.body.length; i++) 
       {
-        bestellingcount.push(response.body[i].id);
+        bestellingcount.push(response.body[i].bestellingID);
         bestellingprijs.push(response.body[i].prijs);
         avg = avg + response.body[i].prijs;
       }
@@ -121,6 +123,15 @@ class Charts extends Component {
       });
     }
     });
+    if (this.state.asyncdone === 0){
+      this.state.asyncdone = 1;
+      this.getProducts("api/product?pagesize=99999");
+    }
+    if (this.state.asyncdone === 1){
+      this.state.asyncdone = 2;
+      this.getProducts("api/geregistreerdeklant");
+    }
+    
   };
 
   
@@ -132,7 +143,6 @@ class Charts extends Component {
        categorieprijsavg <= 0 || totalwaardevoorraadcat[0] === 0 || bestellingenperklant === null) {
       return null
     }
-    console.log('bestellingenperklant',bestellingenperklant[0])
     if(!this.isLoggedIn()){
       return (
         <React.Fragment>
@@ -175,17 +185,6 @@ class Charts extends Component {
                 //   //  .__(.)< (MEOW)
                 //   //   \___)   
                 <div>
-                <Plot
-                data={[
-                  {
-                    x: x,
-                    y: y,
-                    type: 'bar',
-                    marker: {color: 'red'},
-                  }
-                ]}
-                layout={ {width: 420, height: 640, title: 'Bestellingen en prijs'} }
-              />
               <Plot
               data={[
                 {

@@ -68,7 +68,7 @@ class BestelGeschiedenis extends Component {
         <div className="mandFrame">
          {this.state.bestellingen.map((item) => {
            console.log('met producten: ' + JSON.stringify(item.producten));
-           return <BestelGeschiedenisItem klantID={item.klantID} producten={item.producten} geregistreerd={item.geregistreerd} adres={item.adres} prijs={item.prijs} datum='tijdelijke string'/>
+           return <BestelGeschiedenisItem klantID={item.klantID} status={item.status} producten={item.producten} geregistreerd={item.geregistreerd} adres={item.adres} prijs={item.prijs} datum='tijdelijke string'/>
          })}
         </div>
       );
