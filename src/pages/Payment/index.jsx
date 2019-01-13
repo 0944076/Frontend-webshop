@@ -29,6 +29,7 @@ import { Link } from "react-router-dom";
 import BetaalOverzichtItem from "../../components/BetaalOverzichtItem";
 import LayoutDefault from '../../layout/Default';
 import Loader from '../../components/Loading';
+import { bool } from 'prop-types';
 
 
 
@@ -52,7 +53,7 @@ const styles = theme => ({
 const theme = new createMuiTheme({
   palette: {
     primary: {
-      main: '#76ff3b'
+      main: '#43a047'
     },
     secondary: {
       main: '#000000'
@@ -75,18 +76,11 @@ const theme = new createMuiTheme({
       this.getAmount = this.getAmount.bind(this);
       //this.getTotal = this.getTotal.bind(this);
       this.updateLocal = this.updateLocal.bind(this);
-      this.order = this.order.bind(this);
-
-      
-    
-  
+      this.order = this.order.bind(this);     
       
       this.state = {        
         buttonDisabled: true,
-        // cart: this.props.cart.items,
-        // order: this.props.order.items,
         activeStep: this.setActiveStep(),
-        // id: this.props.user.id,
         email:'',
         emailError: false,
         emailHelperText: '',
@@ -102,7 +96,12 @@ const theme = new createMuiTheme({
         loading: true,
         producten: [],
         aantallen: [],
-        order: []
+        order: [],
+        geregistreerdeklant: bool,
+        producten1: [],
+        klantID: '',
+
+
       }
 
     }
@@ -151,10 +150,14 @@ const theme = new createMuiTheme({
       this.productToState();
     }
 
+    
+
+    
     productToState(){
       console.log('product to state called');
         const order = sessionStorage.getItem('order');
         const cart = localStorage.getItem('cart');
+        this.setState({producten1: order});
         //console.log('order: ' + order);
         //console.log('cart: ' + cart);
         this.setState({aantallen: JSON.parse(cart)}, () => {
@@ -198,22 +201,7 @@ const theme = new createMuiTheme({
         return false;
       }
   
-      // getTotal(){
-      //   let total = 0;
-      //   this.state.producten.map((product)=>{
-      //     console.log('telt: ' + JSON.stringify(product));
-      //     for(let i = 0; i < this.state.aantallen.length; i++){
-      //       //console.log('aantal object: ' + JSON.stringify(this.state.aantallen[i]));
-      //       if(product.id === this.state.aantallen[i].id){
-      //         //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
-      //         total  = total + (product.prijs * parseInt(this.state.aantallen[i].aantal));
-      //       }
-      //     }
-      //   });
-      //   //console.log('TOTAAL: ' + total);
-      //   sessionStorage.setItem('total', total);
-      //   return total;
-      // }
+      
   
       
     
@@ -303,6 +291,68 @@ const theme = new createMuiTheme({
         })
       }
       this.fetchData();
+    }
+    addBestelling = e => {
+
+      e.preventDefault();
+      if(sessionStorage.getItem('klantID') != null){
+        this.setState({
+          geregistreerdeklant: true
+        })
+      } else {
+        this.setState({
+          geregistreerdeklant: false
+        })
+      }       
+      
+      
+      console.log("gerigistreerd? "+this.state.geregistreerdeklant);
+     
+      
+      // this.setState({klantID: JSON.parse(sessionStorage.getItem('klantID'))});
+      // console.log("klantid "+this.state.klantID);
+      
+      
+
+      let ageregistreerdeklant = this.state.geregistreerdeklant;
+      // this.state.geregistreerdeklant;
+      let Orderproducten = this.state.producten1;
+      
+      // let arr = []
+      // for (let i = 0; i < this.state.producten1.length; ++) {
+      //   arr.push(this.state.producten1[i].id)
+      // }
+      // 
+      let klantiD = JSON.parse(sessionStorage.getItem('klantID'));
+      // 
+      let astraat = this.state.straat;
+      let ahuisnummer = this.state.huisnummer;
+      let apostcode = this.state.postcode;
+      let astad = this.state.stad;
+      let aadres = JSON.stringify(astraat + " " +  ahuisnummer + " " + apostcode + " " + astad);
+      
+      
+      console.log(this.state.producten1);
+      console.log("klantid "+klantiD.id);
+      console.log("adres "+aadres);
+      console.log("gerigistreerd? "+ageregistreerdeklant);
+
+   
+      const order = {
+        klantID: klantiD,
+        producten: Orderproducten,
+        geregistreerdeklant: ageregistreerdeklant,
+        adres: aadres,
+      }
+      
+      console.log("order"+order);
+      
+      request.post('http://localhost:5000/api/bestelling')
+      .send(order)
+      .then((res) => {
+        console.log(res);
+})
+    
     }
   
     getStepContent = (stepIndex) => {
@@ -709,18 +759,15 @@ const theme = new createMuiTheme({
                     </MuiThemeProvider>
                   )}
                   {activeStep === 3 ? (
-                    <MuiThemeProvider theme={theme}>                   
+                    <MuiThemeProvider theme={theme}>                                                              
                           <Button
                             variant="contained"
                             color='primary'
-                            onClick={() => {                        
-                              this.setState({
-                                activeStep: this.state.activeStep + 1
-                              })
-                            }}
+                            onClick={e => this.addBestelling(e)}
+                              // ;() => {this.setState({activeStep: this.state.activeStep + 1})}}
                           >
                             Betalen
-                          </Button>                       
+                          </Button>                      
                     </MuiThemeProvider>
                   ) : null}
                   {activeStep === 4 ? (
