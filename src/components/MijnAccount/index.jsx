@@ -18,6 +18,7 @@ class MijnAccount extends Component {
     }
   }
   isLoggedIn(){
+
     let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
     let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
     if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "false"){
@@ -43,8 +44,17 @@ fetchData(){
     //isLoading: false
   //});
   //console.log("test " + this.state.session);
-  var testT = JSON.parse(sessionStorage.getItem('klantID'));
-  var testS = JSON.parse(sessionStorage.getItem('SessieID'));
+  var testT = "";
+  var testS = "";
+  if(sessionStorage.getItem('klantID2') != null){
+    testT = JSON.parse(sessionStorage.getItem('klantID2'));
+    testS = JSON.parse(sessionStorage.getItem('SessieID2'));
+    
+  }
+  else{
+    testT = JSON.parse(sessionStorage.getItem('klantID'));
+    testS = JSON.parse(sessionStorage.getItem('SessieID'));
+  }
   
   console.log("testKlant" + testT);
   console.log("testSessie" + testS);

@@ -106,7 +106,45 @@ const theme = new createMuiTheme({
       }
 
     }
-  
+    fetchData(){
+      var gebruiker = "";
+      if(sessionStorage.getItem('klantID2') != null){
+        gebruiker = JSON.parse(sessionStorage.getItem('emailID2'));
+      }
+      else{
+        gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
+      }
+      //const gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
+      console.log('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)
+      request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
+      .then(res => {
+       
+       var results = JSON.parse(JSON.stringify(res.body.naam));
+       var test111 = res.body.naam.split(" ");
+       var voor = test111[0];
+       if(test111.length > 2){
+         var achter = "";
+        for (var i=1; i < test111.length; i++) {
+          achter += test111[i] + " ";  
+        } 
+       }
+       else{
+        var achter = test111[1];
+       }
+       console.log(test111);
+       this.setState({
+        response: res.body,
+        //voornaam: res.body.naam,
+        //achternaam: res.body.naam,
+        naam: voor,
+        achternaam: achter,
+        email: res.body.email,
+        id: res.body.id
+      });
+      console.log(results);
+      console.log(test111);
+    });
+  }
 
     componentWillMount(){
       console.log('COMPONENT Will MOUNT');
@@ -264,6 +302,7 @@ const theme = new createMuiTheme({
           buttonDisabled: false
         })
       }
+      this.fetchData();
     }
   
     getStepContent = (stepIndex) => {
