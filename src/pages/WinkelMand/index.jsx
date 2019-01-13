@@ -215,6 +215,7 @@ class WinkelMand extends Component {
     }
 
   render() {
+    this.getTotal();
     const total = parseFloat(sessionStorage.getItem('total'));
     const totalEx = parseFloat(sessionStorage.getItem('totalEx'));
     const totalIn = parseFloat(sessionStorage.getItem('totalIn'));
