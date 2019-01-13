@@ -97,11 +97,18 @@ class WinkelMand extends Component {
           if(product.res.id === this.state.aantallen[i].id){
             //console.log('producten ' + product.res.id + ' kosten: ' + (product.res.prijs * parseInt(this.state.aantallen[i].aantal)).toString());
             total  = total + (product.res.prijs * parseInt(this.state.aantallen[i].aantal));
+                      
           }
         }
       });
-      //console.log('TOTAAL: ' + total);
+      const totalEx  = total + 4.95;
+      const totalBTW = total * 0.06; 
+      const totalIn = totalEx + totalBTW;
+      
       sessionStorage.setItem('total', total);
+      sessionStorage.setItem('totalEx', totalEx);
+      sessionStorage.setItem('totalIn', totalIn);
+      sessionStorage.setItem('totalBTW', totalBTW);
       return total;
     }
 
@@ -208,6 +215,10 @@ class WinkelMand extends Component {
     }
 
   render() {
+    const total = parseFloat(sessionStorage.getItem('total'));
+    const totalEx = parseFloat(sessionStorage.getItem('totalEx'));
+    const totalIn = parseFloat(sessionStorage.getItem('totalIn'));
+    const totalBTW = parseFloat(sessionStorage.getItem('totalBTW'));
     if (!this.state.loading){
       this.outputState();
       return (   
@@ -238,15 +249,15 @@ class WinkelMand extends Component {
                       </tr>
                       <tr>
                         <td>Totaal excl. BTW:</td>
-                        <td>€{((this.getTotal()/106)*100 + 4.95).toFixed(2)}</td>
+                        <td>€{totalEx}</td>
                       </tr>
                       <tr>
                         <td>6% BTW: </td>
-                        <td>€{((this.getTotal()/106)*6).toFixed(2)}</td>
+                        <td>€{totalBTW}</td>
                       </tr>
                       <tr>
                         <td><b>Totaal incl. BTW:</b></td>
-                        <td><b>€{(this.getTotal() + 4.95).toFixed(2)}</b></td>                    
+                        <td><b>€{totalIn}</b></td>                    
                       </tr>
                     </tbody>
                   </table>   
