@@ -306,22 +306,17 @@ const theme = new createMuiTheme({
       }       
       
       
-      console.log("gerigistreerd? "+this.state.geregistreerdeklant);
-     
-      
-      // this.setState({klantID: JSON.parse(sessionStorage.getItem('klantID'))});
-      // console.log("klantid "+this.state.klantID);
-      
       
 
       let ageregistreerdeklant = this.state.geregistreerdeklant;
-      // this.state.geregistreerdeklant;
-      let Orderproducten = this.state.producten1;
+    
+      // let Orderproducten = this.state.producten1;
       
-      // let arr = []
-      // for (let i = 0; i < this.state.producten1.length; ++) {
-      //   arr.push(this.state.producten1[i].id)
-      // }
+      let Orderproducten = []
+      for (let i = 0; i < this.state.producten.length;i ++) {
+        Orderproducten.push(this.state.producten[i].id)
+      }
+      
       // 
       let klantiD = JSON.parse(sessionStorage.getItem('klantID'));
       // 
@@ -329,23 +324,23 @@ const theme = new createMuiTheme({
       let ahuisnummer = this.state.huisnummer;
       let apostcode = this.state.postcode;
       let astad = this.state.stad;
-      let aadres = JSON.stringify(astraat + " " +  ahuisnummer + " " + apostcode + " " + astad);
+      let aadres = (astraat + " " +  ahuisnummer + " " + apostcode + " " + astad);
       
       
-      console.log(this.state.producten1);
-      console.log("klantid "+klantiD.id);
-      console.log("adres "+aadres);
-      console.log("gerigistreerd? "+ageregistreerdeklant);
+      // console.log(Orderproducten);
+      // console.log("klantid "+klantiD.id);
+      // console.log("adres "+aadres);
+      // console.log("gerigistreerd? "+ageregistreerdeklant);
 
    
       const order = {
-        klantID: klantiD,
+        klantID: klantiD.id,
         producten: Orderproducten,
         geregistreerdeklant: ageregistreerdeklant,
         adres: aadres,
       }
       
-      console.log("order"+order);
+      // console.log(order);
       
       request.post('http://localhost:5000/api/bestelling')
       .send(order)
@@ -763,7 +758,9 @@ const theme = new createMuiTheme({
                           <Button
                             variant="contained"
                             color='primary'
-                            onClick={e => this.addBestelling(e)}
+                            onClick={e => {e.preventDefault();
+                              this.addBestelling(e);
+                              this.setState({activeStep: this.state.activeStep + 1})}}
                               // ;() => {this.setState({activeStep: this.state.activeStep + 1})}}
                           >
                             Betalen
