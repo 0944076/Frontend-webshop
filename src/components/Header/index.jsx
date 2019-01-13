@@ -335,7 +335,7 @@ class Header extends Component {
             </div>
             
             <NavLink exact activeClassName="is-active" to="/SignUp">
-              Registreren
+              Aanmelden
               </NavLink>
               
             <NavLink exact activeClassName="is-active" to="/winkelmand">
@@ -347,9 +347,7 @@ class Header extends Component {
             <NavLink exact activeClassName="is-active" to="/AboutUs">
               About Us
             </NavLink>
-            <NavLink exact activeClassName="is-active" to="/Charts">
-              Charts
-            </NavLink>
+            
           </div>
         </div>
       </header>

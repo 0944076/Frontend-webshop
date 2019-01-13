@@ -20,7 +20,18 @@ componentDidMount(){
   this.fetchData();
 }
 fetchData(){
-  const gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
+  var testT = "";
+  var testS = "";
+  var gebruiker = "";
+  if(sessionStorage.getItem('klantID2') != null){
+    testT = JSON.parse(sessionStorage.getItem('klantID2'));
+    gebruiker = JSON.parse(sessionStorage.getItem('emailID2'));
+  }
+  else{
+    testT = JSON.parse(sessionStorage.getItem('klantID'));
+    gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
+  }
+  //const gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
   console.log('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)
   request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
   .then(res => {
@@ -50,17 +61,6 @@ fetchData(){
 
 
   });
-  if(this.state.admin === true){
-    this.setState({
-      selectedOption: 'option2',
-    });
-    
-  }
-  else{
-    this.setState({
-      selectedOption: 'option1',
-    });
-  }
   console.log(results);
   console.log(test111);
 });
@@ -296,8 +296,15 @@ render() {
         this.setState({
         accsucc: false
       })
-      sessionStorage.setItem('klantID', JSON.stringify(this.state.gegevens));
-      sessionStorage.setItem('emailID', JSON.stringify(this.state.email));
+      if(sessionStorage.getItem('klantID') != null){
+        sessionStorage.setItem('klantID2', JSON.stringify(this.state.gegevens));
+        sessionStorage.setItem('emailID2', JSON.stringify(this.state.email));
+      }
+      else{
+        sessionStorage.setItem('klantID', JSON.stringify(this.state.gegevens));
+        sessionStorage.setItem('emailID', JSON.stringify(this.state.email));
+      }
+      
       this.isLoggedIn()
       this.props.history.push('/Account')
     }, 3000);

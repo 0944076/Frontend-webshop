@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import request from 'superagent';
 import Plot from 'react-plotly.js';
-
+import { Link } from "react-router-dom";
 
 // layout
 import LayoutDefault from '../../layout/Default';
@@ -44,7 +44,15 @@ class Charts extends Component {
       })
    
   }
-
+  isLoggedIn(){
+    let sessieObject = JSON.parse(sessionStorage.getItem('SessieID'));
+    let klantObject = JSON.parse(sessionStorage.getItem('klantID'));
+    if(sessieObject !== null && sessieObject.id > 0 && klantObject.admin === "true"){
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   async getProducts(link) 
   {// eslint-disable-next-line
@@ -125,6 +133,30 @@ class Charts extends Component {
       return null
     }
     console.log('bestellingenperklant',bestellingenperklant[0])
+    if(!this.isLoggedIn()){
+      return (
+        <React.Fragment>
+         
+         <LayoutDefault className="charts">
+        <PageHero
+            intro
+            title="Welkom!"
+            description="Welkom bij kamerplant inc. De website voor al uw exclusieve planten."
+            image="https://www.zoover.nl/blog/wp-content/uploads/2017/12/Kamperen-in-Kroati%C3%AB-Plitvicemeren.jpeg"
+          />
+            <div className="wrapper">
+              <div className="not-found">
+                <h1 className="not-found__title">U bent niet ingelogd</h1>
+                <p className="not-found__description">
+                  <Link to="/signup">Login met een admin account om bij het adminpaneel te komen<br/></Link>
+                </p>
+              </div>
+            </div>
+            </LayoutDefault>
+        </React.Fragment>
+      );
+    }
+    else{
     return (
       <React.Fragment>
         <LayoutDefault className="charts">
@@ -239,6 +271,7 @@ class Charts extends Component {
       </React.Fragment>
     );
   }
+}
 }
 
 export default Charts;

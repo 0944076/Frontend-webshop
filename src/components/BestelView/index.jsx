@@ -48,69 +48,79 @@ isLoggedIn(){
     return false;
   }
 }
-onUpdate(gebruiker){
-  this.setState({
-    
-    name: gebruiker.naam,
-    email: gebruiker.email,
-    id: gebruiker.id
-});
-var testI = this.state.id;
-var testE = gebruiker.email;
+onUpdate(bestelling){
+var testI = JSON.parse(bestelling.id);
+var testE = "Verzonden";
 console.log(testE);
 const update = {
-  id: testI,
-  email: testE
+  newStatus: testE
 }
 
-  var test = gebruiker.id;
-  console.log(test)
+  var test = bestelling.id;
+  console.log(update)
   
   if(test === 0){
     console.log('werkt nog nie');
     
   }
   else{
+    if(window.confirm("wil je zeker bestelling nummer: "+ bestelling.id + " " + "veranderen?")){
+    console.log(update);
     let jsonlogi = JSON.parse(JSON.stringify(update));
     let test = JSON.parse(JSON.stringify(update));
-    console.log(test);
+    
     console.log('test ID ' + testI);
     console.log('test Email ' + testE);
-    console.log('test samen' + jsonlogi);
-    sessionStorage.setItem('editID',testE);
-    this.props.history.push('/crud/user/update');
-    
-  }
-}
-onDelete(gebruiker){
-  if (gebruiker.id === 0){
-    console.log('standaard id');
-    this.setState({
-    
-      name: gebruiker.naam,
-      email: gebruiker.email,
-      id: gebruiker.id
-  });
-  }
-  else{
-    if(window.confirm("wil je zeker "+ gebruiker.naam + " " + "verwijderen?")){
-      
-    var testI = gebruiker.id;
-    console.log(testI);
-    request.delete('http://localhost:5000/api/geregistreerdeklant/'+testI)
-      .then(res => {
-        this.setState({
-          delesucc: true
-      });
-      });
+    console.log(jsonlogi);
+    request.put(`http://localhost:5000/api/bestellingen/`+testI)
+     .send(update)
+     .then(res => {
+       this.setState({
+         prosucc: true
+       });
+     });
     }
     else{
-      console.log('verwijderen gestopt');
+      console.log('verandering gestopt');
     }
-  
-  
-
+  }
 }
+onDelete(bestelling){
+var testI = JSON.parse(bestelling.id);
+var testE = "In behandeling";
+console.log(testE);
+const update = {
+  newStatus: testE
+}
+
+  var test = bestelling.id;
+  console.log(update)
+  
+  if(test === 0){
+    console.log('werkt nog nie');
+    
+  }
+  else{
+    if(window.confirm("wil je zeker bestelling nummer: "+ bestelling.id + " " + "veranderen?")){
+    console.log(update);
+    let jsonlogi = JSON.parse(JSON.stringify(update));
+    let test = JSON.parse(JSON.stringify(update));
+    
+    console.log('test ID ' + testI);
+    console.log('test Email ' + testE);
+    console.log(jsonlogi);
+    request.put(`http://localhost:5000/api/bestellingen/`+testI)
+     .send(update)
+     .then(res => {
+       this.setState({
+         prosucc: true
+       });
+     });
+    }
+    else{
+      console.log('verandering gestopt');
+    }
+  }
 }
 
 fetchData(){
@@ -126,13 +136,14 @@ fetchData(){
          
           var results = JSON.stringify(res.body.map(bestelling =>
              ({
-              id: `${bestelling.id}` ,
+              id: `${bestelling.bestellingID}` ,
               klantID: `${bestelling.klantID}`,
               geregistreerd: `${bestelling.geregistreerd}`,
               prijs: `${bestelling.prijs}`,
               datum: `${bestelling.datum}`,
               adres: `${bestelling.adres}`,
               producten: bestelling.producten,
+              status: `${bestelling.status}`,
               
              }
              
@@ -169,14 +180,14 @@ fetchData(){
 
 
 render() {
-  if(this.state.delesucc === true){
+  if(this.state.prosucc === true){
     setTimeout(() => {
       this.setState({
       delesucc: false
     })
     window.location.reload();
   }, 3000);
-    return <div id="succes">Delete is succesvol</div>;
+    return <div id="succes">Bestelling is aangepast</div>;
     
     
 
@@ -223,10 +234,10 @@ render() {
       {
                 
             this.state.bestellingen.map(bestelling =>{
-              const {id,klantID,geregistreerd,prijs,datum,adres,Producten} = bestelling;
-              return <Collapsible trigger={"KlantID: " + klantID} key={id} title={klantID}>
+              const {id,klantID,geregistreerd,prijs,datum,adres,Producten,status} = bestelling;
+              return <Collapsible trigger={"BestellingID: "+ id + " " + "KlantID: " + klantID + " "+"Status: " + status} key={id} title={status}>
                     <p class="crud">geregistreerd: {geregistreerd}</p>
-                    <p class="crud">prijs: {prijs}</p>
+                    <p class="crud">prijs: €{prijs}</p>
                     <p class="crud">datum: {datum}</p>
                     <p class="crud">adres: {adres}</p>
                     <p class="crud">Producten:</p>
@@ -253,9 +264,10 @@ render() {
 
                       
                     
-                    <a class="buttonu" onClick={() => this.onUpdate(bestelling)}><Button id="buttonu" >Bestelling afronden</Button></a>
-                    <a class="buttond" onClick={() => this.onDelete(bestelling)}><Button id="buttond">Bestelling verwijderen</Button></a>
+                    <a class="buttonu" onClick={() => this.onUpdate(bestelling)}><Button id="buttonu" >Bestelling Verzenden</Button></a>
+                    <a class="buttonv" onClick={() => this.onDelete(bestelling)}><Button id="buttond">Bestelling Verwerken</Button></a>
               </Collapsible>
+              
             })}
 
 </div>
