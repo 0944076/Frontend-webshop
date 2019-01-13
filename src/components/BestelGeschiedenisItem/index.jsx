@@ -33,7 +33,11 @@ class BestelGeschiedenisItem extends Component
                     <img src={this.props.foto} className= "productFoto" alt=""/>
                     <div>
                         <h2>{(this.props.geregistreerd)?'Klant: ':'Gast: '}{this.props.klantID}</h2><h3>{this.props.producten.length} producten: (€{this.props.prijs.toFixed(2)})</h3>
-                        <p>{this.props.adres}</p>
+                        <p>
+                            {this.props.adres}
+                            <br />
+                            {this.props.status}
+                        </p>
                     </div>
                 </div>
             );
@@ -43,7 +47,11 @@ class BestelGeschiedenisItem extends Component
                     <img src={this.props.foto} className= "productFoto" alt=""/>
                     <div>
                         <h2>{(this.props.geregistreerd)?'Klant: ':'Gast: '}{this.props.klantID}</h2><h3>{this.props.producten.length} producten: (€{this.props.prijs.toFixed(2)})</h3>
-                        <p>{this.props.adres}</p>
+                        <p>
+                            {this.props.adres}
+                            <br />
+                            {this.props.status}
+                        </p>
                     </div>
                     <div>
                         <table>
