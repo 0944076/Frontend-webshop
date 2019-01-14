@@ -298,10 +298,12 @@ const theme = new createMuiTheme({
       if(sessionStorage.getItem('klantID') != null){
         this.setState({
           geregistreerdeklant: true
+          
         })
       } else {
         this.setState({
           geregistreerdeklant: false
+
         })
       }       
       
@@ -326,7 +328,16 @@ const theme = new createMuiTheme({
       let astad = this.state.stad;
       let aadres = (astraat + " " +  ahuisnummer + " " + apostcode + " " + astad);
       
-      
+      let klant 
+      let check
+      if (klantiD != null){
+        klant = klantiD.id
+        check = true
+      }
+      else{
+        klant = 0
+        check = false
+      }
       // console.log(Orderproducten);
       // console.log("klantid "+klantiD.id);
       // console.log("adres "+aadres);
@@ -334,13 +345,13 @@ const theme = new createMuiTheme({
 
    
       const order = {
-        klantID: klantiD.id,
+        klantID: klant,
         producten: Orderproducten,
-        geregistreerdeklant: ageregistreerdeklant,
+        geregistreerd: check,
         adres: aadres,
       }
       
-      // console.log(order);
+      console.log(order);
       
       request.post('http://localhost:5000/api/bestelling')
       .send(order)

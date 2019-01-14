@@ -238,7 +238,6 @@ render() {
               return <Collapsible trigger={"BestellingID: "+ id + " " + "KlantID: " + klantID + " "+"Status: " + status} key={id} title={status}>
                     <p class="crud">geregistreerd: {geregistreerd}</p>
                     <p class="crud">prijs: €{prijs}</p>
-                    <p class="crud">datum: {datum}</p>
                     <p class="crud">adres: {adres}</p>
                     <p class="crud">Producten:</p>
                     <table>
