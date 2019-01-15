@@ -61,6 +61,15 @@ p a {
     width: calc(100% - 100px);
   }
 }
+  .wrapper2 {
+    position: absolute;          
+    left: 210px;
+    width: calc(100% - 32px);
+    max-width: 1324px; 
+    @media screen and (min-width: 768px) {
+      width: calc(100% - 100px);
+    }
+}
 main {
   margin-top: -100px;
   min-height: 800px;
@@ -703,7 +712,17 @@ form.SignUp{
    float: right;
    background-color: #000;
    height: 1px;
+
  }
+
+ .line2{
+  position: absolute;
+  width: 25%;
+  float: right;
+  background-color: #000;
+  height: 1px;
+  left: 993px;
+}
 
   .mandjeItem{
     width: 100%;
@@ -726,6 +745,15 @@ form.SignUp{
     background-color: #D3D3D3;
     float: right;
   }
+
+  .betaalOverzicht2{    
+    padding: 5px;
+    width: 25%;
+    border-radius: 5px;
+    background-color: #D3D3D3;
+    float: right;
+  }
+  
 
   .itemButton{
     float: right;
@@ -777,6 +805,7 @@ form.SignUp{
     color: black;
     font-weight: 100;
     margin: 0;
+    
   }
   a.buttonu .button {
     background-color:#007bff;
