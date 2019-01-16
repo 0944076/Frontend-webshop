@@ -575,8 +575,8 @@ const theme = new createMuiTheme({
               </div>
             </div>
             
-            <div className="wrapper">             
-              <div className="betaalOverzicht">
+            <div className="wrapper2">             
+              <div className="betaalOverzicht2">
                   <h1>Betaal overzicht</h1>
                   Totaal: <br />
                   <table>
@@ -588,7 +588,7 @@ const theme = new createMuiTheme({
                     </tbody>
                   </table>
                   
-                  <div className='line'></div>
+                  <div className='line2'></div>
                   <table>
                     <tbody>
                       <tr>
