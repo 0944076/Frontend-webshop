@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from 'react-router-dom';
 import request from "superagent";
+import { Link } from "react-router-dom";
 
 // components
 import BestelGeschiedenis from "../BestelGeschiedenis";
@@ -114,8 +115,9 @@ render() {
   }</p>
                         <p class="crud">Email: {this.state.klant.email
                         }</p>
-                        <a href="http://localhost:3000/mijngegevens">
-                        <button class="button buttona" >Gegevens aanpassen</button></a>
+                        <Link to="/mijngegevens">
+                          <button class="button buttona" >Gegevens aanpassen</button>
+                        </Link>
         
                   
     <BestelGeschiedenis />  
