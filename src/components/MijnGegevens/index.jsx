@@ -28,16 +28,16 @@ fetchData(){
     gebruiker = JSON.parse(sessionStorage.getItem('emailID2'));
   }
   else{
-    testT = JSON.parse(sessionStorage.getItem('klantID'));
-    gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
+    gebruiker = JSON.parse(sessionStorage.getItem('klantID'));
   }
   //const gebruiker = JSON.parse(sessionStorage.getItem('emailID'));
   console.log('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)
-  request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker)       
+  request.get('http://localhost:5000/api/geregistreerdeklant/'+ gebruiker.email)       
   .then(res => {
-   
-   var results = JSON.parse(JSON.stringify(res.body.naam));
-   var test111 = res.body.naam.split(" ");
+   console.log('resultaat uit fetch: ' + JSON.stringify(res.text));
+   var results = JSON.stringify(res.body.naam);
+   var test111 = res.body.naam.split(' ');
+   console.log('Toms gekke test variabele: ' + test111);
    var voor = test111[0];
    if(test111.length > 2){
      var achter = "";
@@ -225,8 +225,8 @@ onSubmit = e => {
   if (!err) {
     let adminc = false
     if(this.state.selectedOption === 'option2'){
-      console.log("ik kom in de admin true statement")
-      adminc = true
+      console.log("ik kom in de admin true statement");
+      adminc = true;
      
       //console.log("wat is de adminstate: "+ this.state.admin);
   }
@@ -243,7 +243,7 @@ onSubmit = e => {
       admin: false
     }
   let jsonregi = JSON.parse(JSON.stringify(register));
-  console.log(jsonregi);
+  console.log('Te versturen: ' + jsonregi);
     
     request.put(`http://localhost:5000/api/geregistreerdeklant/`)
     .send(jsonregi)
